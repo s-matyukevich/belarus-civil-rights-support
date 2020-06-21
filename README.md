@@ -8,3 +8,5 @@ This is going to work like this:
 1. I publish my story on the website. The website connects me with the people who want to help and makes it easy for them to donate money to me. 
 
 The project is in the early stage of development and needed contributors. Please, see [Issues](https://github.com/s-matyukevich/belarus-civil-rights-support/issues) for more details.
+
+Please, join our [slack](https://join.slack.com/t/belarus-civil-rights/shared_invite/zt-f98hs5ol-p5e9PWyAAHPQ~z8g5ku6fw) if you want to participate in the project development.
