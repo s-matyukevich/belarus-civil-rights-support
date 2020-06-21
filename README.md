@@ -1,3 +1,5 @@
+# The fund that supports civil rights initiatives in Belarus
+
 This is an attempt to build a crowdfunding platform that allows gathering funds for people who lose their jobs because of their civil position, which isn't aligned with the official position of the Belorussian government. 
 
 This is going to work like this:
