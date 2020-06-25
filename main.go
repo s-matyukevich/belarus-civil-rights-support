@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	cfg "github.com/s-matyukevich/belarus-civil-rights-support/src/config"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/middleware"
@@ -32,7 +33,7 @@ func initOptions() options {
 
 func main() {
 	opts := initOptions()
-	logger, err := zap.NewProduction()
+	logger, err := NewLoggerConfig().Build()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error configuring logging: %v", err)
 		os.Exit(1)
@@ -43,9 +44,12 @@ func main() {
 	if err != nil {
 		logger.Fatal("Can't read config", zap.Error(err))
 	}
-
-	router := server.GetRouter()
+	router := gin.New()
+	router.Use(gin.Recovery())
 	router.Use(middleware.Database(logger, config))
+	router.Use(middleware.Logger(logger))
+
+	server.SetRoutes(router)
 
 	srv := &http.Server{
 		Addr:    ":" + strconv.Itoa(config.Port),
@@ -73,4 +77,19 @@ func main() {
 	}
 
 	log.Println("Server exiting")
+}
+
+func NewLoggerConfig() zap.Config {
+	return zap.Config{
+		Level:       zap.NewAtomicLevelAt(zap.DebugLevel),
+		Development: false,
+		Sampling: &zap.SamplingConfig{
+			Initial:    100,
+			Thereafter: 100,
+		},
+		Encoding:         "json",
+		EncoderConfig:    zap.NewProductionEncoderConfig(),
+		OutputPaths:      []string{"stderr"},
+		ErrorOutputPaths: []string{"stderr"},
+	}
 }

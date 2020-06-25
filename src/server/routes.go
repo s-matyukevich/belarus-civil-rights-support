@@ -5,9 +5,6 @@ import (
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/controller"
 )
 
-func GetRouter() *gin.Engine {
-	router := gin.Default()
-
+func SetRoutes(router *gin.Engine) {
 	router.GET("/home/stories", controller.GetStories)
-	return router
 }
