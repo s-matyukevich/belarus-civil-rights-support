@@ -10,3 +10,11 @@ This is going to work like this:
 The project is in the early stage of development and needed contributors. Please, see [Issues](https://github.com/s-matyukevich/belarus-civil-rights-support/issues) for more details.
 
 Please, join our [slack](https://join.slack.com/t/belarus-civil-rights/shared_invite/zt-f98hs5ol-p5e9PWyAAHPQ~z8g5ku6fw) if you want to participate in the project development.
+
+# Running the project locally
+
+1. Install [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/)
+1. In your terminal run `docker-compose up`
+1. Open 'http://localhost:8080' in your browser
+
+This runs both the web server and MySQL database.
