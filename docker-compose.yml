@@ -9,7 +9,7 @@ db:
 
 web:
   build: .
-  command: "go run main.go"
+  command: "go run main.go -config=config/dev.yaml"
   volumes:
     - .:/go/src/github.com/s-matyukevich/belarus-civil-rights-support
   ports:
