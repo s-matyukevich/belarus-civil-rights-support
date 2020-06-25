@@ -9,7 +9,7 @@ db:
 
 web:
   build: .
-  command: "go run main.go -config=config/dev.yaml"
+  command: "bash -c 'sleep 1 && go run main.go -config=config/dev.yaml'" # sleep to make sure DB is already running
   volumes:
     - .:/go/src/github.com/s-matyukevich/belarus-civil-rights-support
   ports:

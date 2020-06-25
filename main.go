@@ -12,10 +12,11 @@ import (
 	"syscall"
 	"time"
 
-	"go.uber.org/zap"
-
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	cfg "github.com/s-matyukevich/belarus-civil-rights-support/src/config"
+	"github.com/s-matyukevich/belarus-civil-rights-support/src/middleware"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/server"
+	"go.uber.org/zap"
 )
 
 type options struct {
@@ -42,9 +43,13 @@ func main() {
 	if err != nil {
 		logger.Fatal("Can't read config", zap.Error(err))
 	}
+
+	router := server.GetRouter()
+	router.Use(middleware.Database(logger, config))
+
 	srv := &http.Server{
 		Addr:    ":" + strconv.Itoa(config.Port),
-		Handler: server.GetRouter(),
+		Handler: router,
 	}
 
 	// Initializing the server in a goroutine so that

@@ -1,8 +1,8 @@
 db:
   host: db
-  database_name: main
+  database: maindb
   port: 3306
   username: root
   password: root
-  
+
 port: 8080
