@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	cfg "github.com/s-matyukevich/belarus-civil-rights-support/src/config"
@@ -48,6 +49,7 @@ func main() {
 	router.Use(gin.Recovery())
 	router.Use(middleware.Database(logger, config))
 	router.Use(middleware.Logger(logger))
+	router.Use(static.Serve("/", static.LocalFile("static", false)))
 
 	server.SetRoutes(router)
 
