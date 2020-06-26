@@ -20,23 +20,25 @@ func Logger(logger *zap.Logger) gin.HandlerFunc {
 		if raw != "" {
 			path = path + "?" + raw
 		}
+		fields := []zap.Field{zap.String("path", path)}
 
 		c.Next()
 
-		latency := time.Now().Sub(start).String()
-		clientIP := c.ClientIP()
-		method := c.Request.Method
-		statusCode := c.Writer.Status()
-		errorMessage := c.Errors.ByType(gin.ErrorTypePrivate).String()
-		bodySize := c.Writer.Size()
+		fields = append(fields, zap.String("latency", time.Now().Sub(start).String()))
+		fields = append(fields, zap.String("clientIP", c.ClientIP()))
+		fields = append(fields, zap.String("method", c.Request.Method))
+		fields = append(fields, zap.Int("statusCode", c.Writer.Status()))
+		fields = append(fields, zap.String("internalError", c.Errors.ByType(gin.ErrorTypePrivate).String()))
+		fields = append(fields, zap.Int("responseSize", c.Writer.Size()))
+		if c.Writer.Status() != 200 && c.Request.Body != nil {
+			data, err := c.GetRawData()
+			if err != nil {
+				fields = append(fields, zap.String("getRawDataError", err.Error()))
+			} else {
+				fields = append(fields, zap.String("body", string(data)))
+			}
+		}
 
-		requestLogger.Debug("Request info",
-			zap.String("latency", latency),
-			zap.String("clientIP", clientIP),
-			zap.String("method", method),
-			zap.Int("statusCode", statusCode),
-			zap.String("errorMessage", errorMessage),
-			zap.Int("bodySize", bodySize),
-		)
+		requestLogger.Debug("Request info", fields...)
 	}
 }

@@ -1,12 +1,10 @@
 package domain
 
-import "time"
+import "github.com/jinzhu/gorm"
 
 type Category struct {
-	Id        uint `gorm:"primary_key"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	gorm.Model
 
-	Title   string
-	Stories []User `gorm:"ForeignKey:StoryId"` // many-to-many
+	Title   string  `gorm:"not null"`
+	Stories []Story `gorm:"many2many:story_categories;"`
 }

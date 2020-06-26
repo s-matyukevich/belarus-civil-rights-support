@@ -1,12 +1,10 @@
 package domain
 
-import "time"
+import "github.com/jinzhu/gorm"
 
 type City struct {
-	Id        uint `gorm:"primary_key"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	gorm.Model
 
-	Title string
-	Users []User `gorm:"ForeignKey:CityId"` // many-to-one
+	Title   string  `gorm:"not null"`
+	Stories []Story `gorm:"many2many:story_cities;"`
 }

@@ -1,15 +1,22 @@
 package domain
 
-import "time"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 type Story struct {
-	Id        uint `gorm:"primary_key"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	gorm.Model
 
-	VideoUrl         string // We support just YouTybe for now
-	Title            string
-	Description      string
-	HelpInstructions string
-	Categories       []Category `gorm:"ForeignKey:UserId"` // many-to-many
+	VideoUrl         string     `gorm:"not null;size:500"` // We support just YouTube for now
+	Title            string     `gorm:"not null;index;size:500"`
+	Description      string     `gorm:"not null;type:text;size:20000"`
+	HelpInstructions string     `gorm:"not null;type:text;size:20000"`
+	Upvotes          int        `gorm:"not null"` // Duplicating this info for faster and easier search
+	Downvotes        int        `gorm:"not null"`
+	Rating           int        `gorm:"not null;index"`
+	Categories       []Category `gorm:"many2many:story_categories;"`
+	Votes            []Vote
+	Cities           []City `gorm:"many2many:story_cities;"`
+	User             User
+	UserID           uint
 }

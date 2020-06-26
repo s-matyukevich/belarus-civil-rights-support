@@ -3,20 +3,23 @@ package home
 //API models for the home page
 //API models are denormalized models. They are built directly from the mockups and they are the objects that backend API passes to the frontend
 
-type FilterParameters struct {
-	Cities        []string // empty list here means all cities
-	Categories    []string // empty = all
-	SortBy        string   //One of the: "date", "rating"
-	SortDirection string   // asc of dec
+type Filters struct {
+	Search        string `form:"Search"`
+	Cities        []int  `form:"Cities"`     // empty list here means all cities
+	Categories    []int  `form:"Categories"` // empty = all
+	Page          int    `form:"Page"`
+	SortColumn    string `form:"SortColumn" validate:"required,oneof=date rating"`
+	SortDirection string `form:"SortDirection" validate:"required,oneof=ASC DESC"`
 }
 
 type Story struct {
-	Id            uint
+	ID            uint
+	VideoUrl      string
 	Title         string
 	Description   string
+	Upvotes       int
+	Downvotes     int
 	AuthorName    string
 	AuthorId      uint // always use uint for the foreign key referencies
 	AthorImageURL string
-	Rating        int
-	Page          int //we don't use paginator, but we download new items on demand while scrolling down
 }
