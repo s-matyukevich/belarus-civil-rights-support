@@ -12,6 +12,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -50,6 +52,9 @@ func main() {
 	router.Use(middleware.Database(logger, config))
 	router.Use(middleware.Logger(logger))
 	router.Use(middleware.Validator())
+	store := cookie.NewStore([]byte(config.SessionSecret))
+	router.Use(sessions.Sessions("mainsession", store))
+	router.Use(middleware.Config(config))
 	router.Use(static.Serve("/", static.LocalFile("static", false)))
 
 	controller.SetRoutes(router)

@@ -2,8 +2,31 @@
 <html>
   <head>
     <title>This is the title of the webpage!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
       <h1>Some content</h1>
+      <button id="facebook">Login with facebook</button>
+      <!-- TODO: this is used just for testing of the OAuth authentication flow, we will delete this code as soon as we create a reference  -->
+      <script>
+        var getOauthUrl = function(provider) {
+            url = provider.auth_url;
+            url +=
+                "?client_id=" + provider.client_id +
+                "&redirect_uri=" + provider.redirect_url;
+            if (provider.scope) {
+                url += "&scope=" + provider.scope;
+            }
+            return url
+        }
+        $(function(){
+          $.get( "get-login-providers", function( data ) {
+            var providers = data // in a real implementation we will render a button per provider on the loging page
+            $("button#facebook").click(function(){
+              window.location.assign(getOauthUrl(providers[0]));
+            });
+          });
+        });
+      </script>
   </body>
 </html>

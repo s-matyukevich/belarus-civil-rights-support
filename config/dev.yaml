@@ -1,3 +1,7 @@
+port: 8080
+session_secret: very-secret # replace in prod
+host: "http://localhost:8080"
+
 db:
   host: db
   database: maindb
@@ -5,4 +9,12 @@ db:
   username: root
   password: root
 
-port: 8080
+oauth:
+  facebook:
+    image: '/images/fb.png'
+    client_id: '' # need to figure out a good way to share secrets like this in a public repo, for now I'll just use dev-secret.yaml to store the config with secrets and add it to gitignore. This file will be used as a template
+    client_secret: ''
+    auth_url: 'https://www.facebook.com/dialog/oauth'
+    token_url: "https://graph.facebook.com/v2.6/oauth/access_token"
+    scopes:
+      - 'email'
