@@ -1,7 +1,7 @@
 type Module = {
-    hot?: {
-        accept: () => void;
-    }
-}
+  hot?: {
+    accept: () => void;
+  };
+};
 
 declare const module: Module;

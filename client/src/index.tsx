@@ -1,9 +1,9 @@
 import ReactDOM from 'react-dom';
-import React from "react";
-import App from "./App";
+import React from 'react';
+import App from './App';
 
 if (module.hot) {
-    module.hot.accept();
+  module.hot.accept();
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
