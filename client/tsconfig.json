@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "jsx": "react",
+    "target": "es5",
+    "lib": [
+      "ES2015",
+      "DOM"
+    ],
+    "downlevelIteration": true,
+    "noEmit": true,
+    "baseUrl": "."
+  }
+}
