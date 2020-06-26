@@ -1,0 +1,7 @@
+@import "../node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css";
+@import "../node_modules/@blueprintjs/core/lib/css/blueprint.css";
+
+.app {
+  margin: auto;
+  max-width: 1100px;
+}

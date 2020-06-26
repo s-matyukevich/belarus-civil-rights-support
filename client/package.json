@@ -4,7 +4,7 @@
   "description": "The platform that supports civil rights initiatives in Belarus",
   "main": "index.ts",
   "scripts": {
-    "start": "tsc && parcel src/index.html"
+    "start": "tsc && parcel serve ./src/index.html"
   },
   "keywords": [],
   "author": "",
@@ -12,10 +12,12 @@
   "devDependencies": {
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
-    "parcel-bundler": "^1.12.4",
+    "parcel": "^2.0.0-beta.1",
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "@blueprintjs/core": "^3.29.0",
+    "@blueprintjs/icons": "^3.19.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }
