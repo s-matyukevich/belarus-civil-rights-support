@@ -50,10 +50,9 @@ func RunMigrations(db *gorm.DB, logger *zap.Logger) {
 		logger.Fatal("Can't run migrations", zap.Error(err))
 	}
 	db.Model(&domain.Story{}).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
+	db.Model(&domain.Story{}).AddForeignKey("city_id", "cities(id)", "RESTRICT", "RESTRICT")
 	db.Model(&domain.Vote{}).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
 	db.Model(&domain.Vote{}).AddForeignKey("story_id", "stories(id)", "CASCADE", "CASCADE")
 	db.Table("story_categories").AddForeignKey("story_id", "stories(id)", "CASCADE", "CASCADE")
 	db.Table("story_categories").AddForeignKey("category_id", "categories(id)", "CASCADE", "CASCADE")
-	db.Table("story_cities").AddForeignKey("city_id", "cities(id)", "CASCADE", "CASCADE")
-	db.Table("story_cities").AddForeignKey("story_id", "stories(id)", "CASCADE", "CASCADE")
 }

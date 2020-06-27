@@ -9,7 +9,7 @@ import (
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/utils"
 )
 
-const (
+var (
 	PageSize = 50
 )
 
@@ -18,13 +18,13 @@ func GetStories(ctx *Context) (interface{}, error) {
 	if err := ctx.GinCtx.Bind(&filters); err != nil {
 		return nil, err
 	}
+	ctx.Logger.Sugar().Debugw("Get stories input", "filters", filters)
 
 	err := ctx.Validator.Struct(filters)
 	if err != nil {
 		// return error because there should be mo way for the user to send imvalid input here
 		return nil, err
 	}
-	ctx.Logger.Sugar().Debugw("Input", "filters", filters)
 
 	query := ctx.Db.Table("stories")
 
@@ -32,12 +32,12 @@ func GetStories(ctx *Context) (interface{}, error) {
 		query = query.Where("title LIKE ? OR description LIKE ?", "%"+filters.Search+"%", "%"+filters.Search+"%")
 	}
 	if len(filters.Cities) > 0 {
-		query = query.Joins("left join story_cities on story_cities.story_id = stories.id").Where("story_cities.city_id IN (?)", filters.Cities)
+		query = query.Where("city_id IN (?) OR city_id IS NULL", filters.Cities)
 	}
 	if len(filters.Categories) > 0 {
-		query = query.Joins("left join story_categories on story_categories.story_id = stories.id").Where("story_categories.category_id IN (?)", filters.Categories)
+		query = query.
+			Where("? > 0", ctx.Db.Table("story_categories").Select("COUNT(*)").Where("story_categories.story_id = stories.id").SubQuery())
 	}
-	//query = query.Joins("left join users on stories.user_id = users.id")
 	query = query.Order(gorm.Expr(fmt.Sprintf("%s %s", filters.SortColumn, filters.SortDirection)))
 	query = query.Limit(PageSize).Offset(filters.Page * PageSize)
 	query = query.Preload("User")

@@ -16,7 +16,8 @@ type Story struct {
 	Rating           int        `gorm:"not null;index"`
 	Categories       []Category `gorm:"many2many:story_categories;"`
 	Votes            []Vote
-	Cities           []City `gorm:"many2many:story_cities;"`
+	City             *City
+	CityID           *uint
 	User             User
-	UserID           uint
+	UserID           uint `gorm:"not null"`
 }
