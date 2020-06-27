@@ -1,11 +1,30 @@
-@import "../node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css";
+@import "../node_modules/normalize.css/normalize.css";
 @import "../node_modules/@blueprintjs/core/lib/css/blueprint.css";
+@import "../node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css";
+
+html, body, #root {
+  height: 100%;
+}
 
 .app {
   margin: auto;
   max-width: 1100px;
+  height: 100%;
 }
 
-.page-content {
-  padding: 0 15px;
+.page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    flex: 0 0 auto;
+  }
+
+  .page-content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
 }

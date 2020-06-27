@@ -1,11 +1,11 @@
 import YouTube from 'react-youtube';
 import React, { useMemo } from 'react';
-import { Button, H3, Icon, Intent } from '@blueprintjs/core';
+import { Button, H3, Icon, Intent, Card } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 
 type Story = {
   id: number;
-  videoUrl: string;
+  videoUrl?: string;
   title: string;
   description: string;
   upvotes: number;
@@ -27,6 +27,40 @@ const stories: Story[] = [
     authorName: 'Автор истории',
     authorId: 1,
     authorImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
+  },
+  {
+    id: 2,
+    title: 'История №2',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    upvotes: 120,
+    downvotes: 14,
+    authorName: 'Автор истории',
+    authorId: 1,
+    authorImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
+  },
+  {
+    id: 3,
+    title: 'История №3',
+    videoUrl: 'https://www.youtube.com/watch?v=XyNlqQId-nk',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    upvotes: 120,
+    downvotes: 14,
+    authorName: 'Автор истории',
+    authorId: 1,
+    authorImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
+  },
+  {
+    id: 4,
+    title: 'История №4',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    upvotes: 120,
+    downvotes: 14,
+    authorName: 'Автор истории',
+    authorId: 1,
+    authorImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
   }
 ];
 
@@ -40,17 +74,21 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
     return null;
   }, [story]);
 
+  const contentHeight = '150px';
+
+  const videoSize = { height: contentHeight, width: '200px' };
+
   return (
-    <div className="story-info">
+    <Card className="story-info" interactive={true}>
       {videoId ? (
-        <div className="story-info__video" style={{ height: '150px', width: '200px' }}>
-          <YouTube videoId={videoId} opts={{ height: '150px', width: '200px' }} />
+        <div className="story-info__video" style={videoSize}>
+          <YouTube videoId={videoId} opts={videoSize} />
         </div>
       ) : null}
 
-      <div className="story-info__description">
+      <div className="story-info__description" style={{ maxHeight: contentHeight }}>
         <H3>{story.title}</H3>
-        <div>{story.description}</div>
+        <p className="story-info__description__text">{story.description}</p>
       </div>
 
       <div className="story-info__controls">
@@ -77,12 +115,12 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
 export default () => (
-  <div>
+  <div className="stories-list">
     {stories.map(story => (
       <StoryInfo story={story} key={story.id} />
     ))}

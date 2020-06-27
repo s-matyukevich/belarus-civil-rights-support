@@ -2,10 +2,21 @@
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
+  padding: 0 15px;
+  flex: 0 0 auto;
+}
+
+.stories-list {
+  overflow: auto;
+  padding: 1px 1px 15px 1px;
 }
 
 .story-info {
   display: flex;
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
 
   &__video {
     margin-right: 12px;
@@ -13,7 +24,18 @@
   }
 
   &__description {
-    margin-right: 12px
+    margin-right: 12px;
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      flex: 0 0 auto;
+    }
+
+    &__text {
+      flex: 1 1 auto;
+      overflow: hidden;
+    }
   }
 
   &__controls {

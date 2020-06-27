@@ -2,7 +2,7 @@ import { Alignment, Button, Icon, Intent, Navbar } from '@blueprintjs/core';
 import React from 'react';
 
 export default () => (
-  <Navbar>
+  <Navbar className="header">
     <Navbar.Group>
       <Navbar.Heading>Dapamaji.by</Navbar.Heading>
     </Navbar.Group>

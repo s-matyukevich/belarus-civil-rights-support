@@ -4,7 +4,7 @@ import React from 'react';
 import StoriesList from './stories/StoriesList';
 
 export default () => (
-  <div>
+  <div className="page">
     <Header />
     <div className="page-content">
       <StoriesFilter />
