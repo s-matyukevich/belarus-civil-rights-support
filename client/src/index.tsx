@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import App from './App';
+import App from './app/App';
 
 if (module.hot) {
   module.hot.accept();
