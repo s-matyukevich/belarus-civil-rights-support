@@ -1,19 +1,8 @@
 import YouTube from 'react-youtube';
-import React, { useMemo } from 'react';
-import { Button, H3, Icon, Intent, Card } from '@blueprintjs/core';
-import { IconNames } from '@blueprintjs/icons';
-
-type Story = {
-  id: number;
-  videoUrl?: string;
-  title: string;
-  description: string;
-  upvotes: number;
-  downvotes: number;
-  authorName: string;
-  authorId: number;
-  authorImageURL?: string;
-};
+import React, {useMemo} from 'react';
+import {Button, Card, H3, Icon, Intent} from '@blueprintjs/core';
+import {IconNames} from '@blueprintjs/icons';
+import {Story} from '../model';
 
 const stories: Story[] = [
   {

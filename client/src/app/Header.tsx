@@ -6,7 +6,9 @@ import cn from 'classnames';
 export default () => (
   <Navbar className="header">
     <Navbar.Group>
-      <Navbar.Heading>Dapamaji.by</Navbar.Heading>
+      <Navbar.Heading>
+        <Link to="/">Dapamozham.by</Link>
+      </Navbar.Heading>
     </Navbar.Group>
 
     <Navbar.Group align={Alignment.RIGHT}>
@@ -17,6 +19,5 @@ export default () => (
       <Navbar.Divider />
       <Icon icon="user" />
     </Navbar.Group>
-
   </Navbar>
 );

@@ -1,12 +1,13 @@
 import { H3, HTMLSelect, Label } from '@blueprintjs/core';
 import React from 'react';
 import './Stories.css';
+import { useReferenceDataSelectors } from '../common/hooks';
 
-const cities = ['Минск', 'Брест', 'Витебск', 'Гомель', 'Гродно', 'Могилёв'];
-const categories = ['Нуждаюсь в финансовой поддержке', 'Ищу новую работу', 'Ищу единомышленников'];
 const sortOrders = ['Популярности', 'Дате'];
 
 const StoriesFilter: React.FC = () => {
+  const { cities, categories } = useReferenceDataSelectors();
+
   return (
     <div className="stories-filter-container">
       <H3>Истории:</H3>

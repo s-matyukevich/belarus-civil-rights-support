@@ -16,6 +16,7 @@
     "skipLibCheck": true,
     "downlevelIteration": true,
     "noEmit": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "experimentalDecorators": true
   }
 }
