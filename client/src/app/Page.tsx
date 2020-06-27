@@ -1,9 +1,13 @@
 import Header from './Header';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const Page: React.FC = ({ children }) => (
+type Props = {
+  headerContent?: ReactNode;
+};
+
+const Page: React.FC<Props> = ({ children, headerContent }) => (
   <div className="page">
-    <Header />
+    <Header>{headerContent}</Header>
     <div className="page-content">{children}</div>
   </div>
 );
