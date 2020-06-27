@@ -1,7 +1,6 @@
 .stories-filter-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 15px;
   padding: 0 15px;
   flex: 0 0 auto;
 }

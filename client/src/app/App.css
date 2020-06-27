@@ -19,6 +19,7 @@ html, body, #root {
 
   .header {
     flex: 0 0 auto;
+    margin-bottom: 15px;
   }
 
   .page-content {

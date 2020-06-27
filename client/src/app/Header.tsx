@@ -1,15 +1,22 @@
-import { Alignment, Button, Icon, Intent, Navbar } from '@blueprintjs/core';
+import { Alignment, Icon, Navbar, Classes } from '@blueprintjs/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
 export default () => (
   <Navbar className="header">
     <Navbar.Group>
       <Navbar.Heading>Dapamaji.by</Navbar.Heading>
     </Navbar.Group>
+
     <Navbar.Group align={Alignment.RIGHT}>
-      <Button intent={Intent.PRIMARY}>Добавить свою историю</Button>
+      <Link className={cn(Classes.BUTTON, Classes.INTENT_PRIMARY)} to="/add-story">
+        Добавить свою историю
+      </Link>
+
       <Navbar.Divider />
       <Icon icon="user" />
     </Navbar.Group>
+
   </Navbar>
 );

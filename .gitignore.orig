@@ -1,0 +1,9 @@
+mysql-data/*
+<<<<<<< HEAD
+config/*-secret.yaml
+=======
+node_modules
+.cache
+dist
+.idea
+>>>>>>> Initial commit
