@@ -1,57 +1,10 @@
 import YouTube from 'react-youtube';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Button, Card, H3, Icon, Intent } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 import { Story } from '../model';
-
-const stories: Story[] = [
-  {
-    id: 1,
-    videoUrl: 'https://www.youtube.com/watch?v=XyNlqQId-nk',
-    title: 'История №1',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    upvotes: 120,
-    downvotes: 14,
-    authorName: 'Автор истории',
-    authorId: 1,
-    authorImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
-  },
-  {
-    id: 2,
-    title: 'История №2',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    upvotes: 120,
-    downvotes: 14,
-    authorName: 'Автор истории',
-    authorId: 1,
-    authorImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
-  },
-  {
-    id: 3,
-    title: 'История №3',
-    videoUrl: 'https://www.youtube.com/watch?v=XyNlqQId-nk',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    upvotes: 120,
-    downvotes: 14,
-    authorName: 'Автор истории',
-    authorId: 1,
-    authorImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
-  },
-  {
-    id: 4,
-    title: 'История №4',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    upvotes: 120,
-    downvotes: 14,
-    authorName: 'Автор истории',
-    authorId: 1,
-    authorImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
-  }
-];
+import ServicesContext from '../services/servicesContext';
+import { usePromise } from '../common/hooks';
 
 const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
   const videoId: string | null = useMemo(() => {
@@ -108,10 +61,17 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
   );
 };
 
-export default () => (
-  <div className="stories-list">
-    {stories.map(story => (
-      <StoryInfo story={story} key={story.id} />
-    ))}
-  </div>
-);
+const StoriesList: React.FC = () => {
+  const services = useContext(ServicesContext);
+  const [, stories] = usePromise(() => services.apiClient.getStories(), []);
+
+  return (
+    <div className="stories-list">
+      {(stories ?? []).map(story => (
+        <StoryInfo story={story} key={story.id} />
+      ))}
+    </div>
+  );
+};
+
+export default StoriesList;
