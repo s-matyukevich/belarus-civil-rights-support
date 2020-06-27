@@ -6,51 +6,53 @@
 
 .story-info {
   display: flex;
-}
 
-.story-info__video {
-  margin-right: 12px;
-  flex: 0 0 auto;
-}
+  &__video {
+    margin-right: 12px;
+    flex: 0 0 auto;
+  }
 
-.story-info__description {
-  margin-right: 12px
-}
+  &__description {
+    margin-right: 12px
+  }
 
-.story-info__controls {
-  white-space: nowrap;
-}
+  &__controls {
+    white-space: nowrap;
+  }
 
-.story-info__author {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-}
+  &__author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
 
-.story-info__author__image {
-  border-radius: 50%;
-  height: 32px;
-  width: 32px;
-  margin-right: 8px;
-}
+    &__image {
+      border-radius: 50%;
+      height: 32px;
+      width: 32px;
+      margin-right: 8px;
+    }
+  }
 
-.story-info__help {
-  margin-bottom: 12px;
-}
+  &__help {
+    margin-bottom: 12px;
 
-.story-info__help button {
-  width: 100%;
-}
+    button {
+      width: 100%;
+    }
+  }
 
-.story-info__social {
-  display: flex;
-}
+  &__social {
+    display: flex;
 
-.story-info__social__reaction:not(:last-child) {
-  margin-right: 8px;
-}
+    &__reaction {
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
 
-.story-info__social__reaction__icon:hover {
-  cursor: pointer;
-  opacity: 0.7;
+      &__icon:hover {
+        cursor: pointer;
+        opacity: 0.7;
+      }
+    }
+  }
 }

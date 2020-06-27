@@ -13,6 +13,7 @@
       "ES2015",
       "DOM"
     ],
+    "skipLibCheck": true,
     "downlevelIteration": true,
     "noEmit": true,
     "baseUrl": "."

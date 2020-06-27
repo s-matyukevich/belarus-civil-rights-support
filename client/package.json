@@ -16,6 +16,7 @@
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
     "parcel": "^2.0.0-beta.1",
+    "postcss-nested": "^4.2.1",
     "prettier": "^2.0.5",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
