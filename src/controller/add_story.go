@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"github.com/go-playground/validator/v10"
+	"github.com/s-matyukevich/belarus-civil-rights-support/src/api_models"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/api_models/add_story"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/domain"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/utils"
@@ -53,5 +55,40 @@ func GetStory(ctx *Context) (interface{}, error) {
 }
 
 func SaveStory(ctx *Context) (interface{}, error) {
-	return nil, nil
+	model := add_story.Story{}
+	if err := ctx.GinCtx.Bind(&model); err != nil {
+		return nil, err
+	}
+	ctx.Logger.Sugar().Debugw("Save story input", "model", model)
+	err := ctx.Validator.Struct(model)
+	if err != nil {
+		errs := err.(validator.ValidationErrors)
+		res := api_models.Status{}
+		for _, e := range errs {
+			res.Errors = append(res.Errors, e.Translate(ctx.Translator))
+		}
+		return res, nil
+	}
+
+	story := domain.Story{}
+	err = ctx.Db.FirstOrInit(&story, model.ID).Error
+	if err != nil {
+		return nil, err
+	}
+	utils.Map(&model, &story)
+	story.CityID = &model.CityID
+
+	//TODO: Add transaction
+	if err := ctx.Db.Save(&story).Error; err != nil {
+		return nil, err
+	}
+	if err := ctx.Db.Exec("DELETE FROM story_categories WHERE story_id = ?", story.ID).Error; err != nil {
+		return nil, err
+	}
+	for _, c := range model.Categories {
+		if err := ctx.Db.Exec("INSERT INTO story_categories (story_id, category_id) VALUES (?, ?)", story.ID, c).Error; err != nil {
+			return nil, err
+		}
+	}
+	return api_models.Status{Success: "История успешно сохранена"}, nil
 }

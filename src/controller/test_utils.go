@@ -1,8 +1,11 @@
 package controller
 
 import (
+	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -18,13 +21,14 @@ type Testcase struct {
 	Title      string
 	Db         map[string][]interface{}
 	Query      interface{}
+	Body       interface{}
 	Expected   interface{}
 	ExpectedDb map[string][]interface{}
 	Before     func()
 	After      func()
 }
 
-func RunCases(t *testing.T, cases []Testcase, baseUrl string, mapResutl func([]byte) (interface{}, error)) {
+func RunCases(t *testing.T, cases []Testcase, reqType string, baseUrl string, mapResutl func([]byte) (interface{}, error)) {
 	for _, tc := range cases {
 		t.Run(tc.Title, func(t *testing.T) {
 			if tc.Before != nil {
@@ -67,7 +71,16 @@ func RunCases(t *testing.T, cases []Testcase, baseUrl string, mapResutl func([]b
 				url += "?" + v.Encode()
 			}
 			w := httptest.NewRecorder()
-			req, err := http.NewRequest("GET", url, nil)
+			var body io.Reader
+			if tc.Body != nil {
+				res, err := json.Marshal(tc.Body)
+				assert.NoError(t, err)
+				body = strings.NewReader(string(res))
+			}
+			req, err := http.NewRequest(reqType, url, body)
+			if tc.Body != nil {
+				req.Header.Add("Content-Type", "application/json")
+			}
 			assert.NoError(t, err)
 			router.ServeHTTP(w, req)
 

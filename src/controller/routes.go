@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
 	"github.com/jinzhu/gorm"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/config"
@@ -11,11 +12,12 @@ import (
 )
 
 type Context struct {
-	Db        *gorm.DB
-	Logger    *zap.Logger
-	Validator *validator.Validate
-	GinCtx    *gin.Context
-	Config    *config.Config
+	Db         *gorm.DB
+	Logger     *zap.Logger
+	Validator  *validator.Validate
+	Translator ut.Translator
+	GinCtx     *gin.Context
+	Config     *config.Config
 }
 
 type HandlerFunc func(*Context) (interface{}, error)
@@ -23,11 +25,12 @@ type HandlerFunc func(*Context) (interface{}, error)
 func wrapper(f HandlerFunc) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx := &Context{
-			Db:        c.MustGet("db").(*gorm.DB),
-			Logger:    c.MustGet("logger").(*zap.Logger),
-			Validator: c.MustGet("validator").(*validator.Validate),
-			Config:    c.MustGet("config").(*config.Config),
-			GinCtx:    c,
+			Db:         c.MustGet("db").(*gorm.DB),
+			Logger:     c.MustGet("logger").(*zap.Logger),
+			Validator:  c.MustGet("validator").(*validator.Validate),
+			Translator: c.MustGet("translator").(ut.Translator),
+			Config:     c.MustGet("config").(*config.Config),
+			GinCtx:     c,
 		}
 
 		obj, err := f(ctx)
@@ -46,4 +49,5 @@ func SetRoutes(router *gin.Engine) {
 
 	router.GET("/home/stories", wrapper(GetStories))
 	router.GET("/add-story/get", wrapper(GetStory))
+	router.POST("/add-story/save", wrapper(SaveStory))
 }

@@ -108,7 +108,7 @@ func TestGetStories(t *testing.T) {
 			},
 		},
 	}
-	RunCases(t, cases, "/home/stories", func(data []byte) (interface{}, error) {
+	RunCases(t, cases, "GET", "/home/stories", func(data []byte) (interface{}, error) {
 		var res []home.Story
 		err := json.Unmarshal(data, &res)
 		return res, err

@@ -12,12 +12,12 @@ type CategoryInfo struct {
 
 type Story struct {
 	ID               uint
-	Title            string
-	Description      string
-	VideoUrl         string
-	HelpInstructions string
+	Title            string `validate:"required,max=500"`
+	Description      string `validate:"required,max=20000"`
+	VideoUrl         string `validate:"required,max=500"`
+	HelpInstructions string `validate:"required,max=20000"`
 	CityID           uint
-	Categories       []uint
+	Categories       []uint `validate:"required"`
 }
 
 type Model struct {

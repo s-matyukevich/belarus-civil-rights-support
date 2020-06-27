@@ -6,6 +6,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"github.com/s-matyukevich/belarus-civil-rights-support/src/api_models"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/api_models/add_story"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/domain"
 )
@@ -44,8 +45,59 @@ func TestGetStory(t *testing.T) {
 		},
 	}
 
-	RunCases(t, cases, "/add-story/get", func(data []byte) (interface{}, error) {
+	RunCases(t, cases, "GET", "/add-story/get", func(data []byte) (interface{}, error) {
 		var res add_story.Model
+		err := json.Unmarshal(data, &res)
+		return res, err
+	})
+}
+
+//TODO: add posibility to check the state of the DB after the request is completed
+func TestSaveStory(t *testing.T) {
+	cases := []Testcase{
+		{
+			Title: "Validation works",
+			Body:  add_story.Story{Title: "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"},
+			Expected: api_models.Status{Errors: []string{
+				"Длинна поля превышает максимально допустимое значение 500 символов",
+				"Поле не может быть пустым",
+				"Поле не может быть пустым",
+				"Поле не может быть пустым",
+				"Поле не может быть пустым",
+			}},
+		},
+		{
+			Title: "I can create a story",
+			Db: map[string][]interface{}{
+				"categories": {
+					&domain.Category{Model: gorm.Model{ID: 1}, Title: "category1"},
+					&domain.Category{Model: gorm.Model{ID: 2}, Title: "category2"},
+					&domain.Category{Model: gorm.Model{ID: 3}, Title: "category3"},
+				},
+			},
+			Body:     add_story.Story{Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", Categories: []uint{1, 3}},
+			Expected: api_models.Status{Success: "История успешно сохранена"},
+		},
+		{
+			Title: "I can edit a story",
+			Db: map[string][]interface{}{
+				"stories": {
+					&domain.Story{
+						Model: gorm.Model{ID: 1}, UserID: 1, VideoUrl: "video1", Title: "story1", Description: "desc1",
+						Categories: []domain.Category{{Model: gorm.Model{ID: 1}, Title: "category1"}, {Model: gorm.Model{ID: 2}, Title: "category2"}},
+					},
+				},
+				"categories": {
+					&domain.Category{Model: gorm.Model{ID: 3}, Title: "category3"},
+				},
+			},
+			Body:     add_story.Story{ID: 1, Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", Categories: []uint{1, 3}},
+			Expected: api_models.Status{Success: "История успешно сохранена"},
+		},
+	}
+
+	RunCases(t, cases, "POST", "/add-story/save", func(data []byte) (interface{}, error) {
+		var res api_models.Status
 		err := json.Unmarshal(data, &res)
 		return res, err
 	})
