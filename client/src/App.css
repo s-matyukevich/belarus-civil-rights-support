@@ -5,3 +5,7 @@
   margin: auto;
   max-width: 1100px;
 }
+
+.page-content {
+  padding: 0 15px;
+}
