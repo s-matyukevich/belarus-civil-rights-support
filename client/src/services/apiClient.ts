@@ -71,7 +71,6 @@ export default class ApiClient {
       }
     ]);
   }
-
   // TODO memoize
   public async getLoginProviders(): Promise<LoginProvider[]> {
     const response = await fetch(`${this.apiBasePath}/get-login-providers`);
@@ -79,13 +78,13 @@ export default class ApiClient {
   }
 
   public async getLoggedUser(): Promise<User | null> {
-    if (process.env.USE_FAKE_USER) {
-      return Promise.resolve({
-        ID: 1,
-        Username: 'Test User',
-        ImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
-      });
-    }
+    // if (process.env.USE_FAKE_USER) {
+    //   return Promise.resolve({
+    //     ID: 1,
+    //     Username: 'Test User',
+    //     ImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
+    //   });
+    // }
 
     const response = await fetch(`${this.apiBasePath}/logged-user`);
     const user = await response.json();

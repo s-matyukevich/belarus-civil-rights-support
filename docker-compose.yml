@@ -9,7 +9,7 @@ db:
 
 ui:
   build: .
-  dockerfile: Dockerfile.ui
+  dockerfile: ./Dockerfile.ui
   command: "bash -c 'npm install && npm run start'"
   volumes:
     - ./client:/app
@@ -18,6 +18,7 @@ ui:
 
 web:
   build: .
+  dockerfile: ./Dockerfile.backend
   command: "bash -c 'sleep 1 && go run main.go -config=config/dev-secret.yaml'" # sleep to make sure DB is already running
   volumes:
     - .:/go/src/github.com/s-matyukevich/belarus-civil-rights-support
