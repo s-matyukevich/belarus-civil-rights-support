@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-contrib/static"
@@ -48,6 +49,7 @@ func main() {
 		logger.Fatal("Can't read config", zap.Error(err))
 	}
 	router := gin.New()
+	router.Use(cors.Default())
 	router.Use(gin.Recovery())
 	router.Use(middleware.Database(logger, config))
 	router.Use(middleware.Logger(logger))
