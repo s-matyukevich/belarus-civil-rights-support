@@ -3,7 +3,7 @@ import './App.css';
 import AddStory from '../addStory/AddStory';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import StoriesPage from '../stories/StoriesPage';
-import LoggedUserProvider from './LoggedUserProvider';
+import LoggedUserProvider from '../login/LoggedUserProvider';
 
 const App: React.FC = () => (
   <div className="app">

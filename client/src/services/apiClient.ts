@@ -1,4 +1,4 @@
-import { LoginProvider, ReferenceData, Story } from '../model';
+import { LoginProvider, ReferenceData, Story, User } from '../model';
 
 export default class ApiClient {
   private readonly apiBasePath: string;
@@ -76,5 +76,24 @@ export default class ApiClient {
   public async getLoginProviders(): Promise<LoginProvider[]> {
     const response = await fetch(`${this.apiBasePath}/get-login-providers`);
     return response.json();
+  }
+
+  public async getLoggedUser(): Promise<User | null> {
+    if (process.env.USE_FAKE_USER) {
+      return Promise.resolve({
+        ID: 1,
+        Username: 'Test User',
+        ImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
+      });
+    }
+
+    const response = await fetch(`${this.apiBasePath}/logged-user`);
+    const user = await response.json();
+
+    return user.ID ? user : null;
+  }
+
+  public logout() {
+    window.location.assign(`${this.apiBasePath}/logout`);
   }
 }

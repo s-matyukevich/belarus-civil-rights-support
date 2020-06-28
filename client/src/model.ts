@@ -26,9 +26,9 @@ export type ReferenceData = {
 };
 
 export type User = {
-  id: number;
-  name: string;
-  imageUrl: string;
+  ID: number;
+  Username: string;
+  ImageURL: string;
 };
 
 export type LoginProvider = {
