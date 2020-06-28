@@ -5,9 +5,14 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"os"
+	"reflect"
 	"strings"
 	"testing"
+	"time"
 
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"github.com/google/go-querystring/query"
 	"github.com/jinzhu/gorm"
@@ -19,6 +24,7 @@ import (
 
 type Testcase struct {
 	Title      string
+	AuthUserId uint
 	Db         map[string][]interface{}
 	Query      interface{}
 	Body       interface{}
@@ -34,6 +40,7 @@ func RunCases(t *testing.T, cases []Testcase, reqType string, baseUrl string, ma
 			if tc.Before != nil {
 				tc.Before()
 			}
+			os.Remove("/tmp/test.db")
 			db, err := gorm.Open("sqlite3", "/tmp/test.db")
 			db = db.Debug()
 			assert.NoError(t, err)
@@ -49,14 +56,18 @@ func RunCases(t *testing.T, cases []Testcase, reqType string, baseUrl string, ma
 				c.Set("db", db)
 				c.Next()
 			})
+			store := cookie.NewStore([]byte("secret"))
+			router.Use(sessions.Sessions("mainsession", store))
+			router.Use(func(c *gin.Context) {
+				if tc.AuthUserId != 0 {
+					session := sessions.Default(c)
+					session.Set("user_id", tc.AuthUserId)
+				}
+				c.Next()
+			})
+
 			SetRoutes(router)
 
-			db.Exec("DELETE from users")
-			db.Exec("DELETE from stories")
-			db.Exec("DELETE from cities")
-			db.Exec("DELETE from categories")
-			db.Exec("DELETE from story_cities")
-			db.Exec("DELETE from story_categories")
 			for _, items := range tc.Db {
 				for _, item := range items {
 					err := db.Create(item).Error
@@ -86,9 +97,43 @@ func RunCases(t *testing.T, cases []Testcase, reqType string, baseUrl string, ma
 
 			assert.Equal(t, http.StatusOK, w.Code)
 			res, err := mapResutl(w.Body.Bytes())
+			assert.NoError(t, err)
 			assert.Equal(t, tc.Expected, res)
 			if tc.After != nil {
 				tc.After()
+			}
+
+			for table, items := range tc.ExpectedDb {
+				var count int
+				err := db.Table(table).Count(&count).Error
+				assert.NoError(t, err)
+				assert.Equal(t, len(items), count, "Number of itens in table %s doesn't match")
+				if _, ok := items[0].([]interface{}); ok { //this is the case we use to check auto generated tables, like story_categories
+					rows, err := db.Table(table).Rows()
+					for i := 0; rows.Next(); i++ {
+						expectedRow := items[i].([]interface{})
+						dbRow := make([]interface{}, len(expectedRow))
+						dbRowPtrs := make([]interface{}, len(expectedRow))
+						for i := range dbRow {
+							dbRowPtrs[i] = &dbRow[i]
+						}
+						err = rows.Scan(dbRowPtrs...)
+						assert.NoError(t, err)
+						assert.Equal(t, expectedRow, dbRow)
+					}
+				} else {
+					dbItems := reflect.New(reflect.SliceOf(reflect.TypeOf(items[0]))).Interface()
+					err = db.Table(table).Find(dbItems).Error
+					assert.NoError(t, err)
+					dbSlice := reflect.ValueOf(dbItems).Elem()
+					for i, val := range items {
+						dbVal := dbSlice.Index(i)
+						// We don't care about those to fields while doing comparison so set them to default values
+						dbVal.FieldByName("CreatedAt").Set(reflect.ValueOf(time.Time{}))
+						dbVal.FieldByName("UpdatedAt").Set(reflect.ValueOf(time.Time{}))
+						assert.Equal(t, val, dbVal.Interface())
+					}
+				}
 			}
 		})
 	}

@@ -5,9 +5,9 @@ import "github.com/jinzhu/gorm"
 type Vote struct {
 	gorm.Model
 
-	IsUpvote int
+	IsUpvote bool
 	User     User
 	UserID   uint
-	Stoy     Story
+	Story    Story
 	StoryID  uint
 }

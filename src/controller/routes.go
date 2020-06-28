@@ -50,4 +50,5 @@ func SetRoutes(router *gin.Engine) {
 	router.GET("/home/stories", wrapper(GetStories))
 	router.GET("/add-story/get", wrapper(GetStory))
 	router.POST("/add-story/save", wrapper(SaveStory))
+	router.POST("/vote", wrapper(Vote))
 }

@@ -1,6 +1,9 @@
 package controller
 
 import (
+	"fmt"
+
+	"github.com/gin-contrib/sessions"
 	"github.com/go-playground/validator/v10"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/api_models"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/api_models/add_story"
@@ -55,6 +58,11 @@ func GetStory(ctx *Context) (interface{}, error) {
 }
 
 func SaveStory(ctx *Context) (interface{}, error) {
+	session := sessions.Default(ctx.GinCtx)
+	user_id := session.Get("user_id")
+	if user_id == nil {
+		return nil, fmt.Errorf("User unauthenicated")
+	}
 	model := add_story.Story{}
 	if err := ctx.GinCtx.Bind(&model); err != nil {
 		return nil, err
@@ -76,6 +84,10 @@ func SaveStory(ctx *Context) (interface{}, error) {
 		return nil, err
 	}
 	utils.Map(&model, &story)
+	if story.UserID != 0 && story.UserID != user_id.(uint) {
+		return nil, fmt.Errorf("Trying to edit somebody elses's story")
+	}
+	story.UserID = user_id.(uint)
 	story.CityID = &model.CityID
 
 	//TODO: Add transaction

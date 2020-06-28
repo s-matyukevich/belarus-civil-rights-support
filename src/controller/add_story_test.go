@@ -52,12 +52,13 @@ func TestGetStory(t *testing.T) {
 	})
 }
 
-//TODO: add posibility to check the state of the DB after the request is completed
 func TestSaveStory(t *testing.T) {
+	zero := uint(0)
 	cases := []Testcase{
 		{
-			Title: "Validation works",
-			Body:  add_story.Story{Title: "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"},
+			Title:      "Validation works",
+			AuthUserId: 1,
+			Body:       add_story.Story{Title: "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"},
 			Expected: api_models.Status{Errors: []string{
 				"Длинна поля превышает максимально допустимое значение 500 символов",
 				"Поле не может быть пустым",
@@ -67,8 +68,12 @@ func TestSaveStory(t *testing.T) {
 			}},
 		},
 		{
-			Title: "I can create a story",
+			Title:      "I can create a story",
+			AuthUserId: 1,
 			Db: map[string][]interface{}{
+				"users": {
+					&domain.User{Model: gorm.Model{ID: 1}, Username: "user1"},
+				},
 				"categories": {
 					&domain.Category{Model: gorm.Model{ID: 1}, Title: "category1"},
 					&domain.Category{Model: gorm.Model{ID: 2}, Title: "category2"},
@@ -77,10 +82,31 @@ func TestSaveStory(t *testing.T) {
 			},
 			Body:     add_story.Story{Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", Categories: []uint{1, 3}},
 			Expected: api_models.Status{Success: "История успешно сохранена"},
+			ExpectedDb: map[string][]interface{}{
+				"users": {
+					domain.User{Model: gorm.Model{ID: 1}, Username: "user1"},
+				},
+				"categories": {
+					domain.Category{Model: gorm.Model{ID: 1}, Title: "category1"},
+					domain.Category{Model: gorm.Model{ID: 2}, Title: "category2"},
+					domain.Category{Model: gorm.Model{ID: 3}, Title: "category3"},
+				},
+				"stories": {
+					domain.Story{Model: gorm.Model{ID: 1}, Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", CityID: &zero, UserID: 1},
+				},
+				"story_categories": {
+					[]interface{}{int64(1), int64(1)},
+					[]interface{}{int64(3), int64(1)},
+				},
+			},
 		},
 		{
-			Title: "I can edit a story",
+			Title:      "I can edit a story",
+			AuthUserId: 1,
 			Db: map[string][]interface{}{
+				"users": {
+					&domain.User{Model: gorm.Model{ID: 1}, Username: "user1"},
+				},
 				"stories": {
 					&domain.Story{
 						Model: gorm.Model{ID: 1}, UserID: 1, VideoUrl: "video1", Title: "story1", Description: "desc1",
@@ -93,6 +119,20 @@ func TestSaveStory(t *testing.T) {
 			},
 			Body:     add_story.Story{ID: 1, Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", Categories: []uint{1, 3}},
 			Expected: api_models.Status{Success: "История успешно сохранена"},
+			ExpectedDb: map[string][]interface{}{
+				"categories": {
+					domain.Category{Model: gorm.Model{ID: 1}, Title: "category1"},
+					domain.Category{Model: gorm.Model{ID: 2}, Title: "category2"},
+					domain.Category{Model: gorm.Model{ID: 3}, Title: "category3"},
+				},
+				"stories": {
+					domain.Story{Model: gorm.Model{ID: 1}, Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", CityID: &zero, UserID: 1},
+				},
+				"story_categories": {
+					[]interface{}{int64(1), int64(1)},
+					[]interface{}{int64(3), int64(1)},
+				},
+			},
 		},
 	}
 
