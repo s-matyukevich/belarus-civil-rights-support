@@ -49,7 +49,11 @@ func main() {
 		logger.Fatal("Can't read config", zap.Error(err))
 	}
 	router := gin.New()
-	router.Use(cors.Default())
+
+	if config.AllowCors {
+		router.Use(cors.Default())
+	}
+
 	router.Use(gin.Recovery())
 	router.Use(middleware.Database(logger, config))
 	router.Use(middleware.Logger(logger))

@@ -38,4 +38,5 @@ type Config struct {
 	SessionSecret string
 	OAuth         map[string]OAuthProvider `yaml:"oauth"`
 	Host          string
+	AllowCors     bool `yaml:"allow_cors"`
 }
