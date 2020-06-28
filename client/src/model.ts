@@ -24,3 +24,9 @@ export type ReferenceData = {
   cities: City[];
   categories: Category[];
 };
+
+export type User = {
+  id: number;
+  name: string;
+  imageUrl: string;
+};
