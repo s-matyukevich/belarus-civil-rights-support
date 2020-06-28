@@ -28,7 +28,7 @@ func (db *Database) Url() string {
 }
 
 func (db *Database) UrlWithDB() string {
-	databaseUrl := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", db.Username, db.Password, db.Host, db.Port, url.QueryEscape(db.Database))
+	databaseUrl := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true", db.Username, db.Password, db.Host, db.Port, url.QueryEscape(db.Database))
 	return databaseUrl
 }
 
@@ -38,5 +38,9 @@ type Config struct {
 	SessionSecret string
 	OAuth         map[string]OAuthProvider `yaml:"oauth"`
 	Host          string
+<<<<<<< HEAD
 	UIProxyDomain string `yaml:"ui_proxy_domain"`
+=======
+	AllowCors     bool `yaml:"allow_cors"`
+>>>>>>> 1f40cc7f56af5313197753c36e8d17e0dfb5dc8e
 }

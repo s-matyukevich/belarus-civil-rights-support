@@ -18,6 +18,7 @@ import (
 func Logout(ctx *Context) (interface{}, error) {
 	session := sessions.Default(ctx.GinCtx)
 	session.Delete("user_id")
+	session.Save()
 
 	ctx.GinCtx.Redirect(http.StatusFound, "/")
 	return nil, nil
@@ -136,6 +137,8 @@ func OauthCallback(ctx *Context) (interface{}, error) {
 	}
 
 	session.Set("user_id", user.ID)
+	session.Save()
+
 	ctx.GinCtx.Redirect(http.StatusFound, "/")
 	return nil, nil
 }

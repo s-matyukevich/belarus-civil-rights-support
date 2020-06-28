@@ -12,8 +12,8 @@
         var getOauthUrl = function(provider) {
             url = provider.auth_url;
             url +=
-                "?client_id=" + provider.client_id +
-                "&redirect_uri=" + provider.redirect_url;
+                "?client_id=" + encodeURIComponent(provider.client_id) +
+                "&redirect_uri=" + encodeURIComponent(provider.redirect_url);
             if (provider.scope) {
                 url += "&scope=" + provider.scope;
             }

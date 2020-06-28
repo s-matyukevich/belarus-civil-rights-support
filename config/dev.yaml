@@ -2,6 +2,7 @@ port: 8080
 session_secret: very-secret # replace in prod
 host: "http://localhost:8080"
 ui_proxy_domain: "ui:1234"
+allow_cors: false
 
 db:
   host: db
