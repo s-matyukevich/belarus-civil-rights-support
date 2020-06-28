@@ -1,6 +1,15 @@
-import { ReferenceData, Story } from '../model';
+import { LoginProvider, ReferenceData, Story } from '../model';
 
 export default class ApiClient {
+  private readonly apiBasePath: string;
+
+  constructor() {
+    this.apiBasePath = process.env.API_BASE_PATH ?? window.location.origin + window.location.pathname;
+    if (this.apiBasePath.endsWith('/')) {
+      this.apiBasePath = this.apiBasePath.substring(0, this.apiBasePath.length - 1);
+    }
+  }
+
   // TODO memoize
   public getReferenceData(): Promise<ReferenceData> {
     return Promise.resolve({
@@ -61,5 +70,11 @@ export default class ApiClient {
         authorImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
       }
     ]);
+  }
+
+  // TODO memoize
+  public async getLoginProviders(): Promise<LoginProvider[]> {
+    const response = await fetch(`${this.apiBasePath}/get-login-providers`);
+    return response.json();
   }
 }

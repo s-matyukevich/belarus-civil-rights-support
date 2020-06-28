@@ -30,3 +30,12 @@ export type User = {
   name: string;
   imageUrl: string;
 };
+
+export type LoginProvider = {
+  auth_url: string;
+  client_id: string;
+  image: string;
+  name: string;
+  redirect_url: string;
+  scope?: string;
+};
