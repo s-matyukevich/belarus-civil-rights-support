@@ -28,7 +28,7 @@ func (db *Database) Url() string {
 }
 
 func (db *Database) UrlWithDB() string {
-	databaseUrl := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", db.Username, db.Password, db.Host, db.Port, url.QueryEscape(db.Database))
+	databaseUrl := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true", db.Username, db.Password, db.Host, db.Port, url.QueryEscape(db.Database))
 	return databaseUrl
 }
 
