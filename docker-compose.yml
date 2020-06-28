@@ -7,6 +7,15 @@ db:
   environment:
     MYSQL_ROOT_PASSWORD: root
 
+ui:
+  build: .
+  dockerfile: Dockerfile.ui
+  command: "bash -c 'npm install && npm run start'"
+  volumes:
+    - ./client:/app
+  ports:
+    - 1234:1234
+
 web:
   build: .
   command: "bash -c 'sleep 1 && go run main.go -config=config/dev-secret.yaml'" # sleep to make sure DB is already running
@@ -16,4 +25,5 @@ web:
     - 8080:8080
   links:
     - db
+    - ui
 

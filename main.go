@@ -55,9 +55,12 @@ func main() {
 	store := cookie.NewStore([]byte(config.SessionSecret))
 	router.Use(sessions.Sessions("mainsession", store))
 	router.Use(middleware.Config(config))
-	router.Use(static.Serve("/", static.LocalFile("static", false)))
-
 	controller.SetRoutes(router)
+	if config.UIProxyDomain != "" {
+		router.Use(middleware.ReverseProxy(config.UIProxyDomain))
+	} else {
+		router.Use(static.Serve("/", static.LocalFile("static", false)))
+	}
 
 	srv := &http.Server{
 		Addr:    ":" + strconv.Itoa(config.Port),

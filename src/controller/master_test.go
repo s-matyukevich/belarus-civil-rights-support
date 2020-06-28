@@ -12,7 +12,7 @@ import (
 func TestGetCurrentUser(t *testing.T) {
 	cases := []Testcase{
 		{
-			Title:      "I can get story by id",
+			Title:      "I can get curently authenticated user",
 			AuthUserId: 1,
 			Db: map[string][]interface{}{
 				"users": {
