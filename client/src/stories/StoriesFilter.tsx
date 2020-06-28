@@ -1,4 +1,5 @@
-import { H3, HTMLSelect, Label } from '@blueprintjs/core';
+import { HTMLSelect, Label, ControlGroup } from '@blueprintjs/core';
+import CommonMultiSelect from './CommonMultiselect';
 import React from 'react';
 import './Stories.css';
 import { useReferenceDataSelectors } from '../common/hooks';
@@ -10,22 +11,20 @@ const StoriesFilter: React.FC = () => {
 
   return (
     <div className="stories-filter-container">
-      <H3>Истории:</H3>
+      <ControlGroup fill={true} vertical={false}>
+        <Label className="bp3-inline">Город</Label>
+        <CommonMultiSelect items={cities} />
+      </ControlGroup>
 
-      <Label className="bp3-inline">
-        Город
-        <HTMLSelect options={cities} className="bp3-inline" />
-      </Label>
+      <ControlGroup fill={true} vertical={false}>
+        <Label className="bp3-inline">Категория</Label>
+        <CommonMultiSelect items={categories} />
+      </ControlGroup>
 
-      <Label className="bp3-inline">
-        Категория
-        <HTMLSelect options={categories} className="bp3-inline" />
-      </Label>
-
-      <Label className="bp3-inline">
-        Сортировать по
+      <ControlGroup fill={true} vertical={false}>
+        <Label className="bp3-inline">Сортировать по </Label>
         <HTMLSelect options={sortOrders} className="bp3-inline" />
-      </Label>
+      </ControlGroup>
     </div>
   );
 };

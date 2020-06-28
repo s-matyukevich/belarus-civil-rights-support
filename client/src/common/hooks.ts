@@ -17,7 +17,7 @@ export function useReferenceData(): [true, null] | [false, ReferenceData] {
   return usePromise(() => services.apiClient.getReferenceData(), []);
 }
 
-type Selectable = { label: string; value: number | string };
+export type Selectable = { label: string; value: number | string };
 
 export function useReferenceDataSelectors(): { cities: Selectable[]; categories: Selectable[] } {
   const [isLoading, refData] = useReferenceData();
