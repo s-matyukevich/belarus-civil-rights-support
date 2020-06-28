@@ -24,3 +24,18 @@ export type ReferenceData = {
   cities: City[];
   categories: Category[];
 };
+
+export type User = {
+  ID: number;
+  Username: string;
+  ImageURL: string;
+};
+
+export type LoginProvider = {
+  auth_url: string;
+  client_id: string;
+  image: string;
+  name: string;
+  redirect_url: string;
+  scope?: string;
+};

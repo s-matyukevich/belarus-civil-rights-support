@@ -1,6 +1,7 @@
 port: 8080
 session_secret: very-secret # replace in prod
 host: "http://localhost:8080"
+allow_cors: false
 
 db:
   host: db
