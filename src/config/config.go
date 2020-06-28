@@ -38,9 +38,6 @@ type Config struct {
 	SessionSecret string
 	OAuth         map[string]OAuthProvider `yaml:"oauth"`
 	Host          string
-<<<<<<< HEAD
 	UIProxyDomain string `yaml:"ui_proxy_domain"`
-=======
-	AllowCors     bool `yaml:"allow_cors"`
->>>>>>> 1f40cc7f56af5313197753c36e8d17e0dfb5dc8e
+	AllowCors     bool   `yaml:"allow_cors"`
 }
