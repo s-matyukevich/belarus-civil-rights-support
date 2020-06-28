@@ -55,6 +55,6 @@ func SetRoutes(router *gin.Engine) {
 	router.GET("/add-story/get", wrapper(GetStory))
 	router.POST("/add-story/save", wrapper(SaveStory))
 
-	router.POST("/story/details", wrapper(GetStoryDetails))
+	router.GET("/story/details", wrapper(GetStoryDetails))
 
 }

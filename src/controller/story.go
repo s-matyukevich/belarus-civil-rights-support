@@ -12,18 +12,31 @@ func GetStoryDetails(ctx *Context) (interface{}, error) {
 	id := ctx.GinCtx.Query("Id")
 
 	story := domain.Story{}
-	err := ctx.Db.First(&story, id).Preload("City").Preload("User").Error
+	err := ctx.Db.First(&story, id).Error
 	if err != nil {
 		return nil, err
 	}
+	city := domain.City{}
+	if story.CityID != nil {
+		err := ctx.Db.First(&city, *story.CityID).Error
+		if err != nil {
+			return nil, err
+		}
+	}
+	user := domain.User{}
+	err = ctx.Db.First(&user, story.UserID).Error
+	if err != nil {
+		return nil, err
+	}
+
 	model := storymodel.Story{}
+	utils.Map(&user, &model) //mapping fields from user first to prevent overriding ID field
 	utils.Map(&story, &model)
 	if story.CityID != nil {
-		model.City = story.City.Title
+		model.City = city.Title
 	}
-	utils.Map(&story.UserID, model)
-	if story.User.SocialLinks != "" {
-		err := json.Unmarshal([]byte(story.User.SocialLinks), model.SocialLinks)
+	if user.SocialLinks != "" {
+		err := json.Unmarshal([]byte(user.SocialLinks), &model.SocialLinks)
 		if err != nil {
 			return nil, err
 		}

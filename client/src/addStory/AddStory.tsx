@@ -51,20 +51,6 @@ const AddStory: React.FC = () => {
           <HTMLSelect className="story-field__editor" options={categories} />
         </Label>
 
-        <H4>Мои контакты</H4>
-
-        <Label className="bp3-inline story-field story-field--inline">
-          <span className="story-field__label-text">Email</span>
-          <input type="text" className={cn(Classes.INPUT, 'story-field__editor')} placeholder="email@host.com" />
-        </Label>
-
-        <Label className="bp3-inline story-field story-field--inline">
-          <span className="story-field__label-text">Телефон</span>
-          <input type="text" className={cn(Classes.INPUT, 'story-field__editor')} placeholder="+375 29 111-11-11" />
-        </Label>
-
-        {/*TODO links to social networks*/}
-
         <Button intent={Intent.PRIMARY}>Опубликовать историю</Button>
       </div>
     </Page>
