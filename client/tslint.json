@@ -1,0 +1,20 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-config-prettier",
+        "tslint-react-hooks"
+    ],
+    "jsRules": {},
+    "rules": {
+        "prettier": true,
+        "interface-over-type-literal": false,
+        "object-literal-sort-keys": false,
+        "max-classes-per-file": false,
+        "react-hooks-nesting": "error",
+        "no-console": false
+    },
+    "rulesDirectory": [
+        "tslint-plugin-prettier"
+    ]
+}

@@ -1,0 +1,39 @@
+{
+  "name": "belarus-civil-rights-support",
+  "version": "1.0.0",
+  "description": "The platform that supports civil rights initiatives in Belarus",
+  "main": "index.html",
+  "scripts": {
+    "start": "tsc && parcel serve ./src/index.html",
+    "build": "parcel build ./src/index.html",
+    "lint": "tslint 'src/**/*.{ts,tsx}'",
+    "lint:fix": "tslint --fix 'src/**/*.{ts,tsx}'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/classnames": "^2.2.10",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "parcel": "^2.0.0-beta.1",
+    "postcss-nested": "^4.2.1",
+    "prettier": "^2.0.5",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.3.0",
+    "tslint-react-hooks": "^2.2.2",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "@blueprintjs/core": "^3.29.0",
+    "@blueprintjs/icons": "^3.19.0",
+    "classnames": "^2.2.6",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-youtube": "^7.11.2",
+    "typescript-memoize": "^1.0.0-alpha.3"
+  }
+}

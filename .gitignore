@@ -1,2 +1,7 @@
 mysql-data/*
 config/*-secret.yaml
+node_modules
+.cache
+dist
+.idea
+.parcel-cache

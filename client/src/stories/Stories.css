@@ -1,0 +1,79 @@
+.stories-filter-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  flex: 0 0 auto;
+}
+
+.stories-list {
+  overflow: auto;
+  padding: 1px 1px 15px 1px;
+}
+
+.story-info {
+  display: flex;
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
+  &__video {
+    margin-right: 12px;
+    flex: 0 0 auto;
+  }
+
+  &__description {
+    margin-right: 12px;
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      flex: 0 0 auto;
+    }
+
+    &__text {
+      flex: 1 1 auto;
+      overflow: hidden;
+    }
+  }
+
+  &__controls {
+    white-space: nowrap;
+  }
+
+  &__author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    &__image {
+      border-radius: 50%;
+      height: 32px;
+      width: 32px;
+      margin-right: 8px;
+    }
+  }
+
+  &__help {
+    margin-bottom: 12px;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  &__social {
+    display: flex;
+
+    &__reaction {
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
+
+      &__icon:hover {
+        cursor: pointer;
+        opacity: 0.7;
+      }
+    }
+  }
+}

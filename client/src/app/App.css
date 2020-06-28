@@ -1,0 +1,31 @@
+@import "../../node_modules/normalize.css/normalize.css";
+@import "../../node_modules/@blueprintjs/core/lib/css/blueprint.css";
+@import "../../node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css";
+
+html, body, #root {
+  height: 100%;
+}
+
+.app {
+  margin: auto;
+  max-width: 1100px;
+  height: 100%;
+}
+
+.page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    flex: 0 0 auto;
+    margin-bottom: 15px;
+  }
+
+  .page-content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+}

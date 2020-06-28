@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "jsx": "react",
+    "target": "es5",
+    "lib": [
+      "ES2015",
+      "DOM"
+    ],
+    "skipLibCheck": true,
+    "downlevelIteration": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "experimentalDecorators": true
+  }
+}
