@@ -19,10 +19,10 @@ func GetStory(ctx *Context) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	model := add_story.Model{}
-	utils.Map(&story, &model.Story)
+	model := add_story.Story{}
+	utils.Map(&story, &model)
 	if story.CityID != nil {
-		model.Story.CityID = *story.CityID
+		model.CityID = *story.CityID
 	}
 
 	categories := []domain.Category{}
@@ -33,25 +33,7 @@ func GetStory(ctx *Context) (interface{}, error) {
 		return nil, err
 	}
 	for _, c := range categories {
-		model.Story.Categories = append(model.Story.Categories, c.ID)
-	}
-
-	cities := []domain.City{}
-	err = ctx.Db.Find(&cities).Error
-	if err != nil {
-		return nil, err
-	}
-	for _, city := range cities {
-		model.Cities = append(model.Cities, add_story.CitiInfo{ID: city.ID, Title: city.Title})
-	}
-
-	categories = []domain.Category{}
-	err = ctx.Db.Find(&categories).Error
-	if err != nil {
-		return nil, err
-	}
-	for _, category := range categories {
-		model.Categories = append(model.Categories, add_story.CategoryInfo{ID: category.ID, Title: category.Title})
+		model.Categories = append(model.Categories, c.ID)
 	}
 
 	return model, nil

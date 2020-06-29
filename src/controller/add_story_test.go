@@ -36,17 +36,13 @@ func TestGetStory(t *testing.T) {
 					},
 				},
 			},
-			Query: struct{ Id int }{Id: 2},
-			Expected: add_story.Model{
-				Story:      add_story.Story{ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", CityID: 1, Categories: []uint{2, 3}},
-				Cities:     []add_story.CitiInfo{{ID: 1, Title: "city1"}, {ID: 2, Title: "city2"}},
-				Categories: []add_story.CategoryInfo{{ID: 1, Title: "category1"}, {ID: 2, Title: "category2"}, {ID: 3, Title: "category3"}, {ID: 4, Title: "category4"}},
-			},
+			Query:    struct{ Id int }{Id: 2},
+			Expected: add_story.Story{ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", CityID: 1, Categories: []uint{2, 3}},
 		},
 	}
 
 	RunCases(t, cases, "GET", "/add-story/get", func(data []byte) (interface{}, error) {
-		var res add_story.Model
+		var res add_story.Story
 		err := json.Unmarshal(data, &res)
 		return res, err
 	})
