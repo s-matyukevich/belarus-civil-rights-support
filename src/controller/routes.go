@@ -46,9 +46,11 @@ func wrapper(f HandlerFunc) gin.HandlerFunc {
 func SetRoutes(router *gin.Engine) {
 	router.GET("/get-login-providers", wrapper(GetLoginProviders))
 	router.GET("/oauth-callback", wrapper(OauthCallback))
-	router.POST("/vote", wrapper(Vote))
 	router.GET("/logged-user", wrapper(GetCurrentUser))
 	router.GET("/logout", wrapper(Logout))
+	router.POST("/vote", wrapper(Vote))
+	router.GET("/get-cities", wrapper(GetCities))
+	router.GET("/get-categories", wrapper(GetCategories))
 
 	router.GET("/home/stories", wrapper(GetStories))
 

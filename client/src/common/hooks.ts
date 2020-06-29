@@ -30,8 +30,8 @@ export function useReferenceDataSelectors(): { cities: Selectable[]; categories:
             categories: []
           }
         : {
-            cities: refData!.cities.map(city => ({ label: city.name, value: city.id })),
-            categories: refData!.categories.map(city => ({ label: city.name, value: city.id }))
+            cities: refData!.cities.map(city => ({ label: city.Title, value: city.ID })),
+            categories: refData!.categories.map(category => ({ label: category.Title, value: category.ID }))
           },
     [isLoading, refData]
   );

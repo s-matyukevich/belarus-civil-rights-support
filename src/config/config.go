@@ -40,5 +40,6 @@ type Config struct {
 	Host          string
 	UIProxyDomain string `yaml:"ui_proxy_domain"`
 	AllowCors     bool   `yaml:"allow_cors"`
-	PreloadData   bool
+	PreloadData   bool   `yaml:"preload_data"`
+	Data          map[string][]string
 }

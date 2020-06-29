@@ -9,3 +9,8 @@ type VoteRes struct {
 	Upvotes   int
 	Downvotes int
 }
+
+type SelectItem struct {
+	ID    uint
+	Title string
+}

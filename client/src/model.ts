@@ -11,13 +11,13 @@ export type Story = {
 };
 
 type City = {
-  id: number;
-  name: string;
+  ID: number;
+  Title: string;
 };
 
 type Category = {
-  id: number;
-  name: string;
+  ID: number;
+  Title: string;
 };
 
 export type ReferenceData = {

@@ -11,14 +11,15 @@ export default class ApiClient {
   }
 
   // TODO memoize
-  public getReferenceData(): Promise<ReferenceData> {
-    return Promise.resolve({
-      cities: ['Минск', 'Брест', 'Витебск', 'Гомель', 'Гродно', 'Могилёв'].map((name, id) => ({ name, id })),
-      categories: ['Нуждаюсь в финансовой поддержке', 'Ищу новую работу', 'Ищу единомышленников'].map((name, id) => ({
-        name,
-        id
-      }))
-    });
+  public async getReferenceData(): Promise<ReferenceData> {
+    return Promise.all([
+      fetch(`${this.apiBasePath}/get-cities`),
+      fetch(`${this.apiBasePath}/get-categories`)
+    ]).then(async([citiesResp, categoriesResp]) => {
+      const cities = await citiesResp.json();
+      const categories = await categoriesResp.json();
+      return {cities, categories}
+    })
   }
 
   public getStories(): Promise<Story[]> {

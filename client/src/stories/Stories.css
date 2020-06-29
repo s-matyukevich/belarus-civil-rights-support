@@ -4,13 +4,19 @@
   padding: 0 15px;
   flex: 0 0 auto;
   .bp3-control-group {
-    min-width: 25%;
+    min-width: 15%;
     margin: 20 20;
     .bp3-label {
       margin-right: 5;
       word-wrap: none;
-    }
+    }  
   }
+}
+
+.bp3-multi-select-popover .bp3-menu {
+  max-height: 300px;
+  max-width: 400px;
+  overflow: auto;
 }
 
 .stories-list {

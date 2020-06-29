@@ -66,3 +66,29 @@ func Vote(ctx *Context) (interface{}, error) {
 	}
 	return common.VoteRes{Upvotes: story.Upvotes, Downvotes: story.Downvotes}, nil
 }
+
+func GetCities(ctx *Context) (interface{}, error) {
+	model := []common.SelectItem{}
+	cities := []domain.City{}
+	err := ctx.Db.Find(&cities).Error
+	if err != nil {
+		return nil, err
+	}
+	for _, city := range cities {
+		model = append(model, common.SelectItem{ID: city.ID, Title: city.Title})
+	}
+	return model, nil
+}
+
+func GetCategories(ctx *Context) (interface{}, error) {
+	model := []common.SelectItem{}
+	categories := []domain.Category{}
+	err := ctx.Db.Find(&categories).Error
+	if err != nil {
+		return nil, err
+	}
+	for _, category := range categories {
+		model = append(model, common.SelectItem{ID: category.ID, Title: category.Title})
+	}
+	return model, nil
+}

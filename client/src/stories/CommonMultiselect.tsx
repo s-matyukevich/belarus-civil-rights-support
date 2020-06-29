@@ -1,10 +1,11 @@
 import { MenuItem, Button } from '@blueprintjs/core';
-import { MultiSelect, IItemRendererProps } from '@blueprintjs/select';
+import { MultiSelect, Suggest, IItemRendererProps } from '@blueprintjs/select';
 import React, { useState } from 'react';
 import { Selectable } from '../common/hooks';
 
-const CommonMultiselect: React.FC<{ items: Selectable[] }> = ({ items }) => {
-  const CommonSelect = MultiSelect.ofType<Selectable>();
+const CommonMultiselect: React.FC<{ items: Selectable[], type: string, placeholder: string }> = ({ items, type, placeholder }) => {
+  const CustomMultiSelect = MultiSelect.ofType<Selectable>();
+  const CustomSuggest = Suggest.ofType<Selectable>(); //We are going to need this functionality to filter cities on the create story page
   const [selectedItems, setSelectedItems] = useState<Selectable[]>([]);
   const clearButton = items.length > 0 ? <Button icon="cross" minimal={true} onClick={handleClear} /> : undefined;
 
@@ -41,7 +42,14 @@ const CommonMultiselect: React.FC<{ items: Selectable[] }> = ({ items }) => {
     deselectItem(index);
   }
 
+  function itemPredicate(query: string, item: Selectable) {
+    return item.label.toLowerCase().includes(query.toLowerCase())
+  }
+
   function renderItem(item: Selectable, { modifiers, handleClick }: IItemRendererProps) {
+    if (!modifiers.matchesPredicate) {
+        return null; 
+    }
     return (
       <MenuItem
         active={modifiers.active}
@@ -53,22 +61,26 @@ const CommonMultiselect: React.FC<{ items: Selectable[] }> = ({ items }) => {
       />
     );
   }
-
-  return (
-    <CommonSelect
-      items={items}
-      selectedItems={selectedItems}
-      popoverProps={{ minimal: true }}
-      tagRenderer={(item: Selectable) => item.label}
-      itemRenderer={renderItem}
-      tagInputProps={{
-        onRemove: handleTagRemove,
-        rightElement: clearButton
-      }}
-      onItemSelect={handleItemSelect}
-      className="bp3-inline"
-    />
-  );
+  if (type == "multi") {
+    return (
+      <CustomMultiSelect
+        items={items}
+        selectedItems={selectedItems}
+        popoverProps={{ minimal: true }}
+        tagRenderer={(item: Selectable) => item.label}
+        itemRenderer={renderItem}
+        tagInputProps={{
+          onRemove: handleTagRemove,
+          rightElement: clearButton
+        }}
+        onItemSelect={handleItemSelect}
+        itemPredicate={itemPredicate}
+        placeholder={placeholder}
+        resetOnSelect={true}
+        className="bp3-inline"
+      />
+    );
+  } 
 };
 
 export default CommonMultiselect;

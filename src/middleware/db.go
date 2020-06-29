@@ -37,6 +37,9 @@ func Database(logger *zap.Logger, config *cfg.Config) gin.HandlerFunc {
 	}
 
 	RunMigrations(db, logger)
+	if config.PreloadData {
+		PreloadData(db, config, logger)
+	}
 
 	return func(c *gin.Context) {
 		c.Set("db", db)
@@ -55,4 +58,30 @@ func RunMigrations(db *gorm.DB, logger *zap.Logger) {
 	db.Model(&domain.Vote{}).AddForeignKey("story_id", "stories(id)", "CASCADE", "CASCADE")
 	db.Table("story_categories").AddForeignKey("story_id", "stories(id)", "CASCADE", "CASCADE")
 	db.Table("story_categories").AddForeignKey("category_id", "categories(id)", "CASCADE", "CASCADE")
+}
+
+func PreloadData(db *gorm.DB, config *cfg.Config, logger *zap.Logger) error {
+	for table, items := range config.Data {
+		dbItems := []struct{ Title string }{}
+		err := db.Table(table).Select("title").Scan(&dbItems).Error
+		if err != nil {
+			return err
+		}
+		for _, item := range items {
+			found := false
+			for _, dbItem := range dbItems {
+				if dbItem.Title == item {
+					found = true
+					break
+				}
+			}
+			if !found {
+				err = db.Exec(fmt.Sprintf("INSERT INTO %s (title)VALUES (?);", table), item).Error
+				if err != nil {
+					return err
+				}
+			}
+		}
+	}
+	return nil
 }
