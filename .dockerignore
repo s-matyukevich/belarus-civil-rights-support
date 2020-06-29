@@ -5,7 +5,6 @@ client/dist
 client/node_modules
 client/.env.local
 client/dist
-client/.parcel-cache
 
 **/.idea
 **/.vscode
