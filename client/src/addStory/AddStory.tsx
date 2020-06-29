@@ -1,6 +1,6 @@
 import Page from '../app/Page';
 import React from 'react';
-import { H3, Label, Classes, HTMLSelect, H4, Button } from '@blueprintjs/core';
+import { H3, Label, Classes, HTMLSelect, Button } from '@blueprintjs/core';
 import './AddStory.css';
 import cn from 'classnames';
 import { Intent } from '@blueprintjs/core/lib/esm/common/intent';

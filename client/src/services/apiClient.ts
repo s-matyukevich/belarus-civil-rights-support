@@ -12,14 +12,13 @@ export default class ApiClient {
 
   // TODO memoize
   public async getReferenceData(): Promise<ReferenceData> {
-    return Promise.all([
-      fetch(`${this.apiBasePath}/get-cities`),
-      fetch(`${this.apiBasePath}/get-categories`)
-    ]).then(async([citiesResp, categoriesResp]) => {
-      const cities = await citiesResp.json();
-      const categories = await categoriesResp.json();
-      return {cities, categories}
-    })
+    return Promise.all([fetch(`${this.apiBasePath}/get-cities`), fetch(`${this.apiBasePath}/get-categories`)]).then(
+      async ([citiesResp, categoriesResp]) => {
+        const cities = await citiesResp.json();
+        const categories = await categoriesResp.json();
+        return { cities, categories };
+      }
+    );
   }
 
   public getStories(): Promise<Story[]> {

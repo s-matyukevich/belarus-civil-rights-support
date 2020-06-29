@@ -1,10 +1,10 @@
-import {Alignment, Classes, Menu, Navbar, Popover} from '@blueprintjs/core';
-import {IconNames} from '@blueprintjs/icons';
-import React, {useContext} from 'react';
-import {Link} from 'react-router-dom';
+import { Alignment, Classes, Menu, Navbar, Popover } from '@blueprintjs/core';
+import { IconNames } from '@blueprintjs/icons';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import LoggedUserContext from '../login/loggedUserContext';
-import {LoginButton} from '../login/LoginButton';
+import { LoginButton } from '../login/LoginButton';
 
 export const AddStoryButton: React.FC = () => (
   <Link className={cn(Classes.BUTTON, Classes.INTENT_PRIMARY)} to="/add-story">

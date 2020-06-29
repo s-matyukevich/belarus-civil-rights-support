@@ -1,11 +1,15 @@
 import { MenuItem, Button } from '@blueprintjs/core';
-import { MultiSelect, Suggest, IItemRendererProps } from '@blueprintjs/select';
+import { MultiSelect, IItemRendererProps } from '@blueprintjs/select';
 import React, { useState } from 'react';
 import { Selectable } from '../common/hooks';
 
-const CommonMultiselect: React.FC<{ items: Selectable[], type: string, placeholder: string }> = ({ items, type, placeholder }) => {
+const CommonMultiselect: React.FC<{ items: Selectable[]; type: string; placeholder: string }> = ({
+  items,
+  type,
+  placeholder
+}) => {
   const CustomMultiSelect = MultiSelect.ofType<Selectable>();
-  const CustomSuggest = Suggest.ofType<Selectable>(); //We are going to need this functionality to filter cities on the create story page
+  // const CustomSuggest = Suggest.ofType<Selectable>(); //We are going to need this functionality to filter cities on the create story page
   const [selectedItems, setSelectedItems] = useState<Selectable[]>([]);
   const clearButton = items.length > 0 ? <Button icon="cross" minimal={true} onClick={handleClear} /> : undefined;
 
@@ -43,12 +47,12 @@ const CommonMultiselect: React.FC<{ items: Selectable[], type: string, placehold
   }
 
   function itemPredicate(query: string, item: Selectable) {
-    return item.label.toLowerCase().includes(query.toLowerCase())
+    return item.label.toLowerCase().includes(query.toLowerCase());
   }
 
   function renderItem(item: Selectable, { modifiers, handleClick }: IItemRendererProps) {
     if (!modifiers.matchesPredicate) {
-        return null; 
+      return null;
     }
     return (
       <MenuItem
@@ -61,7 +65,8 @@ const CommonMultiselect: React.FC<{ items: Selectable[], type: string, placehold
       />
     );
   }
-  if (type == "multi") {
+
+  if (type === 'multi') {
     return (
       <CustomMultiSelect
         items={items}
@@ -80,7 +85,9 @@ const CommonMultiselect: React.FC<{ items: Selectable[], type: string, placehold
         className="bp3-inline"
       />
     );
-  } 
+  }
+
+  return null;
 };
 
 export default CommonMultiselect;
