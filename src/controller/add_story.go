@@ -53,9 +53,9 @@ func SaveStory(ctx *Context) (interface{}, error) {
 	err := ctx.Validator.Struct(model)
 	if err != nil {
 		errs := err.(validator.ValidationErrors)
-		res := api_models.Status{}
+		res := api_models.Status{Errors: make(map[string]string)}
 		for _, e := range errs {
-			res.Errors = append(res.Errors, e.Translate(ctx.Translator))
+			res.Errors[e.Field()] = e.Translate(ctx.Translator)
 		}
 		return res, nil
 	}

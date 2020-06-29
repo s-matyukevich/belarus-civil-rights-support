@@ -1,6 +1,6 @@
 package api_models
 
 type Status struct {
-	Errors  []string
+	Errors  map[string]string
 	Success string
 }
