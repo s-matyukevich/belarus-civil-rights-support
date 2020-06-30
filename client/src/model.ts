@@ -47,4 +47,10 @@ export type AddStoryModel = {
   VideoUrl: string;
   HelpInstructions: string;
   Categories: number[];
+  CityID: number;
 };
+
+export type Status = {
+  Error: Record<string, string> | null;
+  Success: string;
+}

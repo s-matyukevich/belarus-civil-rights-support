@@ -18,11 +18,11 @@ const StoriesFilter: React.FC = () => {
         </div>
       </ControlGroup>
       <ControlGroup fill={true} vertical={false}>
-        <CommonMultiSelect items={cities} type={'multi'} placeholder="Город" />
+        <CommonMultiSelect items={cities} type={'multi'} placeholder="Город" className="bp3-inline" />
       </ControlGroup>
 
       <ControlGroup fill={true} vertical={false}>
-        <CommonMultiSelect items={categories} type={'multi'} placeholder="Категория" />
+        <CommonMultiSelect items={categories} type={'multi'} placeholder="Категория" className="bp3-inline" />
       </ControlGroup>
 
       <ControlGroup fill={true} vertical={false}>
