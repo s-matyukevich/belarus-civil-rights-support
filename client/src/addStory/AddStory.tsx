@@ -1,6 +1,6 @@
 import Page from '../app/Page';
 import React, { useState, useCallback, useContext } from 'react';
-import { H3, Label, Classes, HTMLSelect, Button, Tooltip, Intent, Position } from '@blueprintjs/core';
+import { H3, Label, Classes, HTMLSelect, Button, Tooltip, Intent, Position, setHotkeysDialogProps, Overlay, Spinner } from '@blueprintjs/core';
 import './AddStory.css';
 import cn from 'classnames';
 import { useReferenceDataSelectors } from '../common/hooks';
@@ -33,6 +33,7 @@ type ValidatonErrors = Partial<Record<keyof AddStoryModel, string>>;
 
 const AddStory: React.FC = () => {
   const { cities, categories } = useReferenceDataSelectors();
+  const [isSaving, setIsSaving] = useState(false);
   const [story, setStory] = useState(newStory);
   const [errors, setErrors] = useState<ValidatonErrors>({});
   const services = useContext(ServicesContext);
@@ -45,6 +46,7 @@ const AddStory: React.FC = () => {
 
   const publish = useCallback(() => {
     setErrors({});
+    setIsSaving(true);
     services.apiClient.addStory(story).then(status => {
       if (status.Errors) {
         setErrors(status.Errors);
@@ -53,6 +55,7 @@ const AddStory: React.FC = () => {
           message: status.Success,
           intent: Intent.SUCCESS
         });
+        setIsSaving(false);
 
         // Probably we should navigate user to the page of the newly created story
         // but we don't have it yet, so redirect him back to the main page
@@ -63,6 +66,9 @@ const AddStory: React.FC = () => {
 
   return (
     <Page>
+      <Overlay isOpen={isSaving} className="loading-overlay">
+        <Spinner intent={Intent.PRIMARY} className="loading-overlay__spinner"/>
+      </Overlay>
       <H3>Новая история</H3>
       <div className="story-fields">
         <Label className="bp3-inline story-field story-field--inline">

@@ -30,3 +30,16 @@
     height: 200px;
   }
 }
+
+
+.loading-overlay {
+  &__spinner {
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+
+    svg {
+      height: 50px;
+      width: 50px;
+    }
+  }
+}
