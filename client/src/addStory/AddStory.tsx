@@ -1,6 +1,18 @@
 import Page from '../app/Page';
 import React, { useState, useCallback, useContext } from 'react';
-import { H3, Label, Classes, HTMLSelect, Button, Tooltip, Intent, Position, setHotkeysDialogProps, Overlay, Spinner } from '@blueprintjs/core';
+import {
+  H3,
+  Label,
+  Classes,
+  HTMLSelect,
+  Button,
+  Tooltip,
+  Intent,
+  Position,
+  setHotkeysDialogProps,
+  Overlay,
+  Spinner
+} from '@blueprintjs/core';
 import './AddStory.css';
 import cn from 'classnames';
 import { useReferenceDataSelectors } from '../common/hooks';
@@ -68,7 +80,7 @@ const AddStory: React.FC = () => {
   return (
     <Page>
       <Overlay isOpen={isSaving} className="loading-overlay">
-        <Spinner intent={Intent.PRIMARY} className="loading-overlay__spinner"/>
+        <Spinner intent={Intent.PRIMARY} className="loading-overlay__spinner" />
       </Overlay>
       <H3>Новая история</H3>
       <div className="story-fields">

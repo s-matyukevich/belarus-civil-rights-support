@@ -53,4 +53,4 @@ export type AddStoryModel = {
 export type Status = {
   Errors: Record<string, string> | null;
   Success: string;
-}
+};
