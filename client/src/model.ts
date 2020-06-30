@@ -39,3 +39,12 @@ export type LoginProvider = {
   redirect_url: string;
   scope?: string;
 };
+
+export type AddStoryModel = {
+  ID: number;
+  Title: string;
+  Description: string;
+  VideoUrl: string;
+  HelpInstructions: string;
+  Categories: number[];
+};

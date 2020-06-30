@@ -2,6 +2,7 @@ package base
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -32,6 +33,9 @@ func FetchProviderUser(url string, headers map[string]string, user interface{}, 
 	if err != nil {
 		return err
 	}
+	if res.StatusCode != 200 {
+		return fmt.Errorf("Non 200 status code from OAuth provider: %d", res.StatusCode)
+	}
 
 	content, err := ioutil.ReadAll(res.Body)
 	res.Body.Close()
@@ -39,7 +43,10 @@ func FetchProviderUser(url string, headers map[string]string, user interface{}, 
 		return err
 	}
 
-	json.Unmarshal(content, user)
+	err = json.Unmarshal(content, user)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

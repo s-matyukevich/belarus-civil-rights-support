@@ -50,6 +50,7 @@ func OauthCallback(ctx *Context) (interface{}, error) {
 	session := sessions.Default(ctx.GinCtx)
 
 	code := ctx.GinCtx.Query("code")
+	emailFromQuery := ctx.GinCtx.Query("email") // this is VK specific way of getting user email
 	oauthErr := ctx.GinCtx.Query("error")
 	provider := ctx.GinCtx.Query("provider")
 	if provider == "" || code == "" {
@@ -102,8 +103,7 @@ func OauthCallback(ctx *Context) (interface{}, error) {
 		return nil, err
 	}
 	if userInfo.Email == "" {
-		ctx.GinCtx.Redirect(http.StatusFound, "/#/?error=Can't find the value of email address")
-		return nil, nil
+		userInfo.Email = emailFromQuery
 	}
 
 	ctx.Logger.Sugar().Debugw("Recived user info from OAuth provider", "provider", provider, "userInfo", userInfo)

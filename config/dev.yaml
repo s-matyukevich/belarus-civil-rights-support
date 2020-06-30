@@ -21,6 +21,12 @@ oauth:
     token_url: "https://graph.facebook.com/v2.6/oauth/access_token"
     scopes:
       - 'email'
+  vk:
+    image: 'images/vk.png'
+    client_id: ''
+    client_secret: ''
+    auth_url: 'https://oauth.vk.com/authorize'
+    token_url: 'https://oauth.vk.com/access_token'
 
 data:
   categories: 
