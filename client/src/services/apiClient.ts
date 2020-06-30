@@ -1,4 +1,4 @@
-import { LoginProvider, ReferenceData, Story, User } from '../model';
+import { LoginProvider, ReferenceData, Story, User, AddStoryModel, Status } from '../model';
 
 export default class ApiClient {
   private readonly apiBasePath: string;
@@ -78,14 +78,6 @@ export default class ApiClient {
   }
 
   public async getLoggedUser(): Promise<User | null> {
-    // if (process.env.USE_FAKE_USER) {
-    //   return Promise.resolve({
-    //     ID: 1,
-    //     Username: 'Test User',
-    //     ImageURL: 'https://graph.facebook.com/v3.3/4595976050428239/picture?type=normal'
-    //   });
-    // }
-
     const response = await fetch(`${this.apiBasePath}/logged-user`);
     const user = await response.json();
 
@@ -94,5 +86,17 @@ export default class ApiClient {
 
   public logout() {
     window.location.assign(`${this.apiBasePath}/logout`);
+  }
+
+  public async addStory(story: AddStoryModel): Promise<Status> {
+    const response = await fetch(`${this.apiBasePath}/add-story/save`, {
+      method: 'POST',
+      body: JSON.stringify(story),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return response.json();
   }
 }

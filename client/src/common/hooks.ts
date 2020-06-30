@@ -36,3 +36,7 @@ export function useReferenceDataSelectors(): { cities: Selectable[]; categories:
     [isLoading, refData]
   );
 }
+
+export function useServices() {
+  return useContext(ServicesContext);
+}

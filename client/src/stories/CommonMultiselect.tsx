@@ -1,20 +1,32 @@
 import { MenuItem, Button } from '@blueprintjs/core';
 import { MultiSelect, IItemRendererProps } from '@blueprintjs/select';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Selectable } from '../common/hooks';
 
-const CommonMultiselect: React.FC<{ items: Selectable[]; type: string; placeholder: string }> = ({
-  items,
-  type,
-  placeholder
-}) => {
+const CommonMultiselect: React.FC<{
+  items: Selectable[];
+  type: string;
+  placeholder: string;
+  className?: string;
+  onChange?: (selectedItems: Selectable[]) => void;
+}> = ({ items, type, placeholder, className, onChange }) => {
   const CustomMultiSelect = MultiSelect.ofType<Selectable>();
   // const CustomSuggest = Suggest.ofType<Selectable>(); //We are going to need this functionality to filter cities on the create story page
   const [selectedItems, setSelectedItems] = useState<Selectable[]>([]);
   const clearButton = items.length > 0 ? <Button icon="cross" minimal={true} onClick={handleClear} /> : undefined;
 
+  const updateSelectedItems = useCallback(
+    (currentlySelected: Selectable[]) => {
+      if (onChange) {
+        onChange(currentlySelected);
+      }
+      setSelectedItems(currentlySelected);
+    },
+    [onChange]
+  );
+
   function handleClear() {
-    setSelectedItems([]);
+    updateSelectedItems([]);
   }
 
   function getSelectedItemIndex(item: Selectable) {
@@ -22,12 +34,11 @@ const CommonMultiselect: React.FC<{ items: Selectable[]; type: string; placehold
   }
 
   function selectItem(item: Selectable) {
-    selectedItems.push(item);
-    setSelectedItems(selectedItems);
+    updateSelectedItems([...selectedItems, item]);
   }
 
   function deselectItem(index: number) {
-    setSelectedItems(selectedItems.filter((_item, i) => i !== index));
+    updateSelectedItems(selectedItems.filter((_item, i) => i !== index));
   }
 
   function handleItemSelect(item: Selectable) {
@@ -82,7 +93,7 @@ const CommonMultiselect: React.FC<{ items: Selectable[]; type: string; placehold
         itemPredicate={itemPredicate}
         placeholder={placeholder}
         resetOnSelect={true}
-        className="bp3-inline"
+        className={className}
       />
     );
   }
