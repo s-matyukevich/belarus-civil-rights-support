@@ -48,6 +48,8 @@ const AddStory: React.FC = () => {
     setErrors({});
     setIsSaving(true);
     services.apiClient.addStory(story).then(status => {
+      setIsSaving(false);
+
       if (status.Errors) {
         setErrors(status.Errors);
       } else {
@@ -55,7 +57,6 @@ const AddStory: React.FC = () => {
           message: status.Success,
           intent: Intent.SUCCESS
         });
-        setIsSaving(false);
 
         // Probably we should navigate user to the page of the newly created story
         // but we don't have it yet, so redirect him back to the main page
@@ -138,7 +139,7 @@ const AddStory: React.FC = () => {
               items={categories}
               type="multi"
               placeholder="Категория"
-              className="story-field__editor"
+              className="story-field__editor story-field__editor--multiselect"
               onChange={selected =>
                 set(
                   'Categories',
