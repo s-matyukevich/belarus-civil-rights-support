@@ -25,7 +25,7 @@ type user struct {
 	//Link    string `json:link` // this requires `user_link` scope, which requres facebook app approval - will do this later
 }
 
-func GetUser(token string, logger *zap.Logger) (*base.User, error) {
+func GetUser(token string, appKey string, appSecretKey string, apiKey string, logger *zap.Logger) (*base.User, error) {
 	pUser := user{}
 	err := base.FetchProviderUser(
 		url,

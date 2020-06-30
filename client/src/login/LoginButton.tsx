@@ -12,6 +12,10 @@ function loginViaProvider(provider: LoginProvider) {
     loginUrl.searchParams.set('scope', provider.scope);
   }
 
+  if (provider.response_type) {
+    loginUrl.searchParams.set('response_type', provider.response_type);
+  }
+
   window.location.assign(loginUrl.href);
 }
 

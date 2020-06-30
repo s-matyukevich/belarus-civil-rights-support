@@ -21,7 +21,7 @@ type response struct {
 	Users []user `json:"response"`
 }
 
-func GetUser(token string, logger *zap.Logger) (*base.User, error) {
+func GetUser(token string, appKey string, appSecretKey string, apiKey string, logger *zap.Logger) (*base.User, error) {
 	resp := response{}
 	err := base.FetchProviderUser(
 		fmt.Sprintf(url, token),

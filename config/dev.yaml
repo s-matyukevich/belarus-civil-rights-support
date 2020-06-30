@@ -27,6 +27,17 @@ oauth:
     client_secret: ''
     auth_url: 'https://oauth.vk.com/authorize'
     token_url: 'https://oauth.vk.com/access_token'
+  ok:
+    image: 'images/ok.png'
+    client_id: ''
+    client_secret: ''
+    auth_url: 'https://connect.ok.ru/oauth/authorize'
+    token_url: 'https://api.ok.ru/oauth/token.do'
+    response_type: 'code'
+    api_key: ''
+    scopes:
+      - 'VALUABLE_ACCESS'
+      - 'GET_EMAIL'
 
 data:
   categories: 

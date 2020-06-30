@@ -37,6 +37,9 @@ func GetLoginProviders(ctx *Context) (interface{}, error) {
 		if len(providerOptions.Scopes) > 0 {
 			pval["scope"] = strings.Join(providerOptions.Scopes, ",")
 		}
+		if providerOptions.ResponseType != "" {
+			pval["response_type"] = providerOptions.ResponseType
+		}
 		res = append(res, pval)
 	}
 	return res, nil
@@ -98,9 +101,12 @@ func OauthCallback(ctx *Context) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	userInfo, err := sso.GetUser(provider, tokenValue.AccessToken, ctx.Logger)
+	userInfo, err := sso.GetUser(provider, tokenValue.AccessToken, configProvider.ClientId, configProvider.ClientSecret, configProvider.ApiKey, ctx.Logger)
 	if err != nil {
 		return nil, err
+	}
+	if userInfo.Id == "" {
+		return nil, fmt.Errorf("Can't fetch user info from the OAuth provider")
 	}
 	if userInfo.Email == "" {
 		userInfo.Email = emailFromQuery

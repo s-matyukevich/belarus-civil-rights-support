@@ -20,6 +20,8 @@ type OAuthProvider struct {
 	AuthUrl      string   `yaml:"auth_url"`
 	TokenUrl     string   `yaml:"token_url"`
 	Scopes       []string `yaml:"scopes"`
+	ResponseType string   `yaml:"response_type"`
+	ApiKey       string   `yaml:"api_key"`
 }
 
 func (db *Database) Url() string {

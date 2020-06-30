@@ -38,6 +38,7 @@ export type LoginProvider = {
   name: string;
   redirect_url: string;
   scope?: string;
+  response_type?: string;
 };
 
 export type AddStoryModel = {
