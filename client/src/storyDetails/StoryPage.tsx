@@ -9,6 +9,14 @@ import './StoryDetails.css';
 
 const leftColumnWidth = '650px';
 
+const LongText: React.FC<{text: string}> = ({text}) => (
+  <div>
+    {text.split('\n').map(line => (
+      <p>{line}</p>
+    ))}
+  </div>
+);
+
 const StoryPage: React.FC = () => {
   const { id } = useParams();
   const services = useServices();
@@ -26,7 +34,7 @@ const StoryPage: React.FC = () => {
       <div className="story-details">
         <div className="story-details__left-column" style={{ width: leftColumnWidth }}>
           {videoId ? <YouTube videoId={videoId} opts={{ width: leftColumnWidth }} /> : null}
-          <div>{story?.Description}</div>
+          <LongText text={story!.Description}/>
         </div>
         <div>
           {story!.CityID ? (
@@ -47,7 +55,7 @@ const StoryPage: React.FC = () => {
 
           <div>
             <H5>Как мне можно помочь</H5>
-            <div>{story?.HelpInstructions}</div>
+            <LongText text={story!.HelpInstructions} />
           </div>
         </div>
       </div>
