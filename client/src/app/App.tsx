@@ -11,6 +11,7 @@ const App: React.FC = () => (
       <HashRouter>
         <Switch>
           <Route path="/add-story" component={AddStory} />
+          <Route path="/edit-story/:id" component={AddStory} />
           <Route path="/" component={StoriesPage} />
         </Switch>
       </HashRouter>

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/go-playground/validator/v10"
@@ -12,23 +13,28 @@ import (
 )
 
 func GetStory(ctx *Context) (interface{}, error) {
-	id := ctx.GinCtx.Query("Id")
+	idStr := ctx.GinCtx.Query("id")
+	var id int
+	var err error
+	if id, err = strconv.Atoi(idStr); err != nil {
+		return nil, fmt.Errorf("Invalid id: %s", idStr)
+	}
 
 	story := domain.Story{}
-	err := ctx.Db.First(&story, id).Error
+	err = ctx.Db.First(&story, id).Error
 	if err != nil {
 		return nil, err
 	}
 	model := add_story.Story{}
 	utils.Map(&story, &model)
 	if story.CityID != nil {
-		model.CityID = *story.CityID
+		model.CityID = story.CityID
 	}
 
 	categories := []domain.Category{}
 	err = ctx.Db.Table("categories").
 		Joins("LEFT JOIN story_categories ON story_categories.category_id = id").
-		Where("story_categories.story_id = ?", id).Find(&categories).Error
+		Where("story_categories.story_id = ?", story.ID).Find(&categories).Error
 	if err != nil {
 		return nil, err
 	}
@@ -70,7 +76,11 @@ func SaveStory(ctx *Context) (interface{}, error) {
 		return nil, fmt.Errorf("Trying to edit somebody elses's story")
 	}
 	story.UserID = user_id.(uint)
-	story.CityID = &model.CityID
+	if model.CityID != nil && *model.CityID != 0 {
+		story.CityID = model.CityID
+	} else {
+		story.CityID = nil
+	}
 
 	//TODO: Add transaction
 	if err := ctx.Db.Save(&story).Error; err != nil {
@@ -84,5 +94,5 @@ func SaveStory(ctx *Context) (interface{}, error) {
 			return nil, err
 		}
 	}
-	return api_models.Status{Success: "История успешно сохранена"}, nil
+	return api_models.Status{ID: story.ID, Success: "История успешно сохранена"}, nil
 }

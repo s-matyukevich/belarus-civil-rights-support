@@ -34,7 +34,7 @@ oauth:
     auth_url: 'https://connect.ok.ru/oauth/authorize'
     token_url: 'https://api.ok.ru/oauth/token.do'
     response_type: 'code'
-    api_key: ''
+    api_key: '' # this is ApplicationID, OK is the only provider who uses this parameter
     scopes:
       - 'VALUABLE_ACCESS'
       - 'GET_EMAIL'

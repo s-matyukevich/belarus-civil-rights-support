@@ -19,6 +19,12 @@
   overflow: auto;
 }
 
+.bp3-select-popover .bp3-menu {
+  max-height: 300px;
+  max-width: 400px;
+  overflow: auto;
+}
+
 .stories-list {
   overflow: auto;
   padding: 1px 1px 15px 1px;

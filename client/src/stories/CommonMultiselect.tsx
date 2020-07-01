@@ -1,6 +1,6 @@
 import { MenuItem, Button } from '@blueprintjs/core';
-import { MultiSelect, IItemRendererProps } from '@blueprintjs/select';
-import React, { useState, useCallback } from 'react';
+import { MultiSelect, Suggest, IItemRendererProps } from '@blueprintjs/select';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Selectable } from '../common/hooks';
 
 const CommonMultiselect: React.FC<{
@@ -8,10 +8,11 @@ const CommonMultiselect: React.FC<{
   type: string;
   placeholder: string;
   className?: string;
+  selectedIds?: number[];
   onChange?: (selectedItems: Selectable[]) => void;
-}> = ({ items, type, placeholder, className, onChange }) => {
+}> = ({ items, type, placeholder, className, selectedIds, onChange }) => {
   const CustomMultiSelect = MultiSelect.ofType<Selectable>();
-  // const CustomSuggest = Suggest.ofType<Selectable>(); //We are going to need this functionality to filter cities on the create story page
+  const CustomSuggest = Suggest.ofType<Selectable>();
   const [selectedItems, setSelectedItems] = useState<Selectable[]>([]);
   const clearButton = items.length > 0 ? <Button icon="cross" minimal={true} onClick={handleClear} /> : undefined;
 
@@ -24,6 +25,19 @@ const CommonMultiselect: React.FC<{
     },
     [onChange]
   );
+
+  function notUndefined<T>(x: T | undefined): x is T {
+    return x !== undefined;
+  }
+
+  useEffect(() => {
+    if (!selectedIds) {
+      return;
+    }
+    setSelectedItems(_ => {
+      return selectedIds.map(id => items.find(element => element.value === id)).filter(notUndefined);
+    });
+  }, [selectedIds]);
 
   function handleClear() {
     updateSelectedItems([]);
@@ -41,9 +55,24 @@ const CommonMultiselect: React.FC<{
     updateSelectedItems(selectedItems.filter((_item, i) => i !== index));
   }
 
+  function deselectItemWithoutTriggeringOnChange(index: number) {
+    setSelectedItems(selectedItems.filter((_item, i) => i !== index));
+  }
+
   function handleItemSelect(item: Selectable) {
     if (isItemSelected(item)) {
       deselectItem(getSelectedItemIndex(item));
+    } else {
+      selectItem(item);
+    }
+  }
+
+  function handleSingleItemSelect(item: Selectable) {
+    if (isItemSelected(item)) {
+      deselectItem(getSelectedItemIndex(item));
+    } else if (selectedItems.length > 0) {
+      selectedItems[0] = item;
+      updateSelectedItems(selectedItems);
     } else {
       selectItem(item);
     }
@@ -94,6 +123,19 @@ const CommonMultiselect: React.FC<{
         placeholder={placeholder}
         resetOnSelect={true}
         className={className}
+      />
+    );
+  } else if (type === 'suggest') {
+    return (
+      <CustomSuggest
+        inputValueRenderer={(item: Selectable) => item.label}
+        items={items}
+        className={className}
+        itemRenderer={renderItem}
+        onItemSelect={handleSingleItemSelect}
+        itemPredicate={itemPredicate}
+        popoverProps={{ minimal: true }}
+        selectedItem={selectedItems.length > 0 ? selectedItems[0] : null}
       />
     );
   }

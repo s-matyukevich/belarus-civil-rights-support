@@ -71,6 +71,22 @@ export default class ApiClient {
       }
     ]);
   }
+
+  public async getStoryModel(id: number): Promise<AddStoryModel> {
+    if (id === undefined) {
+      return Promise.resolve({
+        ID: 0,
+        Title: '',
+        Categories: [],
+        Description: '',
+        HelpInstructions: '',
+        VideoUrl: '',
+        CityID: 0
+      });
+    }
+    const response = await fetch(`${this.apiBasePath}/add-story/get?id=` + id);
+    return response.json();
+  }
   // TODO memoize
   public async getLoginProviders(): Promise<LoginProvider[]> {
     const response = await fetch(`${this.apiBasePath}/get-login-providers`);

@@ -1,5 +1,5 @@
 import Page from '../app/Page';
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback, useContext, useEffect } from 'react';
 import {
   H3,
   Label,
@@ -9,7 +9,7 @@ import {
   Tooltip,
   Intent,
   Position,
-  setHotkeysDialogProps,
+  //  setHotkeysDialogProps,
   Overlay,
   Spinner
 } from '@blueprintjs/core';
@@ -20,6 +20,7 @@ import { AddStoryModel } from '../model';
 import CommonMultiselect from '../stories/CommonMultiselect';
 import ServicesContext from '../services/servicesContext';
 import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 const newStory: AddStoryModel = {
   ID: 0,
@@ -28,7 +29,7 @@ const newStory: AddStoryModel = {
   Description: '',
   HelpInstructions: '',
   VideoUrl: '',
-  CityID: 0
+  CityID: undefined
 };
 
 const Validatable: React.FC<{ error?: string }> = ({ error, children }) => {
@@ -46,10 +47,14 @@ type ValidatonErrors = Partial<Record<keyof AddStoryModel, string>>;
 const AddStory: React.FC = () => {
   const { cities, categories } = useReferenceDataSelectors();
   const [isSaving, setIsSaving] = useState(false);
-  const [story, setStory] = useState(newStory);
   const [errors, setErrors] = useState<ValidatonErrors>({});
   const services = useContext(ServicesContext);
   const history = useHistory();
+  const { id } = useParams();
+  const [story, setStory] = useState(newStory);
+  useEffect(() => {
+    services.apiClient.getStoryModel(id).then(remoteStory => setStory(prev => ({ ...prev, ...remoteStory })));
+  }, []);
 
   const set = useCallback((field: keyof AddStoryModel, value: any) => {
     setStory(previousStory => ({ ...previousStory, [field]: value }));
@@ -70,9 +75,7 @@ const AddStory: React.FC = () => {
           intent: Intent.SUCCESS
         });
 
-        // Probably we should navigate user to the page of the newly created story
-        // but we don't have it yet, so redirect him back to the main page
-        history.replace('/');
+        history.replace('/edit-story/' + status.ID);
       }
     });
   }, [story, services]);
@@ -135,11 +138,19 @@ const AddStory: React.FC = () => {
         <Label className="bp3-inline story-field story-field--inline">
           <span className="story-field__label-text">Город</span>
           <Validatable error={errors.CityID}>
-            <HTMLSelect
+            {/* <HTMLSelect
               className="story-field__editor"
               options={cities}
               value={story.CityID}
               onChange={evt => set('CityID', parseInt(evt.target.value, 10))}
+            /> */}
+            <CommonMultiselect
+              items={cities}
+              type="suggest"
+              placeholder="Город"
+              className="story-field__editor story-field__editor--multiselect"
+              selectedIds={story.CityID ? [story.CityID] : []}
+              onChange={selected => set('CityID', selected && selected.length > 0 ? selected[0].value : null)}
             />
           </Validatable>
         </Label>
@@ -152,6 +163,7 @@ const AddStory: React.FC = () => {
               type="multi"
               placeholder="Категория"
               className="story-field__editor story-field__editor--multiselect"
+              selectedIds={story.Categories}
               onChange={selected =>
                 set(
                   'Categories',

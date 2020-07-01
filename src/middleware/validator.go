@@ -39,6 +39,18 @@ func Validator() gin.HandlerFunc {
 			return t
 		},
 	)
+	validate.RegisterTranslation("min", ru,
+		func(ut ut.Translator) error {
+			return ut.Add("min", "Выберите по крайней мере одну опцию", false)
+		},
+		func(ut ut.Translator, fe validator.FieldError) string {
+			t, err := ut.T(fe.Tag(), fe.Param())
+			if err != nil {
+				return fe.(error).Error()
+			}
+			return t
+		},
+	)
 
 	return func(c *gin.Context) {
 		c.Set("validator", validate)

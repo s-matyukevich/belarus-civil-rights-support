@@ -12,6 +12,7 @@ import (
 )
 
 func TestGetStory(t *testing.T) {
+	cityID := uint(1)
 	cases := []Testcase{
 		{
 			Title: "I can get story by id",
@@ -37,7 +38,7 @@ func TestGetStory(t *testing.T) {
 				},
 			},
 			Query:    struct{ Id int }{Id: 2},
-			Expected: add_story.Story{ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", CityID: 1, Categories: []uint{2, 3}},
+			Expected: add_story.Story{ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", CityID: &cityID, Categories: []uint{2, 3}},
 		},
 	}
 
@@ -49,7 +50,6 @@ func TestGetStory(t *testing.T) {
 }
 
 func TestSaveStory(t *testing.T) {
-	zero := uint(0)
 	cases := []Testcase{
 		{
 			Title:      "Validation works",
@@ -61,6 +61,14 @@ func TestSaveStory(t *testing.T) {
 				"VideoUrl":         "Поле не может быть пустым",
 				"HelpInstructions": "Поле не может быть пустым",
 				"Categories":       "Поле не может быть пустым",
+			}},
+		},
+		{
+			Title:      "Validate empty category list",
+			AuthUserId: 1,
+			Body:       add_story.Story{Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", Categories: []uint{}},
+			Expected: api_models.Status{Errors: map[string]string{
+				"Categories": "Выберите по крайней мере одну опцию",
 			}},
 		},
 		{
@@ -77,7 +85,7 @@ func TestSaveStory(t *testing.T) {
 				},
 			},
 			Body:     add_story.Story{Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", Categories: []uint{1, 3}},
-			Expected: api_models.Status{Success: "История успешно сохранена"},
+			Expected: api_models.Status{ID: 1, Success: "История успешно сохранена"},
 			ExpectedDb: map[string][]interface{}{
 				"users": {
 					domain.User{Model: gorm.Model{ID: 1}, Username: "user1"},
@@ -88,7 +96,7 @@ func TestSaveStory(t *testing.T) {
 					domain.Category{Model: gorm.Model{ID: 3}, Title: "category3"},
 				},
 				"stories": {
-					domain.Story{Model: gorm.Model{ID: 1}, Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", CityID: &zero, UserID: 1},
+					domain.Story{Model: gorm.Model{ID: 1}, Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", UserID: 1},
 				},
 				"story_categories": {
 					[]interface{}{int64(1), int64(1)},
@@ -114,7 +122,7 @@ func TestSaveStory(t *testing.T) {
 				},
 			},
 			Body:     add_story.Story{ID: 1, Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", Categories: []uint{1, 3}},
-			Expected: api_models.Status{Success: "История успешно сохранена"},
+			Expected: api_models.Status{ID: 1, Success: "История успешно сохранена"},
 			ExpectedDb: map[string][]interface{}{
 				"categories": {
 					domain.Category{Model: gorm.Model{ID: 1}, Title: "category1"},
@@ -122,7 +130,7 @@ func TestSaveStory(t *testing.T) {
 					domain.Category{Model: gorm.Model{ID: 3}, Title: "category3"},
 				},
 				"stories": {
-					domain.Story{Model: gorm.Model{ID: 1}, Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", CityID: &zero, UserID: 1},
+					domain.Story{Model: gorm.Model{ID: 1}, Title: "title", Description: "description", VideoUrl: "video", HelpInstructions: "instructions", UserID: 1},
 				},
 				"story_categories": {
 					[]interface{}{int64(1), int64(1)},

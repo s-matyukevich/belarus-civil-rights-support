@@ -23,8 +23,6 @@ func Database(logger *zap.Logger, config *cfg.Config) gin.HandlerFunc {
 	if err != nil {
 		logger.Fatal("Can't open DB connection", zap.Error(err))
 	}
-	db.SetLogger(&dbLoggerWrapper{logger: logger})
-	db.LogMode(true)
 
 	err = db.Exec(fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s", config.Database.Database)).Error
 	if err != nil {
@@ -35,6 +33,8 @@ func Database(logger *zap.Logger, config *cfg.Config) gin.HandlerFunc {
 	if err != nil {
 		logger.Fatal("Can't open DB connection", zap.Error(err))
 	}
+	db.SetLogger(&dbLoggerWrapper{logger: logger})
+	db = db.LogMode(true)
 
 	RunMigrations(db, logger)
 	if config.PreloadData {
