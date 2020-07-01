@@ -1,4 +1,4 @@
-import { LoginProvider, ReferenceData, Story, Filters, User, AddStoryModel, Status } from '../model';
+import { LoginProvider, ReferenceData, Story, Filters, User, StoryModel, Status } from '../model';
 import querystring from 'query-string';
 
 export default class ApiClient {
@@ -28,7 +28,7 @@ export default class ApiClient {
     return response.json();
   }
 
-  public async getStoryModel(id: number): Promise<AddStoryModel> {
+  public async getStoryModel(id: number | undefined): Promise<StoryModel> {
     if (id === undefined) {
       return Promise.resolve({
         ID: 0,
@@ -60,7 +60,7 @@ export default class ApiClient {
     window.location.assign(`${this.apiBasePath}/logout`);
   }
 
-  public async addStory(story: AddStoryModel): Promise<Status> {
+  public async addStory(story: StoryModel): Promise<Status> {
     const response = await fetch(`${this.apiBasePath}/add-story/save`, {
       method: 'POST',
       body: JSON.stringify(story),

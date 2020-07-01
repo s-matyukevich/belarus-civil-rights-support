@@ -1,0 +1,11 @@
+.story-details {
+  display: flex;
+
+  &__city {
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+  &__left-column {
+    margin-right: 15px;
+  }
+}

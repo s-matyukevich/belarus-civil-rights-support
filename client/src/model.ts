@@ -50,7 +50,7 @@ export type LoginProvider = {
   response_type?: string;
 };
 
-export type AddStoryModel = {
+export type StoryModel = {
   ID: number;
   Title: string;
   Description: string;
