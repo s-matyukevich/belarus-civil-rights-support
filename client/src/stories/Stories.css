@@ -59,6 +59,7 @@
 
   &__controls {
     white-space: nowrap;
+    margin-left: auto;
   }
 
   &__author {
@@ -93,6 +94,9 @@
       &__icon:hover {
         cursor: pointer;
         opacity: 0.7;
+      }
+      &__votes {
+        padding: 3;
       }
     }
   }

@@ -16,7 +16,7 @@ import './AddStory.css';
 import cn from 'classnames';
 import { useReferenceDataSelectors } from '../common/hooks';
 import { StoryModel } from '../model';
-import CommonMultiselect from '../stories/CommonMultiselect';
+import CommonMultiselect from '../common/CommonMultiselect';
 import ServicesContext from '../services/servicesContext';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';

@@ -6,8 +6,10 @@ type Vote struct {
 }
 
 type VoteRes struct {
-	Upvotes   int
-	Downvotes int
+	UserUpvoted   bool
+	UserDownvoted bool
+	Upvotes       int
+	Downvotes     int
 }
 
 type SelectItem struct {

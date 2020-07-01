@@ -1,4 +1,4 @@
-import { LoginProvider, ReferenceData, Story, Filters, User, StoryModel, Status } from '../model';
+import { LoginProvider, ReferenceData, Story, Filters, User, StoryModel, Status, Vote } from '../model';
 import querystring from 'query-string';
 
 export default class ApiClient {
@@ -64,6 +64,18 @@ export default class ApiClient {
     const response = await fetch(`${this.apiBasePath}/add-story/save`, {
       method: 'POST',
       body: JSON.stringify(story),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return response.json();
+  }
+
+  public async vote(storyId: number, isUpvote: boolean): Promise<Vote> {
+    const response = await fetch(`${this.apiBasePath}/vote`, {
+      method: 'POST',
+      body: JSON.stringify({ StoryID: storyId, IsUpvote: isUpvote }),
       headers: {
         'Content-Type': 'application/json'
       }

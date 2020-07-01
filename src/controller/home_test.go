@@ -135,6 +135,34 @@ func TestGetStories(t *testing.T) {
 				PageSize = 50
 			},
 		},
+		{
+			Title:      "My upvotes are calculated correctly",
+			AuthUserId: 1,
+			Db: map[string][]interface{}{
+				"users": {
+					&domain.User{Model: gorm.Model{ID: 1}, Username: "user1", Email: "e1", Phone: "p1", ImageURL: "image1"},
+					&domain.User{Model: gorm.Model{ID: 2}, Username: "user2", Email: "e2", Phone: "p2", ImageURL: "image2"},
+				},
+				"stories": {
+					&domain.Story{Model: gorm.Model{ID: 1}, UserID: 1, VideoUrl: "video1", Title: "story1", Description: "desc1", Upvotes: 1, Downvotes: 1, Rating: 0},
+					&domain.Story{Model: gorm.Model{ID: 2}, UserID: 1, VideoUrl: "video2", Title: "story2", Description: "desc2", Upvotes: 1, Downvotes: 0, Rating: 1},
+					&domain.Story{Model: gorm.Model{ID: 3}, UserID: 2, VideoUrl: "video3", Title: "story3", Description: "desc3", Upvotes: 2, Downvotes: 0, Rating: 2},
+				},
+				"votes": {
+					&domain.Vote{Model: gorm.Model{ID: 1}, UserID: 1, StoryID: 1, IsUpvote: true},
+					&domain.Vote{Model: gorm.Model{ID: 2}, UserID: 1, StoryID: 2, IsUpvote: true},
+					&domain.Vote{Model: gorm.Model{ID: 3}, UserID: 1, StoryID: 3, IsUpvote: false},
+					&domain.Vote{Model: gorm.Model{ID: 4}, UserID: 2, StoryID: 2, IsUpvote: true},
+					&domain.Vote{Model: gorm.Model{ID: 5}, UserID: 3, StoryID: 3, IsUpvote: true},
+				},
+			},
+			Query: home.Filters{SortColumn: "rating", SortDirection: "DESC"},
+			Expected: []home.Story{
+				home.Story{ID: 3, Upvotes: 2, Downvotes: 0, UserUpvoted: false, UserDownvoted: true, VideoUrl: "video3", Title: "story3", Description: "desc3", AuthorName: "user2", AuthorId: 2, AuthorImageURL: "image2"},
+				home.Story{ID: 2, Upvotes: 1, Downvotes: 0, UserUpvoted: true, UserDownvoted: false, VideoUrl: "video2", Title: "story2", Description: "desc2", AuthorName: "user1", AuthorId: 1, AuthorImageURL: "image1"},
+				home.Story{ID: 1, Upvotes: 1, Downvotes: 1, UserUpvoted: true, UserDownvoted: false, VideoUrl: "video1", Title: "story1", Description: "desc1", AuthorName: "user1", AuthorId: 1, AuthorImageURL: "image1"},
+			},
+		},
 	}
 	RunCases(t, cases, "GET", "/home/stories", func(data []byte) (interface{}, error) {
 		var res []home.Story

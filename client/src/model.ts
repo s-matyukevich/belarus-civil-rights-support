@@ -5,6 +5,8 @@ export type Story = {
   Description: string;
   Upvotes: number;
   Downvotes: number;
+  UserUpvoted: boolean;
+  UserDownvoted: boolean;
   AuthorName: string;
   AuthorId: number;
   AuthorImageURL: string;
@@ -64,4 +66,11 @@ export type Status = {
   ID: number;
   Errors: Record<string, string> | null;
   Success: string;
+};
+
+export type Vote = {
+  UserUpvoted: boolean;
+  UserDownvoted: boolean;
+  Upvotes: number;
+  Downvotes: number;
 };

@@ -1,10 +1,9 @@
 import { ControlGroup } from '@blueprintjs/core';
-import CommonMultiSelect from './CommonMultiselect';
 import React, { useCallback } from 'react';
 import './Stories.css';
 import { useReferenceDataSelectors, Selectable } from '../common/hooks';
 import { Filters } from '../model';
-import CommonMultiselect from '../stories/CommonMultiselect';
+import CommonMultiselect from '../common/CommonMultiselect';
 
 const sortOrders: Selectable[] = [
   { label: 'По популярности', value: 0 },
@@ -49,7 +48,7 @@ const StoriesFilter: React.FC<{
         </div>
       </ControlGroup>
       <ControlGroup fill={true} vertical={false}>
-        <CommonMultiSelect
+        <CommonMultiselect
           items={cities}
           type={'multi'}
           placeholder="Город"
@@ -64,7 +63,7 @@ const StoriesFilter: React.FC<{
       </ControlGroup>
 
       <ControlGroup fill={true} vertical={false}>
-        <CommonMultiSelect
+        <CommonMultiselect
           items={categories}
           type={'multi'}
           placeholder="Категория"

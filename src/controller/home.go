@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/jinzhu/gorm"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/api_models/home"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/domain"
@@ -58,6 +59,20 @@ func GetStories(ctx *Context) (interface{}, error) {
 		return nil, err
 	}
 
+	myVotes := map[uint]bool{}
+	session := sessions.Default(ctx.GinCtx)
+	user_id := session.Get("user_id")
+	if user_id != nil {
+		votes := []domain.Vote{}
+		err = ctx.Db.Table("votes").Where("user_id = ?", user_id.(uint)).Find(&votes).Error
+		if err != nil {
+			return nil, err
+		}
+		for _, vote := range votes {
+			myVotes[vote.StoryID] = vote.IsUpvote
+		}
+	}
+
 	var ans []home.Story
 	for _, story := range stories {
 		var storyModel home.Story
@@ -66,6 +81,13 @@ func GetStories(ctx *Context) (interface{}, error) {
 		storyModel.AuthorId = story.User.ID
 		storyModel.AuthorImageURL = story.User.ImageURL
 		storyModel.AuthorName = story.User.Username
+		if isUpvote, ok := myVotes[story.ID]; ok {
+			if isUpvote {
+				storyModel.UserUpvoted = true
+			} else {
+				storyModel.UserDownvoted = true
+			}
+		}
 		ans = append(ans, storyModel)
 	}
 

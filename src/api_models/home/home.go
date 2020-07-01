@@ -19,6 +19,8 @@ type Story struct {
 	Description    string
 	Upvotes        int
 	Downvotes      int
+	UserUpvoted    bool
+	UserDownvoted  bool
 	AuthorName     string
 	AuthorId       uint // always use uint for the foreign key referencies
 	AuthorImageURL string

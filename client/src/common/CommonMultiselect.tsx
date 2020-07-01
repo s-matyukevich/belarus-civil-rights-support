@@ -1,7 +1,7 @@
 import { MenuItem, Button } from '@blueprintjs/core';
 import { MultiSelect, Suggest, IItemRendererProps } from '@blueprintjs/select';
 import React, { useState, useCallback, useEffect } from 'react';
-import { Selectable } from '../common/hooks';
+import { Selectable } from './hooks';
 
 const CommonMultiselect: React.FC<{
   items: Selectable[];

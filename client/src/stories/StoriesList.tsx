@@ -1,7 +1,7 @@
 import YouTube from 'react-youtube';
 import React, { useMemo, useCallback } from 'react';
-import { Button, Card, H3, Icon, Intent } from '@blueprintjs/core';
-import { IconNames } from '@blueprintjs/icons';
+import { Button, Card, H3, Intent } from '@blueprintjs/core';
+import Votes from '../common/Votes';
 import { Story } from '../model';
 import { getYoutubeVideoId } from '../common/utils';
 import { useHistory } from 'react-router-dom';
@@ -40,17 +40,15 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
           <Button intent={Intent.PRIMARY}>Помочь</Button>
         </div>
 
-        <div className="story-info__social">
-          <div className="story-info__social__reaction">
-            <Icon icon={IconNames.THUMBS_UP} className="story-info__social__reaction__icon" />
-            <span>{story.Upvotes}</span>
-          </div>
-
-          <div className="story-info__social__reaction">
-            <Icon icon={IconNames.THUMBS_DOWN} className="story-info__social__reaction__icon" />
-            <span>{story.Downvotes}</span>
-          </div>
-        </div>
+        <Votes
+          storyId={story.ID}
+          initialVote={{
+            Upvotes: story.Upvotes,
+            Downvotes: story.Downvotes,
+            UserUpvoted: story.UserUpvoted,
+            UserDownvoted: story.UserDownvoted
+          }}
+        />
       </div>
     </Card>
   );
