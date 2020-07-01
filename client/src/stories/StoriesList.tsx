@@ -3,16 +3,10 @@ import React, { useMemo } from 'react';
 import { Button, Card, H3, Icon, Intent } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 import { Story } from '../model';
+import { getYoutubeVideoId } from '../common/utils';
 
 const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
-  const videoId: string | null = useMemo(() => {
-    if (story.VideoUrl) {
-      const url = new URL(story.VideoUrl);
-      return url.searchParams.get('v');
-    }
-
-    return null;
-  }, [story]);
+  const videoId: string | null = useMemo(() => getYoutubeVideoId(story.VideoUrl), [story]);
 
   const contentHeight = '150px';
 

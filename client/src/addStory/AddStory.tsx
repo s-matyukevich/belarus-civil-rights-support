@@ -15,13 +15,13 @@ import {
 import './AddStory.css';
 import cn from 'classnames';
 import { useReferenceDataSelectors } from '../common/hooks';
-import { AddStoryModel } from '../model';
+import { StoryModel } from '../model';
 import CommonMultiselect from '../stories/CommonMultiselect';
 import ServicesContext from '../services/servicesContext';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 
-const newStory: AddStoryModel = {
+const newStory: StoryModel = {
   ID: 0,
   Title: '',
   Categories: [],
@@ -41,7 +41,7 @@ const Validatable: React.FC<{ error?: string }> = ({ error, children }) => {
   );
 };
 
-type ValidatonErrors = Partial<Record<keyof AddStoryModel, string>>;
+type ValidatonErrors = Partial<Record<keyof StoryModel, string>>;
 
 const AddStory: React.FC = () => {
   const { cities, categories } = useReferenceDataSelectors();
@@ -55,7 +55,7 @@ const AddStory: React.FC = () => {
     services.apiClient.getStoryModel(id).then(remoteStory => setStory(prev => ({ ...prev, ...remoteStory })));
   }, []);
 
-  const set = useCallback((field: keyof AddStoryModel, value: any) => {
+  const set = useCallback((field: keyof StoryModel, value: any) => {
     setStory(previousStory => ({ ...previousStory, [field]: value }));
     setErrors(previousErrors => ({ ...previousErrors, [field]: undefined }));
   }, []);

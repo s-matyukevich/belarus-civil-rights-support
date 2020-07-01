@@ -4,6 +4,7 @@ import AddStory from '../addStory/AddStory';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import StoriesPage from '../stories/StoriesPage';
 import LoggedUserProvider from '../login/LoggedUserProvider';
+import StoryPage from '../storyDetails/StoryPage';
 
 const App: React.FC = () => (
   <div className="app">
@@ -12,6 +13,7 @@ const App: React.FC = () => (
         <Switch>
           <Route path="/add-story" component={AddStory} />
           <Route path="/edit-story/:id" component={AddStory} />
+          <Route path="/story/:id" component={StoryPage} />
           <Route path="/" component={StoriesPage} />
         </Switch>
       </HashRouter>
