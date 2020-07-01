@@ -20,6 +20,13 @@ func GetStories(ctx *Context) (interface{}, error) {
 	}
 	ctx.Logger.Sugar().Debugw("Get stories input", "filters", filters)
 
+	if filters.SortColumn == "" {
+		filters.SortColumn = "rating"
+	}
+	if filters.SortDirection == "" {
+		filters.SortDirection = "DESC"
+	}
+
 	err := ctx.Validator.Struct(filters)
 	if err != nil {
 		// return error because there should be mo way for the user to send imvalid input here
@@ -54,7 +61,7 @@ func GetStories(ctx *Context) (interface{}, error) {
 		//map common fields
 		utils.Map(&story, &storyModel)
 		storyModel.AuthorId = story.User.ID
-		storyModel.AthorImageURL = story.User.ImageURL
+		storyModel.AuthorImageURL = story.User.ImageURL
 		storyModel.AuthorName = story.User.Username
 		ans = append(ans, storyModel)
 	}

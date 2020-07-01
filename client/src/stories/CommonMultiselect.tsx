@@ -55,10 +55,6 @@ const CommonMultiselect: React.FC<{
     updateSelectedItems(selectedItems.filter((_item, i) => i !== index));
   }
 
-  function deselectItemWithoutTriggeringOnChange(index: number) {
-    setSelectedItems(selectedItems.filter((_item, i) => i !== index));
-  }
-
   function handleItemSelect(item: Selectable) {
     if (isItemSelected(item)) {
       deselectItem(getSelectedItemIndex(item));

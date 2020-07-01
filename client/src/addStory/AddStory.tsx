@@ -4,7 +4,6 @@ import {
   H3,
   Label,
   Classes,
-  HTMLSelect,
   Button,
   Tooltip,
   Intent,
@@ -138,12 +137,6 @@ const AddStory: React.FC = () => {
         <Label className="bp3-inline story-field story-field--inline">
           <span className="story-field__label-text">Город</span>
           <Validatable error={errors.CityID}>
-            {/* <HTMLSelect
-              className="story-field__editor"
-              options={cities}
-              value={story.CityID}
-              onChange={evt => set('CityID', parseInt(evt.target.value, 10))}
-            /> */}
             <CommonMultiselect
               items={cities}
               type="suggest"

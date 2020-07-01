@@ -1,13 +1,22 @@
 export type Story = {
-  id: number;
-  videoUrl?: string;
-  title: string;
-  description: string;
-  upvotes: number;
-  downvotes: number;
-  authorName: string;
-  authorId: number;
-  authorImageURL?: string;
+  ID: number;
+  VideoUrl: string;
+  Title: string;
+  Description: string;
+  Upvotes: number;
+  Downvotes: number;
+  AuthorName: string;
+  AuthorId: number;
+  AuthorImageURL: string;
+};
+
+export type Filters = {
+  Search: string;
+  Cities: number[];
+  Categories: number[];
+  Page: number;
+  SortColumn: string;
+  SortDirection: string;
 };
 
 type City = {

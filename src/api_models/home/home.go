@@ -8,18 +8,18 @@ type Filters struct {
 	Cities        []int  `form:"Cities"`     // empty list here means all cities
 	Categories    []int  `form:"Categories"` // empty = all
 	Page          int    `form:"Page"`
-	SortColumn    string `form:"SortColumn" validate:"required,oneof=date rating"`
-	SortDirection string `form:"SortDirection" validate:"required,oneof=ASC DESC"`
+	SortColumn    string `form:"SortColumn" validate:"oneof=date rating"`
+	SortDirection string `form:"SortDirection" validate:"oneof=ASC DESC"`
 }
 
 type Story struct {
-	ID            uint
-	VideoUrl      string
-	Title         string
-	Description   string
-	Upvotes       int
-	Downvotes     int
-	AuthorName    string
-	AuthorId      uint // always use uint for the foreign key referencies
-	AthorImageURL string
+	ID             uint
+	VideoUrl       string
+	Title          string
+	Description    string
+	Upvotes        int
+	Downvotes      int
+	AuthorName     string
+	AuthorId       uint // always use uint for the foreign key referencies
+	AuthorImageURL string
 }

@@ -1,15 +1,13 @@
 import YouTube from 'react-youtube';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Button, Card, H3, Icon, Intent } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 import { Story } from '../model';
-import ServicesContext from '../services/servicesContext';
-import { usePromise } from '../common/hooks';
 
 const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
   const videoId: string | null = useMemo(() => {
-    if (story.videoUrl) {
-      const url = new URL(story.videoUrl);
+    if (story.VideoUrl) {
+      const url = new URL(story.VideoUrl);
       return url.searchParams.get('v');
     }
 
@@ -29,16 +27,16 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
       ) : null}
 
       <div className="story-info__description" style={{ maxHeight: contentHeight }}>
-        <H3>{story.title}</H3>
-        <p className="story-info__description__text">{story.description}</p>
+        <H3>{story.Title}</H3>
+        <p className="story-info__description__text">{story.Description}</p>
       </div>
 
       <div className="story-info__controls">
         <div className="story-info__author">
-          {story.authorImageURL && (
-            <img className="story-info__author__image" src={story.authorImageURL} alt={story.authorName} />
+          {story.AuthorImageURL && (
+            <img className="story-info__author__image" src={story.AuthorImageURL} alt={story.AuthorName} />
           )}
-          <span>{story.authorName}</span>
+          <span>{story.AuthorName}</span>
         </div>
 
         <div className="story-info__help">
@@ -48,12 +46,12 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
         <div className="story-info__social">
           <div className="story-info__social__reaction">
             <Icon icon={IconNames.THUMBS_UP} className="story-info__social__reaction__icon" />
-            <span>{story.upvotes}</span>
+            <span>{story.Upvotes}</span>
           </div>
 
           <div className="story-info__social__reaction">
             <Icon icon={IconNames.THUMBS_DOWN} className="story-info__social__reaction__icon" />
-            <span>{story.downvotes}</span>
+            <span>{story.Downvotes}</span>
           </div>
         </div>
       </div>
@@ -61,14 +59,11 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
   );
 };
 
-const StoriesList: React.FC = () => {
-  const services = useContext(ServicesContext);
-  const [, stories] = usePromise(() => services.apiClient.getStories(), []);
-
+const StoriesList: React.FC<{ stories: Story[] | null }> = ({ stories }) => {
   return (
     <div className="stories-list">
       {(stories ?? []).map(story => (
-        <StoryInfo story={story} key={story.id} />
+        <StoryInfo story={story} key={story.ID} />
       ))}
     </div>
   );

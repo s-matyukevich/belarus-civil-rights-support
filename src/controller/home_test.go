@@ -27,9 +27,9 @@ func TestGetStories(t *testing.T) {
 			},
 			Query: home.Filters{SortColumn: "rating", SortDirection: "DESC"},
 			Expected: []home.Story{
-				home.Story{ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", Upvotes: 5, Downvotes: 1, AuthorName: "user1", AuthorId: 1, AthorImageURL: "image1"},
-				home.Story{ID: 3, VideoUrl: "video3", Title: "story3", Description: "desc3", Upvotes: 6, Downvotes: 4, AuthorName: "user2", AuthorId: 2, AthorImageURL: "image2"},
-				home.Story{ID: 1, VideoUrl: "video1", Title: "story1", Description: "desc1", Upvotes: 3, Downvotes: 2, AuthorName: "user1", AuthorId: 1, AthorImageURL: "image1"},
+				home.Story{ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", Upvotes: 5, Downvotes: 1, AuthorName: "user1", AuthorId: 1, AuthorImageURL: "image1"},
+				home.Story{ID: 3, VideoUrl: "video3", Title: "story3", Description: "desc3", Upvotes: 6, Downvotes: 4, AuthorName: "user2", AuthorId: 2, AuthorImageURL: "image2"},
+				home.Story{ID: 1, VideoUrl: "video1", Title: "story1", Description: "desc1", Upvotes: 3, Downvotes: 2, AuthorName: "user1", AuthorId: 1, AuthorImageURL: "image1"},
 			},
 		},
 		{
@@ -47,8 +47,8 @@ func TestGetStories(t *testing.T) {
 			},
 			Query: home.Filters{SortColumn: "rating", SortDirection: "DESC", Search: "search"},
 			Expected: []home.Story{
-				home.Story{ID: 3, VideoUrl: "video3", Title: "story3", Description: "desc3 search", Upvotes: 6, Downvotes: 4, AuthorName: "user2", AuthorId: 2, AthorImageURL: "image2"},
-				home.Story{ID: 1, VideoUrl: "video1", Title: "story1 search", Description: "desc1", Upvotes: 3, Downvotes: 2, AuthorName: "user1", AuthorId: 1, AthorImageURL: "image1"},
+				home.Story{ID: 3, VideoUrl: "video3", Title: "story3", Description: "desc3 search", Upvotes: 6, Downvotes: 4, AuthorName: "user2", AuthorId: 2, AuthorImageURL: "image2"},
+				home.Story{ID: 1, VideoUrl: "video1", Title: "story1 search", Description: "desc1", Upvotes: 3, Downvotes: 2, AuthorName: "user1", AuthorId: 1, AuthorImageURL: "image1"},
 			},
 		},
 		{
@@ -76,8 +76,8 @@ func TestGetStories(t *testing.T) {
 			},
 			Query: home.Filters{SortColumn: "rating", SortDirection: "ASC", Cities: []int{1, 5}, Categories: []int{2, 5, 6}},
 			Expected: []home.Story{
-				home.Story{ID: 3, VideoUrl: "video3", Title: "story3", Description: "desc3", Upvotes: 6, Downvotes: 4, AuthorName: "user2", AuthorId: 2, AthorImageURL: "image2"},
-				home.Story{ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", Upvotes: 5, Downvotes: 1, AuthorName: "user1", AuthorId: 1, AthorImageURL: "image1"},
+				home.Story{ID: 3, VideoUrl: "video3", Title: "story3", Description: "desc3", Upvotes: 6, Downvotes: 4, AuthorName: "user2", AuthorId: 2, AuthorImageURL: "image2"},
+				home.Story{ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", Upvotes: 5, Downvotes: 1, AuthorName: "user1", AuthorId: 1, AuthorImageURL: "image1"},
 			},
 		},
 		{
@@ -97,8 +97,8 @@ func TestGetStories(t *testing.T) {
 			},
 			Query: home.Filters{SortColumn: "rating", SortDirection: "DESC", Page: 1},
 			Expected: []home.Story{
-				home.Story{ID: 4, VideoUrl: "video", Title: "story", Description: "desc", Upvotes: 6, Downvotes: 4, AuthorName: "user2", AuthorId: 2, AthorImageURL: "image2"},
-				home.Story{ID: 3, VideoUrl: "video", Title: "story", Description: "desc", Upvotes: 6, Downvotes: 4, AuthorName: "user2", AuthorId: 2, AthorImageURL: "image2"},
+				home.Story{ID: 4, VideoUrl: "video", Title: "story", Description: "desc", Upvotes: 6, Downvotes: 4, AuthorName: "user2", AuthorId: 2, AuthorImageURL: "image2"},
+				home.Story{ID: 3, VideoUrl: "video", Title: "story", Description: "desc", Upvotes: 6, Downvotes: 4, AuthorName: "user2", AuthorId: 2, AuthorImageURL: "image2"},
 			},
 			Before: func() {
 				PageSize = 2
