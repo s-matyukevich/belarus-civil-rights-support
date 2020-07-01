@@ -43,7 +43,10 @@ func GetStories(ctx *Context) (interface{}, error) {
 	}
 	if len(filters.Categories) > 0 {
 		query = query.
-			Where("? > 0", ctx.Db.Table("story_categories").Select("COUNT(*)").Where("story_categories.story_id = stories.id").SubQuery())
+			Where("? > 0",
+				ctx.Db.Table("story_categories").
+					Select("COUNT(*)").
+					Where("story_categories.story_id = stories.id AND story_categories.category_id IN (?)", filters.Categories).SubQuery())
 	}
 	query = query.Order(gorm.Expr(fmt.Sprintf("%s %s", filters.SortColumn, filters.SortDirection)))
 	query = query.Limit(PageSize).Offset(filters.Page * PageSize)

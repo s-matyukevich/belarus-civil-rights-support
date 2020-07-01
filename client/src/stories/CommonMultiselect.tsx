@@ -131,6 +131,9 @@ const CommonMultiselect: React.FC<{
         onItemSelect={handleSingleItemSelect}
         itemPredicate={itemPredicate}
         popoverProps={{ minimal: true }}
+        inputProps={{
+          placeholder
+        }}
         selectedItem={selectedItems.length > 0 ? selectedItems[0] : null}
       />
     );

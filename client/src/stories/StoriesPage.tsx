@@ -1,20 +1,29 @@
 import StoriesFilter from './StoriesFilter';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import StoriesList from './StoriesList';
 import Page from '../app/Page';
 import { AddStoryButton } from '../app/Header';
-import { Filters } from '../model';
+import { Filters, Story } from '../model';
 import ServicesContext from '../services/servicesContext';
-import { usePromise } from '../common/hooks';
 
 const Stories: React.FC = () => {
   const services = useContext(ServicesContext);
-  const [filters] = useState<Filters>({} as Filters);
-  const [, stories] = usePromise(() => services.apiClient.getStories(filters), []);
+  const [filters, setFilters] = useState<Filters>({} as Filters);
+  const [stories, setStories] = useState<Story[]>([]);
+
+  useEffect(() => {
+    services.apiClient.getStories(filters).then(remoteStories => setStories(remoteStories));
+  }, []);
 
   return (
     <Page headerContent={<AddStoryButton />}>
-      <StoriesFilter />
+      <StoriesFilter
+        filters={filters}
+        onChange={f => {
+          setFilters(f);
+          services.apiClient.getStories(f).then(remoteStories => setStories(remoteStories));
+        }}
+      />
       <StoriesList stories={stories} />
     </Page>
   );

@@ -52,7 +52,7 @@ func TestGetStories(t *testing.T) {
 			},
 		},
 		{
-			Title: "I can filter by cities and categories",
+			Title: "I can filter by cities",
 			Db: map[string][]interface{}{
 				"users": {
 					&domain.User{Model: gorm.Model{ID: 1}, Username: "user1", Email: "e1", Phone: "p1", ImageURL: "image1"},
@@ -77,6 +77,34 @@ func TestGetStories(t *testing.T) {
 			Query: home.Filters{SortColumn: "rating", SortDirection: "ASC", Cities: []int{1, 5}, Categories: []int{2, 5, 6}},
 			Expected: []home.Story{
 				home.Story{ID: 3, VideoUrl: "video3", Title: "story3", Description: "desc3", Upvotes: 6, Downvotes: 4, AuthorName: "user2", AuthorId: 2, AuthorImageURL: "image2"},
+				home.Story{ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", Upvotes: 5, Downvotes: 1, AuthorName: "user1", AuthorId: 1, AuthorImageURL: "image1"},
+			},
+		},
+		{
+			Title: "I can filter by categories",
+			Db: map[string][]interface{}{
+				"users": {
+					&domain.User{Model: gorm.Model{ID: 1}, Username: "user1", Email: "e1", Phone: "p1", ImageURL: "image1"},
+					&domain.User{Model: gorm.Model{ID: 2}, Username: "user2", Email: "e2", Phone: "p2", ImageURL: "image2"},
+				},
+				"stories": {
+					&domain.Story{
+						Model: gorm.Model{ID: 1}, UserID: 1, VideoUrl: "video1", Title: "story1", Description: "desc1", Upvotes: 3, Downvotes: 2, Rating: 1,
+						City: &domain.City{Model: gorm.Model{ID: 1}, Title: "city1"},
+					},
+					&domain.Story{
+						Model: gorm.Model{ID: 2}, UserID: 1, VideoUrl: "video2", Title: "story2", Description: "desc2", Upvotes: 5, Downvotes: 1, Rating: 4,
+						Categories: []domain.Category{{Model: gorm.Model{ID: 2}, Title: "category2"}},
+						City:       &domain.City{Model: gorm.Model{ID: 1}, Title: "city1"},
+					},
+					&domain.Story{
+						Model: gorm.Model{ID: 3}, UserID: 2, VideoUrl: "video3", Title: "story3", Description: "desc3", Upvotes: 6, Downvotes: 4, Rating: 2,
+						Categories: []domain.Category{{Model: gorm.Model{ID: 5}, Title: "category5"}},
+					},
+				},
+			},
+			Query: home.Filters{SortColumn: "rating", SortDirection: "ASC", Cities: []int{1, 5}, Categories: []int{2}},
+			Expected: []home.Story{
 				home.Story{ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", Upvotes: 5, Downvotes: 1, AuthorName: "user1", AuthorId: 1, AuthorImageURL: "image1"},
 			},
 		},

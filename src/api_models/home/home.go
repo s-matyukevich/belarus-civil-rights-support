@@ -8,7 +8,7 @@ type Filters struct {
 	Cities        []int  `form:"Cities"`     // empty list here means all cities
 	Categories    []int  `form:"Categories"` // empty = all
 	Page          int    `form:"Page"`
-	SortColumn    string `form:"SortColumn" validate:"oneof=date rating"`
+	SortColumn    string `form:"SortColumn" validate:"oneof=created_at rating"`
 	SortDirection string `form:"SortDirection" validate:"oneof=ASC DESC"`
 }
 
