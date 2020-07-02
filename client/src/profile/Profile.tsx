@@ -1,6 +1,18 @@
 import Page from '../app/Page';
 import React, { useState, useCallback, useContext, useEffect } from 'react';
-import { H3, Label, Classes, Button, Intent, Overlay, Spinner } from '@blueprintjs/core';
+import {
+  H3,
+  H2,
+  Label,
+  Classes,
+  Button,
+  Intent,
+  Overlay,
+  Spinner,
+  ControlGroup,
+  InputGroup,
+  FormGroup
+} from '@blueprintjs/core';
 import './Profile.css';
 import cn from 'classnames';
 import { ProfileModel } from '../model';
@@ -9,11 +21,20 @@ import Validatable from '../common/Validatable';
 
 type ValidatonErrors = Partial<Record<keyof ProfileModel, string>>;
 
+const newProfile: ProfileModel = {
+  ID: 0,
+  ImageURL: '',
+  Email: '',
+  Phone: '',
+  Username: '',
+  SocialLinks: []
+};
+
 const Profile: React.FC = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [errors, setErrors] = useState<ValidatonErrors>({});
   const services = useContext(ServicesContext);
-  const [profile, setProfile] = useState({} as ProfileModel);
+  const [profile, setProfile] = useState(newProfile);
   useEffect(() => {
     services.apiClient.getProfile().then(data => setProfile(prev => ({ ...prev, ...data })));
   }, []);
@@ -32,6 +53,7 @@ const Profile: React.FC = () => {
       if (status.Errors) {
         setErrors(status.Errors);
       } else {
+        services.apiClient.getProfile().then(data => setProfile(prev => ({ ...prev, ...data })));
         services.toaster.show({
           message: status.Success,
           intent: Intent.SUCCESS
@@ -40,12 +62,35 @@ const Profile: React.FC = () => {
     });
   }, [profile, services]);
 
+  const addLink = useCallback(() => {
+    profile.SocialLinks.push('');
+    set('SocialLinks', profile.SocialLinks);
+  }, [profile, services]);
+
+  const setLink = useCallback(
+    (index, val) => {
+      profile.SocialLinks[index] = val;
+      set('SocialLinks', profile.SocialLinks);
+    },
+    [profile, services]
+  );
+
+  const deleteLink = useCallback(
+    index => {
+      profile.SocialLinks.splice(index, 1);
+      set('SocialLinks', profile.SocialLinks);
+    },
+    [profile, services]
+  );
+
   return (
     <Page>
       <Overlay isOpen={isSaving} className="loading-overlay">
         <Spinner intent={Intent.PRIMARY} className="loading-overlay__spinner" />
       </Overlay>
-      <div className="story-fields">
+
+      <div className="story-fields profile">
+        <H2>Мой профиль</H2>
         <Label className="bp3-inline story-field story-field--inline">
           <span className="story-field__label-text">Имя</span>
           <Validatable error={errors.Username}>
@@ -83,6 +128,27 @@ const Profile: React.FC = () => {
             />
           </Validatable>
         </Label>
+        <FormGroup className="bp3-inline story-field story-field--inline social-links">
+          <span className="story-field__label-text">Мои контакты в соц сетях</span>
+          <Button intent={Intent.SUCCESS} icon="add" onClick={addLink}>
+            Добавить
+          </Button>
+          <ControlGroup vertical={true}>
+            {(profile.SocialLinks ?? []).map((x, idx) => (
+              <Validatable key={idx} error={errors.SocialLinks ? errors.SocialLinks[idx] : undefined}>
+                <InputGroup
+                  key={idx}
+                  placeholder="https://facebook.com/..."
+                  value={x}
+                  onChange={(evt: React.FormEvent<HTMLInputElement>) => setLink(idx, evt.currentTarget.value)}
+                  rightElement={
+                    <Button intent={Intent.DANGER} minimal={true} icon="trash" onClick={() => deleteLink(idx)}></Button>
+                  }
+                />
+              </Validatable>
+            ))}
+          </ControlGroup>
+        </FormGroup>
 
         <Button intent={Intent.PRIMARY} onClick={save}>
           Сохранить

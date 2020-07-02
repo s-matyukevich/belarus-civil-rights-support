@@ -1,0 +1,16 @@
+.profile {
+    padding-top: 50px;
+    .social-links  {
+        width: 100%;
+        .bp3-button {
+            height: 30;
+            margin-bottom:10px;
+        }
+        .bp3-form-content {
+            .bp3-input-group {
+                width: 100%;
+            }
+            width: 100%;
+        }
+    }
+}

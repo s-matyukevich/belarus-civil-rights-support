@@ -1,14 +1,6 @@
 import Page from '../app/Page';
 import React, { useState, useCallback, useContext, useEffect } from 'react';
-import {
-  H3,
-  Label,
-  Classes,
-  Button,
-  Intent,
-  Overlay,
-  Spinner
-} from '@blueprintjs/core';
+import { H3, Label, Classes, Button, Intent, Overlay, Spinner } from '@blueprintjs/core';
 import './AddStory.css';
 import cn from 'classnames';
 import { useReferenceDataSelectors } from '../common/hooks';

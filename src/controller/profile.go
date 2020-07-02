@@ -3,6 +3,7 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/go-playground/validator/v10"
@@ -26,6 +27,7 @@ func GetProfile(ctx *Context) (interface{}, error) {
 	}
 	model := profile.User{}
 	utils.Map(&user, &model)
+	model.SocialLinks = []string{}
 	if user.SocialLinks != "" {
 		err := json.Unmarshal([]byte(user.SocialLinks), &model.SocialLinks)
 		if err != nil {
@@ -53,18 +55,59 @@ func SaveProfile(ctx *Context) (interface{}, error) {
 	}
 	ctx.Logger.Sugar().Debugw("Save profile input", "model", model)
 	err = ctx.Validator.Struct(&model)
+	res := api_models.Status{Errors: make(map[string]interface{})}
 	if err != nil {
 		errs := err.(validator.ValidationErrors)
-		res := api_models.Status{Errors: make(map[string]string)}
 		for _, e := range errs {
 			res.Errors[e.Field()] = e.Translate(ctx.Translator)
 		}
-		return res, nil
 	}
 	utils.Map(&model, &user)
+	if model.SocialLinks != nil {
+		filteredLinks := []string{}
+		invalid := false
+		errors := []string{}
+		for _, link := range model.SocialLinks {
+			if link == "" {
+				continue
+			}
+			if !isValidUrl(link) {
+				invalid = true
+				errors = append(errors, "Некорректная ссылка")
+			} else {
+				errors = append(errors, "")
+				filteredLinks = append(filteredLinks, link)
+			}
+		}
+		if invalid {
+			res.Errors["SocialLinks"] = errors
+		}
+		if len(res.Errors) > 0 {
+			return res, nil
+		}
+		links, err := json.Marshal(filteredLinks)
+		if err != nil {
+			return nil, err
+		}
+		user.SocialLinks = string(links)
+	}
 	if err := ctx.Db.Save(&user).Error; err != nil {
 		return nil, err
 	}
 
 	return api_models.Status{Success: "Изменения успешно сохранены"}, nil
+}
+
+func isValidUrl(toTest string) bool {
+	_, err := url.ParseRequestURI(toTest)
+	if err != nil {
+		return false
+	}
+
+	u, err := url.Parse(toTest)
+	if err != nil || u.Scheme == "" || u.Host == "" {
+		return false
+	}
+
+	return true
 }
