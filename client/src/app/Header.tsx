@@ -31,7 +31,7 @@ const Header: React.FC = ({ children }) => {
       <Popover
         content={
           <Menu>
-            <Menu.Item text="Пройал" icon={IconNames.SAVED} onClick={() => openPage('/profile')} />
+            <Menu.Item text="Профиль" icon={IconNames.SAVED} onClick={() => openPage('/profile')} />
             <Menu.Item text="Мои истории" icon={IconNames.LIST} onClick={() => openPage('/my-stories')} />
             <Menu.Item text="Выйти" icon={IconNames.LOG_OUT} onClick={logout} />
           </Menu>
