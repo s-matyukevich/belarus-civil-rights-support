@@ -6,6 +6,7 @@ import StoriesPage from '../stories/StoriesPage';
 import LoggedUserProvider from '../login/LoggedUserProvider';
 import StoryPage from '../storyDetails/StoryPage';
 import Profile from '../profile/Profile';
+import MyStories from '../myStories/MyStories';
 
 const App: React.FC = () => (
   <div className="app">
@@ -16,6 +17,7 @@ const App: React.FC = () => (
           <Route path="/edit-story/:id" component={AddStory} />
           <Route path="/story/:id" component={StoryPage} />
           <Route path="/profile" component={Profile} />
+          <Route path="/my-stories" component={MyStories} />
           <Route path="/" component={StoriesPage} />
         </Switch>
       </HashRouter>

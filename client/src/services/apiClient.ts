@@ -8,7 +8,8 @@ import {
   StoryModel,
   Status,
   Vote,
-  ProfileModel
+  ProfileModel,
+  MyStoryModel
 } from '../model';
 import querystring from 'query-string';
 
@@ -62,6 +63,11 @@ export default class ApiClient {
 
   public async getStoryDetails(id: number): Promise<StoryDetails> {
     const response = await fetch(`${this.apiBasePath}/story/details?id=` + id);
+    return response.json();
+  }
+
+  public async getMyStories(): Promise<MyStoryModel[]> {
+    const response = await fetch(`${this.apiBasePath}/my-stories`);
     return response.json();
   }
   // TODO memoize

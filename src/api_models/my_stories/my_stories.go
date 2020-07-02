@@ -1,6 +1,6 @@
 package my_stories
 
 type StoryInfo struct {
-	Id    uint
+	ID    uint
 	Title string
 }

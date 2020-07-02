@@ -102,3 +102,8 @@ export type ProfileModel = {
   Phone: string;
   SocialLinks: string[];
 };
+
+export type MyStoryModel = {
+  ID: number;
+  Title: string;
+};
