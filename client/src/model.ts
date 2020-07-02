@@ -62,7 +62,7 @@ export type StoryModel = {
   CityID?: number;
 };
 
-type StoryDetails = {
+export type StoryDetails = {
   ID: number;
   Title: string;
   Description: string;
