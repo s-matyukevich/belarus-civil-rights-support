@@ -7,6 +7,7 @@ import { getYoutubeVideoId } from '../common/utils';
 import YouTube from 'react-youtube';
 import './StoryDetails.css';
 import Votes from '../common/Votes';
+import Share from '../common/Share';
 
 const leftColumnWidth = '650px';
 
@@ -30,6 +31,7 @@ const StoryPage: React.FC = () => {
       <div className="story-details">
         <div className="story-details__left-column" style={{ width: leftColumnWidth }}>
           {videoId ? <YouTube videoId={videoId} opts={{ width: leftColumnWidth }} /> : null}
+          <Share url={`/#/story/${story!.ID}`} />
           <Votes
             storyId={story!.ID}
             initialVote={{

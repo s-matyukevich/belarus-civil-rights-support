@@ -2,6 +2,7 @@ import YouTube from 'react-youtube';
 import React, { useMemo, useCallback } from 'react';
 import { Button, Card, H3, Intent } from '@blueprintjs/core';
 import Votes from '../common/Votes';
+import Share from '../common/Share';
 import { Story } from '../model';
 import { getYoutubeVideoId } from '../common/utils';
 import { useHistory } from 'react-router-dom';
@@ -49,6 +50,7 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
             UserDownvoted: story.UserDownvoted
           }}
         />
+        <Share url={`/#/story/${story.ID}`} />
       </div>
     </Card>
   );

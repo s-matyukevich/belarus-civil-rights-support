@@ -3,12 +3,17 @@ package middleware
 import (
 	"net/http"
 	"net/http/httputil"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func ReverseProxy(target string) gin.HandlerFunc {
 	return func(c *gin.Context) {
+		if strings.HasPrefix(c.Request.URL.Path, "/images") {
+			c.Next()
+			return
+		}
 		director := func(req *http.Request) {
 			req.URL.Scheme = "http"
 			req.URL.Host = target

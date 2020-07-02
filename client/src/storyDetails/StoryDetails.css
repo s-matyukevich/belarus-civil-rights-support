@@ -9,11 +9,16 @@
     margin-right: 15px;
   }
   .story-details__left-column &__description {
-    margin-top: 35px;
+    margin-top: 55px;
+  }
+
+  .sosial-network-share {
+    float: left;
+    margin-top: 10px;
   }
   .story-info__social {
     float: right;
-    margin: 10px;
+    margin-top: 15px;
   }
 
   h5 {

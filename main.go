@@ -64,6 +64,7 @@ func main() {
 	controller.SetRoutes(router)
 	if config.UIProxyDomain != "" {
 		router.Use(middleware.ReverseProxy(config.UIProxyDomain))
+		router.Use(static.Serve("/images", static.LocalFile("static/images", false)))
 	} else {
 		router.Use(static.Serve("/", static.LocalFile("static", false)))
 	}
