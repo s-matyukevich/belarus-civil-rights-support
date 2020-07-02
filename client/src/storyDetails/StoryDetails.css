@@ -8,6 +8,22 @@
   &__left-column {
     margin-right: 15px;
   }
+  &__social {
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 200px;
+      a {
+        line-height: 25px;
+        svg {
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
   .story-details__left-column &__description {
     margin-top: 55px;
   }

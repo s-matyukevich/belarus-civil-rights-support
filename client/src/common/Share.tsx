@@ -22,7 +22,7 @@ const Share: React.FC<{ url: string }> = ({ url }) => {
   };
 
   return (
-    <div className="sosial-network-share">
+    <div className="sosial-network-share" onClick={evt => evt.stopPropagation()}>
       <FacebookShareButton url={getUrl()}>
         <FacebookIcon size={25} borderRadius={15} />
       </FacebookShareButton>
