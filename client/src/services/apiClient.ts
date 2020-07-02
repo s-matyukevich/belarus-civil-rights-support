@@ -1,4 +1,15 @@
-import { LoginProvider, ReferenceData, Story, StoryDetails, Filters, User, StoryModel, Status, Vote } from '../model';
+import {
+  LoginProvider,
+  ReferenceData,
+  Story,
+  StoryDetails,
+  Filters,
+  User,
+  StoryModel,
+  Status,
+  Vote,
+  ProfileModel
+} from '../model';
 import querystring from 'query-string';
 
 export default class ApiClient {
@@ -44,6 +55,11 @@ export default class ApiClient {
     return response.json();
   }
 
+  public async getProfile(): Promise<ProfileModel> {
+    const response = await fetch(`${this.apiBasePath}/profile/get`);
+    return response.json();
+  }
+
   public async getStoryDetails(id: number): Promise<StoryDetails> {
     const response = await fetch(`${this.apiBasePath}/story/details?id=` + id);
     return response.json();
@@ -69,6 +85,18 @@ export default class ApiClient {
     const response = await fetch(`${this.apiBasePath}/add-story/save`, {
       method: 'POST',
       body: JSON.stringify(story),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return response.json();
+  }
+
+  public async saveProfile(profile: ProfileModel): Promise<Status> {
+    const response = await fetch(`${this.apiBasePath}/profile/save`, {
+      method: 'POST',
+      body: JSON.stringify(profile),
       headers: {
         'Content-Type': 'application/json'
       }

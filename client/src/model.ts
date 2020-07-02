@@ -93,3 +93,12 @@ export type Vote = {
   Upvotes: number;
   Downvotes: number;
 };
+
+export type ProfileModel = {
+  ID: number;
+  Username: string;
+  ImageURL: string;
+  Email: string;
+  Phone: string;
+  SocialLinks: string[];
+};

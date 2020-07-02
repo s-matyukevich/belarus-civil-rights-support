@@ -59,4 +59,6 @@ func SetRoutes(router *gin.Engine) {
 
 	router.GET("/story/details", wrapper(GetStoryDetails))
 
+	router.GET("/profile/get", wrapper(GetProfile))
+	router.POST("/profile/save", wrapper(SaveProfile))
 }

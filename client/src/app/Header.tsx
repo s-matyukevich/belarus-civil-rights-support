@@ -1,6 +1,7 @@
 import { Alignment, Classes, Menu, Navbar, Popover } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import LoggedUserContext from '../login/loggedUserContext';
@@ -15,6 +16,9 @@ export const AddStoryButton: React.FC = () => (
 const Header: React.FC = ({ children }) => {
   const { loggedUser, logout } = useContext(LoggedUserContext);
 
+  const history = useHistory();
+  const openPage = useCallback((page: string) => history.push(page), []);
+
   const userContent = loggedUser ? (
     <>
       {children ? (
@@ -27,6 +31,8 @@ const Header: React.FC = ({ children }) => {
       <Popover
         content={
           <Menu>
+            <Menu.Item text="Пройал" icon={IconNames.SAVED} onClick={() => openPage('/profile')} />
+            <Menu.Item text="Мои истории" icon={IconNames.LIST} onClick={() => openPage('/my-stories')} />
             <Menu.Item text="Выйти" icon={IconNames.LOG_OUT} onClick={logout} />
           </Menu>
         }

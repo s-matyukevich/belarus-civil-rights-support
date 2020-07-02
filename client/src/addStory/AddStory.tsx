@@ -5,10 +5,7 @@ import {
   Label,
   Classes,
   Button,
-  Tooltip,
   Intent,
-  Position,
-  //  setHotkeysDialogProps,
   Overlay,
   Spinner
 } from '@blueprintjs/core';
@@ -17,6 +14,7 @@ import cn from 'classnames';
 import { useReferenceDataSelectors } from '../common/hooks';
 import { StoryModel } from '../model';
 import CommonMultiselect from '../common/CommonMultiselect';
+import Validatable from '../common/Validatable';
 import ServicesContext from '../services/servicesContext';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
@@ -29,16 +27,6 @@ const newStory: StoryModel = {
   HelpInstructions: '',
   VideoUrl: '',
   CityID: undefined
-};
-
-const Validatable: React.FC<{ error?: string }> = ({ error, children }) => {
-  return error ? (
-    <Tooltip content={error} position={Position.RIGHT} intent={Intent.DANGER} isOpen={true}>
-      {children}
-    </Tooltip>
-  ) : (
-    (children as any)
-  );
 };
 
 type ValidatonErrors = Partial<Record<keyof StoryModel, string>>;
