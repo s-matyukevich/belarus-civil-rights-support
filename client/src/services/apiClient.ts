@@ -1,4 +1,4 @@
-import { LoginProvider, ReferenceData, Story, Filters, User, StoryModel, Status, Vote } from '../model';
+import { LoginProvider, ReferenceData, Story, StoryDetails, Filters, User, StoryModel, Status, Vote } from '../model';
 import querystring from 'query-string';
 
 export default class ApiClient {
@@ -41,6 +41,11 @@ export default class ApiClient {
       });
     }
     const response = await fetch(`${this.apiBasePath}/add-story/get?id=` + id);
+    return response.json();
+  }
+
+  public async getStoryDetails(id: number): Promise<StoryDetails> {
+    const response = await fetch(`${this.apiBasePath}/story/details?id=` + id);
     return response.json();
   }
   // TODO memoize

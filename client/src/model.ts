@@ -62,6 +62,25 @@ export type StoryModel = {
   CityID?: number;
 };
 
+type StoryDetails = {
+  ID: number;
+  Title: string;
+  Description: string;
+  VideoUrl: string;
+  HelpInstructions: string;
+  Username: string;
+  ImageURL: string;
+  Email: string;
+  Phone: string;
+  SocialLinks: string[];
+  City: string;
+  Categories: string[];
+  UserUpvoted: boolean;
+  UserDownvoted: boolean;
+  Upvotes: number;
+  Downvotes: number;
+};
+
 export type Status = {
   ID: number;
   Errors: Record<string, string> | null;

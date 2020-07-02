@@ -10,6 +10,9 @@ import (
 )
 
 func TestGetStoryDetails(t *testing.T) {
+	type QueryParams struct {
+		Id int `url:"id"`
+	}
 	cases := []Testcase{
 		{
 			Title: "I can get story details by id",
@@ -38,7 +41,7 @@ func TestGetStoryDetails(t *testing.T) {
 					},
 				},
 			},
-			Query: struct{ Id int }{Id: 2},
+			Query: QueryParams{Id: 2},
 			Expected: storymodel.Story{
 				ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", City: "city1", HelpInstructions: "i2", Categories: []string{"category2", "category3"},
 				Username: "user1", Email: "e1", Phone: "p1", ImageURL: "image1", SocialLinks: []string{"link1", "link2"}, Upvotes: 10, Downvotes: 3,

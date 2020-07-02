@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"strconv"
 
 	storymodel "github.com/s-matyukevich/belarus-civil-rights-support/src/api_models/story"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/domain"
@@ -9,10 +10,14 @@ import (
 )
 
 func GetStoryDetails(ctx *Context) (interface{}, error) {
-	id := ctx.GinCtx.Query("Id")
+	strID := ctx.GinCtx.Query("id")
+	id, err := strconv.Atoi(strID)
+	if err != nil {
+		return nil, err
+	}
 
 	story := domain.Story{}
-	err := ctx.Db.First(&story, id).Error
+	err = ctx.Db.First(&story, id).Error
 	if err != nil {
 		return nil, err
 	}
@@ -49,6 +54,7 @@ func GetStoryDetails(ctx *Context) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
+	model.Categories = make([]string, 0)
 	for _, c := range categories {
 		model.Categories = append(model.Categories, c.Title)
 	}

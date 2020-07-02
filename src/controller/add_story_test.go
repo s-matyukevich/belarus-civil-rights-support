@@ -12,6 +12,9 @@ import (
 )
 
 func TestGetStory(t *testing.T) {
+	type QueryParams struct {
+		Id int `url:"id"`
+	}
 	cityID := uint(1)
 	cases := []Testcase{
 		{
@@ -37,7 +40,7 @@ func TestGetStory(t *testing.T) {
 					},
 				},
 			},
-			Query:    struct{ Id int }{Id: 2},
+			Query:    QueryParams{Id: 2},
 			Expected: add_story.Story{ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", CityID: &cityID, Categories: []uint{2, 3}},
 		},
 	}
