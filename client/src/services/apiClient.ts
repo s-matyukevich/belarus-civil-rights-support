@@ -99,6 +99,14 @@ export default class ApiClient {
     return response.json();
   }
 
+  public async deleteStory(id: number): Promise<Status> {
+    const response = await fetch(`${this.apiBasePath}/my-stories/delete?id=` + id, {
+      method: 'POST'
+    });
+
+    return response.json();
+  }
+
   public async saveProfile(profile: ProfileModel): Promise<Status> {
     const response = await fetch(`${this.apiBasePath}/profile/save`, {
       method: 'POST',

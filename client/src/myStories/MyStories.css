@@ -1,0 +1,7 @@
+.my-stories {
+    padding-top: 50px;
+    width: 50%;
+    .bp3-tree-node {
+        cursor: pointer;
+    }
+}

@@ -63,4 +63,5 @@ func SetRoutes(router *gin.Engine) {
 	router.POST("/profile/save", wrapper(SaveProfile))
 
 	router.GET("/my-stories", wrapper(MyStories))
+	router.POST("/my-stories/delete", wrapper(DeleteStory))
 }
