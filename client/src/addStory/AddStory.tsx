@@ -33,7 +33,7 @@ const AddStory: React.FC = () => {
   const [story, setStory] = useState(newStory);
   useEffect(() => {
     services.apiClient.getStoryModel(id).then(remoteStory => setStory(prev => ({ ...prev, ...remoteStory })));
-  }, []);
+  }, [id]);
 
   const set = useCallback((field: keyof StoryModel, value: any) => {
     setStory(previousStory => ({ ...previousStory, [field]: value }));
