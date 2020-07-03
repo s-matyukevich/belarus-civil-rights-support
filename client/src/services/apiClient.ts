@@ -49,7 +49,8 @@ export default class ApiClient {
         Description: '',
         HelpInstructions: '',
         VideoUrl: '',
-        CityID: 0
+        CityID: 0,
+        IsDraft: false,
       });
     }
     const response = await fetch(`${this.apiBasePath}/add-story/get?id=` + id);

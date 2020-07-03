@@ -18,7 +18,8 @@ const newStory: StoryModel = {
   Description: '',
   HelpInstructions: '',
   VideoUrl: '',
-  CityID: undefined
+  CityID: undefined,
+  IsDraft: false
 };
 
 type ValidatonErrors = Partial<Record<keyof StoryModel, string>>;
@@ -64,7 +65,7 @@ const AddStory: React.FC = () => {
       <Overlay isOpen={isSaving} className="loading-overlay">
         <Spinner intent={Intent.PRIMARY} className="loading-overlay__spinner" />
       </Overlay>
-      <H3>Новая история</H3>
+      <H3>История</H3>
       <div className="story-fields">
         <Label className="bp3-inline story-field story-field--inline">
           <span className="story-field__label-text">Ссылка на Youtube видеo</span>
@@ -146,13 +147,24 @@ const AddStory: React.FC = () => {
             />
           </Validatable>
         </Label>
+
+        <Label className="bp3-inline story-field--inline">
+          <span className="story-field__label-text">Не публиковать историю</span>
+          <input
+            type="checkbox"
+            checked={story.IsDraft}
+            onChange={evt => {
+              set('IsDraft', evt.target.checked);
+            }}
+          />
+        </Label>
         <Callout intent={Intent.WARNING} icon="warning-sign" title={'Не забудьте обновить свои котактные данные!'}>
           Чтобы другие люди могли связаться с Вами, пожалуйста, обновите контактную информацию на странице своего{' '}
           <a href="/#/profile">профиля</a>
         </Callout>
         <div className={Classes.DIALOG_FOOTER_ACTIONS}>
           <Button intent={Intent.PRIMARY} onClick={publish}>
-            Опубликовать историю
+            Сохранить историю
           </Button>
           {story.ID ? (
             <Button intent={Intent.NONE} onClick={() => history.push(`/story/${story.ID}`)}>

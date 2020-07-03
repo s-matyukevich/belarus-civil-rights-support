@@ -15,7 +15,7 @@ const leftColumnWidth = '650px';
 const LongText: React.FC<{ text: string }> = ({ text }) => (
   <div className="story-details__description">
     {text.split('\n').map(line => (
-      <p key={line}>{line}</p>
+      <p>{line}</p>
     ))}
   </div>
 );

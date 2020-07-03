@@ -7,5 +7,6 @@ type Story struct {
 	VideoUrl         string `validate:"required,max=500"`
 	HelpInstructions string `validate:"required,max=20000"`
 	CityID           *uint
+	IsDraft          bool
 	Categories       []uint `validate:"required,min=1"`
 }

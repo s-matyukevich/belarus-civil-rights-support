@@ -60,6 +60,7 @@ export type StoryModel = {
   HelpInstructions: string;
   Categories: number[];
   CityID?: number;
+  IsDraft: boolean;
 };
 
 export type StoryDetails = {

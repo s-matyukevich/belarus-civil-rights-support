@@ -34,7 +34,7 @@ func GetStories(ctx *Context) (interface{}, error) {
 		return nil, err
 	}
 
-	query := ctx.Db.Table("stories")
+	query := ctx.Db.Table("stories").Where("is_draft = 0 OR is_draft IS NULL")
 
 	if filters.Search != "" {
 		query = query.Where("title LIKE ? OR description LIKE ?", "%"+filters.Search+"%", "%"+filters.Search+"%")

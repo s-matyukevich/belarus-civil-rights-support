@@ -19,5 +19,6 @@ type Story struct {
 	City             *City
 	CityID           *uint
 	User             User
+	IsDraft          bool
 	UserID           uint `gorm:"not null"`
 }
