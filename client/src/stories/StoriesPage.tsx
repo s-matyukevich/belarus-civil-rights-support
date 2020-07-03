@@ -21,7 +21,7 @@ const Stories: React.FC = () => {
   const [stories, setStories] = useState<Story[]>([]);
   const [reachedBottom, setReachedBottom] = useState<boolean>(false);
 
-  const updateStories = (f: Filters, clearStories: bool) => {
+  const updateStories = (f: Filters, clearStories: boolean) => {
     services.apiClient.getStories(f).then(remoteStories => {
       if (!remoteStories) {
         setReachedBottom(true);
@@ -29,12 +29,25 @@ const Stories: React.FC = () => {
       if (clearStories) {
         setStories(remoteStories);
       } else {
-        setStories([...stories, ...remoteStories]);
+        if (remoteStories) {
+          setStories([...stories, ...remoteStories]);
+        }
       }
     });
   };
 
-  useEffect(() => updateStories(filters, true), []);
+  useEffect(() => {
+    const emptyFilters = {
+      Page: 0,
+      Search: '',
+      Categories: [],
+      Cities: [],
+      SortColumn: '',
+      SortDirection: ''
+    };
+    setFilters(emptyFilters);
+    updateStories(emptyFilters, true);
+  }, []);
 
   return (
     <Page headerContent={<AddStoryButton />}>

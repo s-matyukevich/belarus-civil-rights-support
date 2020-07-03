@@ -5,9 +5,9 @@
   flex: 0 0 auto;
   .bp3-control-group {
     min-width: 15%;
-    margin: 20 20;
+    margin: 20px 20px;
     .bp3-label {
-      margin-right: 5;
+      margin-right: 5px;
       word-wrap: none;
     }  
   }

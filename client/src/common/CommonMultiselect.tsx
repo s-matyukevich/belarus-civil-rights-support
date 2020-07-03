@@ -37,7 +37,7 @@ const CommonMultiselect: React.FC<{
     setSelectedItems(_ => {
       return selectedIds.map(id => items.find(element => element.value === id)).filter(notUndefined);
     });
-  }, [selectedIds]);
+  }, [selectedIds, items]);
 
   function handleClear() {
     updateSelectedItems([]);

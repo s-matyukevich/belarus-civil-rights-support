@@ -6,6 +6,7 @@ import cn from 'classnames';
 import { useReferenceDataSelectors } from '../common/hooks';
 import { StoryModel } from '../model';
 import CommonMultiselect from '../common/CommonMultiselect';
+import CommonEditor from '../common/CommonEditor';
 import Validatable from '../common/Validatable';
 import ServicesContext from '../services/servicesContext';
 import { useHistory } from 'react-router-dom';
@@ -96,22 +97,17 @@ const AddStory: React.FC = () => {
         <Label className="story-field">
           <span className="story-field__label-text">Описание</span>
           <Validatable error={errors.Description}>
-            <textarea
-              className={cn(Classes.INPUT, 'story-field__editor')}
-              value={story.Description}
-              onChange={evt => set('Description', evt.target.value)}
-            />
+            <CommonEditor content={story.Description} onChange={content => set('Description', content)}></CommonEditor>
           </Validatable>
         </Label>
 
         <Label className="story-field">
           <span className="story-field__label-text">Как мне можно помочь</span>
           <Validatable error={errors.HelpInstructions}>
-            <textarea
-              className={cn(Classes.INPUT, 'story-field__editor')}
-              value={story.HelpInstructions}
-              onChange={evt => set('HelpInstructions', evt.target.value)}
-            />
+            <CommonEditor
+              content={story.HelpInstructions}
+              onChange={content => set('HelpInstructions', content)}
+            ></CommonEditor>
           </Validatable>
         </Label>
 

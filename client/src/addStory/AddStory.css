@@ -26,9 +26,11 @@
   }
 
   &__label-text {
+    font-weight: bold;
     flex: 0 0 auto;
     width: 200px;
     display: inline-block;
+    margin-bottom: 10px;
   }
 
   textarea {

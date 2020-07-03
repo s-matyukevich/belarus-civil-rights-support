@@ -13,11 +13,7 @@ import { FacebookIcon, VKIcon, OKIcon } from 'react-share';
 const leftColumnWidth = '650px';
 
 const LongText: React.FC<{ text: string }> = ({ text }) => (
-  <div className="story-details__description">
-    {text.split('\n').map(line => (
-      <p>{line}</p>
-    ))}
-  </div>
+  <div className="story-details__description" dangerouslySetInnerHTML={{ __html: text }}></div>
 );
 
 const StoryPage: React.FC = () => {

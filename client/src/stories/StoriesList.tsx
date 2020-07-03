@@ -26,7 +26,7 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
 
       <div className="story-info__description" style={{ maxHeight: contentHeight }}>
         <H3>{story.Title}</H3>
-        <p className="story-info__description__text">{story.Description}</p>
+        <p className="story-info__description__text" dangerouslySetInnerHTML={{ __html: story.Description }}></p>
       </div>
 
       <div className="story-info__controls">

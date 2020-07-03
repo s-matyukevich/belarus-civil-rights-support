@@ -31,6 +31,7 @@
     "@blueprintjs/core": "^3.29.0",
     "@blueprintjs/icons": "^3.19.0",
     "@blueprintjs/select": "^3.13.4",
+    "@tinymce/tinymce-react": "^3.6.0",
     "@types/query-string": "^6.3.0",
     "classnames": "^2.2.6",
     "react": "^16.13.1",
