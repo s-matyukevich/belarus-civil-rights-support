@@ -1,7 +1,8 @@
 import Page from '../app/Page';
 import React, { useState, useCallback, useContext, useEffect } from 'react';
-import { H3, Label, Classes, Button, Intent, Overlay, Spinner, Callout } from '@blueprintjs/core';
+import { H3, Label, Classes, Button, Intent, Overlay, Spinner, Callout} from '@blueprintjs/core';
 import './AddStory.css';
+import InstructionsDialog from './InstructionsDialog';
 import cn from 'classnames';
 import { useReferenceDataSelectors } from '../common/hooks';
 import { StoryModel } from '../model';
@@ -33,6 +34,8 @@ const AddStory: React.FC = () => {
   const history = useHistory();
   const { id } = useParams();
   const [story, setStory] = useState(newStory);
+  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
+
   useEffect(() => {
     services.apiClient.getStoryModel(id).then(remoteStory => setStory(prev => ({ ...prev, ...remoteStory })));
   }, [id]);
@@ -110,6 +113,32 @@ const AddStory: React.FC = () => {
             ></CommonEditor>
           </Validatable>
         </Label>
+        <Callout intent={Intent.WARNING} icon="warning-sign" title={'Для тех кто нуждается в финансовой поддержке'}>
+          Если вам нужна помощь в создании своих платежных реквизитов, пожалуйста, прочтите нашу{' '}
+          <a onClick={() => setDialogIsOpen(true)} href="javascript:void(0)">
+            инструкцию
+          </a>
+          . Так же обращаем ваше внимание, что если вы в течение года получите сумму превышающую <b>6569 BYN</b>, то вам
+          необходимо будет заплатить с нее налог. Доходы полученные путем дарения не превышающие эту сумму, а так же
+          деньги подаренные близкими родственниками налоогом не облагаются. Подробности{' '}
+          <a
+            target="_blank"
+            href="https://infobank.by/infolinebigview/nalog-za-perevod-na-bankovskuyu-kartu-kto-i-skoljko-dolzhen-platitj/"
+          >
+            тут
+          </a>{' '}
+          и{' '}
+          <a target="_blank" href="http://xn----7sbgdhgzjccuobe2c0j.xn--90ais/statya-208">
+            тут
+          </a>
+          . Это же правило касается денег{' '}
+          <a
+            target="_blank"
+            href="http://www.nalog.gov.by/ru/m_publr_brest_ru/view/nalogooblozhenie-doxodov-fizicheskix-lits-poluchennyx-ot-istochnikov-za-predelami-respubliki-belarus-35280/"
+          >
+            полученных из-за границы
+          </a>
+        </Callout>
 
         <Label className="bp3-inline story-field story-field--inline">
           <span className="story-field__label-text">Город</span>
@@ -169,6 +198,7 @@ const AddStory: React.FC = () => {
           ) : null}
         </div>
       </div>
+      <InstructionsDialog dialogIsOpen={dialogIsOpen} setDialogIsOpen={setDialogIsOpen}></InstructionsDialog>
     </Page>
   );
 };

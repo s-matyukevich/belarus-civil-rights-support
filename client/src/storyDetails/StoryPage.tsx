@@ -1,4 +1,4 @@
-import { H1, H5, Checkbox } from '@blueprintjs/core';
+import { H1, H5, Checkbox} from '@blueprintjs/core';
 import React, { useMemo } from 'react';
 import Page from '../app/Page';
 import { useParams } from 'react-router-dom';
