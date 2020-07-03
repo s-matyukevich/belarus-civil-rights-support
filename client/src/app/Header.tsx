@@ -1,17 +1,41 @@
-import { Alignment, Classes, Menu, Navbar, Popover } from '@blueprintjs/core';
+import { Alignment, Classes, Menu, Navbar, Popover, ButtonGroup, Button, Intent, Card } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 import React, { useContext, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
 import LoggedUserContext from '../login/loggedUserContext';
 import { LoginButton } from '../login/LoginButton';
+import { FacebookIcon, VKIcon, OKIcon } from 'react-share';
 
-export const AddStoryButton: React.FC = () => (
-  <Link className={cn(Classes.BUTTON, Classes.INTENT_PRIMARY)} to="/add-story">
-    Добавить свою историю
-  </Link>
-);
+export const AddStoryButton: React.FC = () => {
+  const history = useHistory();
+  return (
+    <ButtonGroup minimal={false}>
+      <Popover
+        content={
+          <Card className="contact-menu" interactive={true}>
+            <h3>Наши контакты</h3>
+            <p>Для того чтобы связаться с нами Вы можете воспользоваться одной из наших груп в социальных сетях</p>
+            <a target="_blank" href="https://facebook.com">
+              <FacebookIcon size={25} borderRadius={15} />
+            </a>
+            <a target="_blank" href="https://facebook.com">
+              <VKIcon size={25} borderRadius={15} />
+            </a>
+            <a target="_blank" href="https://facebook.com">
+              <OKIcon size={25} borderRadius={15} />
+            </a>
+          </Card>
+        }
+      >
+        <Button rightIcon="caret-down">Связаться с нами</Button>
+      </Popover>
+      <Button className={Classes.BUTTON} intent={Intent.PRIMARY} onClick={() => history.push('/add-story')}>
+        Добавить свою историю
+      </Button>
+    </ButtonGroup>
+  );
+};
 
 const Header: React.FC = ({ children }) => {
   const { loggedUser, logout } = useContext(LoggedUserContext);
@@ -27,7 +51,8 @@ const Header: React.FC = ({ children }) => {
           <Navbar.Divider />
         </>
       ) : null}
-
+      <AddStoryButton />
+      <Navbar.Divider />
       <Popover
         content={
           <Menu>

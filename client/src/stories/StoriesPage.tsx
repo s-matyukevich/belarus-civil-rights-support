@@ -2,7 +2,6 @@ import StoriesFilter from './StoriesFilter';
 import React, { useContext, useState, useEffect } from 'react';
 import StoriesList from './StoriesList';
 import Page from '../app/Page';
-import { AddStoryButton } from '../app/Header';
 import { Filters, Story } from '../model';
 import ServicesContext from '../services/servicesContext';
 
@@ -50,7 +49,7 @@ const Stories: React.FC = () => {
   }, []);
 
   return (
-    <Page headerContent={<AddStoryButton />}>
+    <Page>
       <StoriesFilter
         filters={filters}
         onChange={f => {

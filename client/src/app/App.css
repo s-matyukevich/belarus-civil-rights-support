@@ -12,6 +12,13 @@ html, body, #root {
   height: 100%;
 }
 
+.contact-menu {
+  max-width: 400px;
+  svg {
+    margin: 5px;
+  }
+}
+
 .page {
   height: 100%;
   display: flex;
