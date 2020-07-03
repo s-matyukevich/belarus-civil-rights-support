@@ -1,6 +1,6 @@
 import Page from '../app/Page';
 import React, { useState, useCallback, useContext, useEffect } from 'react';
-import { H3, Label, Classes, Button, Intent, Overlay, Spinner } from '@blueprintjs/core';
+import { H3, Label, Classes, Button, Intent, Overlay, Spinner, Callout } from '@blueprintjs/core';
 import './AddStory.css';
 import cn from 'classnames';
 import { useReferenceDataSelectors } from '../common/hooks';
@@ -146,10 +146,20 @@ const AddStory: React.FC = () => {
             />
           </Validatable>
         </Label>
-
-        <Button intent={Intent.PRIMARY} onClick={publish}>
-          Опубликовать историю
-        </Button>
+        <Callout intent={Intent.WARNING} icon="warning-sign" title={'Не забудьте обновить свои котактные данные!'}>
+          Чтобы другие люди могли связаться с Вами, пожалуйста, обновите контактную информацию на странице своего{' '}
+          <a href="/#/profile">профиля</a>
+        </Callout>
+        <div className={Classes.DIALOG_FOOTER_ACTIONS}>
+          <Button intent={Intent.PRIMARY} onClick={publish}>
+            Опубликовать историю
+          </Button>
+          {story.ID ? (
+            <Button intent={Intent.NONE} onClick={() => history.push(`/story/${story.ID}`)}>
+                Просмотреть историю
+            </Button>
+          ) : null}
+        </div>
       </div>
     </Page>
   );

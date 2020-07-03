@@ -36,6 +36,10 @@
   }
 }
 
+.bp3-callout {
+  margin-bottom: 20px;
+}
+
 
 .loading-overlay {
   &__spinner {
