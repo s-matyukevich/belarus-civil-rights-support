@@ -2,7 +2,10 @@ package controller
 
 import (
 	"fmt"
+	"net/http"
+	"net/url"
 	"strconv"
+	"strings"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/go-playground/validator/v10"
@@ -57,12 +60,23 @@ func SaveStory(ctx *Context) (interface{}, error) {
 	}
 	ctx.Logger.Sugar().Debugw("Save story input", "model", model)
 	err := ctx.Validator.Struct(model)
+	res := api_models.Status{Errors: make(map[string]interface{})}
 	if err != nil {
 		errs := err.(validator.ValidationErrors)
-		res := api_models.Status{Errors: make(map[string]interface{})}
+
 		for _, e := range errs {
 			res.Errors[e.Field()] = e.Translate(ctx.Translator)
 		}
+	}
+
+	urlValidation := ""
+	if _, ok := res.Errors["VideoUrl"]; !ok {
+		if urlValidation = testUrl(model.VideoUrl); urlValidation != "" {
+			res.Errors["VideoUrl"] = urlValidation
+		}
+	}
+
+	if len(res.Errors) > 0 {
 		return res, nil
 	}
 
@@ -95,4 +109,30 @@ func SaveStory(ctx *Context) (interface{}, error) {
 		}
 	}
 	return api_models.Status{ID: story.ID, Success: "История успешно сохранена"}, nil
+}
+
+func testUrl(toTest string) string {
+	if !strings.HasPrefix(toTest, "https://www.youtube.com") {
+		return "Адрес должен начинаться с 'https://www.youtube.com'"
+	}
+
+	u, err := url.Parse(toTest)
+	if err != nil || u.Scheme == "" || u.Host == "" {
+		return "Некоректный адрес"
+	}
+
+	client := &http.Client{
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+	res, err := client.Head(toTest)
+	if err != nil {
+		panic(err)
+	}
+	if res.StatusCode != 200 {
+		return "Видео не доступно. Проверьте адрес и убедитесь что видео находится в открытом доступе"
+	}
+
+	return ""
 }
