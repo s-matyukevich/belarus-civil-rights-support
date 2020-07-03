@@ -48,7 +48,9 @@ const Header: React.FC = ({ children }) => {
     <Navbar className="header">
       <Navbar.Group>
         <Navbar.Heading>
-          <Link to="/">Dapamozham.by</Link>
+          <Link to="/">
+            <img src="/images/logo.png" height="100"></img>
+          </Link>
         </Navbar.Heading>
       </Navbar.Group>
 

@@ -19,7 +19,11 @@ html, body, #root {
 
   .header {
     flex: 0 0 auto;
+    height: 100px;;
     margin-bottom: 15px;
+    .bp3-navbar-group {
+      height: 100%;
+    }
 
     .avatar {
       border-radius: 50%;
