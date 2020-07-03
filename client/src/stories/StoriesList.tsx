@@ -1,6 +1,6 @@
 import YouTube from 'react-youtube';
 import React, { useMemo, useCallback } from 'react';
-import { Button, Card, H3, Intent } from '@blueprintjs/core';
+import { Button, Card, H3, Intent, NonIdealState } from '@blueprintjs/core';
 import Votes from '../common/Votes';
 import Share from '../common/Share';
 import { Story } from '../model';
@@ -70,6 +70,7 @@ const StoriesList: React.FC<{ stories: Story[] | null; onScroll: () => void }> =
       {(stories ?? []).map(story => (
         <StoryInfo story={story} key={story.ID} />
       ))}
+      {!stories ? <NonIdealState icon="search" title="По вашему запросу ничего не найдено" /> : null}
     </div>
   );
 };
