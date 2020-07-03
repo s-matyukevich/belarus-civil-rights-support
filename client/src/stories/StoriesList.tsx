@@ -56,9 +56,17 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
   );
 };
 
-const StoriesList: React.FC<{ stories: Story[] | null }> = ({ stories }) => {
+const StoriesList: React.FC<{ stories: Story[] | null; onScroll: () => void }> = ({ stories, onScroll }) => {
   return (
-    <div className="stories-list">
+    <div
+      className="stories-list"
+      onScroll={e => {
+        const element = e.currentTarget;
+        if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+          onScroll();
+        }
+      }}
+    >
       {(stories ?? []).map(story => (
         <StoryInfo story={story} key={story.ID} />
       ))}

@@ -6,25 +6,55 @@ import { AddStoryButton } from '../app/Header';
 import { Filters, Story } from '../model';
 import ServicesContext from '../services/servicesContext';
 
+const newFilter: Filters = {
+  Page: 0,
+  Search: '',
+  Categories: [],
+  Cities: [],
+  SortColumn: '',
+  SortDirection: ''
+};
+
 const Stories: React.FC = () => {
   const services = useContext(ServicesContext);
-  const [filters, setFilters] = useState<Filters>({} as Filters);
+  const [filters, setFilters] = useState<Filters>(newFilter);
   const [stories, setStories] = useState<Story[]>([]);
+  const [reachedBottom, setReachedBottom] = useState<boolean>(false);
 
-  useEffect(() => {
-    services.apiClient.getStories(filters).then(remoteStories => setStories(remoteStories));
-  }, []);
+  const updateStories = (f: Filters) => {
+    services.apiClient.getStories(f).then(remoteStories => {
+      if (!remoteStories) {
+        setReachedBottom(true);
+        return;
+      }
+      setStories([...stories, ...remoteStories]);
+    });
+  };
+
+  useEffect(() => updateStories(filters), []);
 
   return (
     <Page headerContent={<AddStoryButton />}>
       <StoriesFilter
         filters={filters}
         onChange={f => {
+          f.Page = 0;
+          setReachedBottom(false);
           setFilters(f);
-          services.apiClient.getStories(f).then(remoteStories => setStories(remoteStories));
+          updateStories(f);
         }}
       />
-      <StoriesList stories={stories} />
+      <StoriesList
+        stories={stories}
+        onScroll={() => {
+          if (!stories.length || reachedBottom) {
+            return;
+          }
+          filters.Page++;
+          setFilters(filters);
+          updateStories(filters);
+        }}
+      />
     </Page>
   );
 };
