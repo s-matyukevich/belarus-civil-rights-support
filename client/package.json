@@ -2,7 +2,6 @@
   "name": "belarus-civil-rights-support",
   "version": "1.0.0",
   "description": "The platform that supports civil rights initiatives in Belarus",
-  "main": "index.html",
   "scripts": {
     "start": "tsc && parcel serve ./src/index.html",
     "build": "parcel build ./src/index.html",
@@ -18,7 +17,7 @@
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
-    "parcel": "^2.0.0-beta.1",
+    "parcel": "2.0.0-beta.1",
     "postcss-nested": "^4.2.1",
     "prettier": "^2.0.5",
     "tslint": "^6.1.2",

@@ -1,0 +1,13 @@
+FROM node:14.4 as build-frontend
+WORKDIR /app
+
+COPY ./client/package.json ./client/package-lock.json ./
+RUN npm ci --no-progress
+
+COPY ./client/*.* ./
+COPY ./client/src ./src
+
+RUN npm run build
+
+# Assets in ./dist should be copied over to the "static" directory of the server
+# TODO build docker image from the server

@@ -1,0 +1,10 @@
+.git
+mysql-data
+
+client/dist
+client/node_modules
+client/.env.local
+client/dist
+
+**/.idea
+**/.vscode
