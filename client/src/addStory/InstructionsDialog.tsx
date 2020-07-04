@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Classes, Dialog, H5, Collapse } from '@blueprintjs/core';
+import SocialGroups from '../common/SocialGroups';
 
 const InstructionsContent: React.FC = () => {
-  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen1, setIsOpen1] = useState(true);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
 
@@ -12,7 +13,7 @@ const InstructionsContent: React.FC = () => {
         onClick={() => {
           setIsOpen1(true);
           setIsOpen2(false);
-          setIsOpen2(false);
+          setIsOpen3(false);
         }}
       >
         Переводы по номеру телефона внутри Беларуси
@@ -69,7 +70,7 @@ const InstructionsContent: React.FC = () => {
             WesternUnion
           </a>{' '}
           Отправитель сможет перечислить вам деньги онлайн на сайте WesternUnion. Для этого ему нужно будет указать ваше
-          Имя и Фамилию (как они у Вас написаны в паспорте) и страну отправления (Беларусь) WesternUnion предоставит
+          Имя и Фамилию (как они у Вас написаны в паспорте) и страну получателя (Беларусь) WesternUnion предоставит
           отправителю код платежа который он должен будет Вам переслать. Вам же, чтобы получить деньги, придется пройти
           в ближайшее{' '}
           <a target="_blank" href="https://yandex.by/maps/157/minsk/chain/western_union/65739431630/">
@@ -139,6 +140,11 @@ const InstructionsContent: React.FC = () => {
             </a>
           </li>
           <li>
+            <a target="_blank" href="https://myfin.by/wiki/term/elektronnyj-koshelek-easypay">
+              EasyPay
+            </a>
+          </li>
+          <li>
             <a target="_blank" href="https://finance.tut.by/news573536.html">
               Криптовалюта
             </a>{' '}
@@ -146,6 +152,10 @@ const InstructionsContent: React.FC = () => {
           </li>
         </ul>
       </Collapse>
+      <SocialGroups
+        header=""
+        text="Если Вам нужна помощь в добавлении платежных реквизитов вы можете задать вопрос в одной из наших групп"
+      ></SocialGroups>
 
       <br />
       <div className={Classes.DIALOG_FOOTER_ACTIONS}></div>

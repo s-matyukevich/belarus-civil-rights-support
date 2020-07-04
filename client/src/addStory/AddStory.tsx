@@ -1,6 +1,6 @@
 import Page from '../app/Page';
 import React, { useState, useCallback, useContext, useEffect } from 'react';
-import { H3, Label, Classes, Button, Intent, Overlay, Spinner, Callout} from '@blueprintjs/core';
+import { H3, Label, Classes, Button, Intent, Overlay, Spinner, Callout } from '@blueprintjs/core';
 import './AddStory.css';
 import InstructionsDialog from './InstructionsDialog';
 import cn from 'classnames';
@@ -114,11 +114,11 @@ const AddStory: React.FC = () => {
           </Validatable>
         </Label>
         <Callout intent={Intent.WARNING} icon="warning-sign" title={'Для тех кто нуждается в финансовой поддержке'}>
-          Если вам нужна помощь в создании своих платежных реквизитов, пожалуйста, прочтите нашу{' '}
+          Если Вам нужна помощь в создании своих платежных реквизитов, пожалуйста, прочтите нашу{' '}
           <a onClick={() => setDialogIsOpen(true)} href="javascript:void(0)">
             инструкцию
           </a>
-          . Так же обращаем ваше внимание, что если вы в течение года получите сумму превышающую <b>6569 BYN</b>, то вам
+          . Так же обращаем внимание, что если Вы в течение года получите сумму превышающую <b>6569 BYN</b>, то вам
           необходимо будет заплатить с нее налог. Доходы полученные путем дарения не превышающие эту сумму, а так же
           деньги подаренные близкими родственниками налоогом не облагаются. Подробности{' '}
           <a

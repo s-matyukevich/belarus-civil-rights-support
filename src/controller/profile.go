@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"regexp"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/go-playground/validator/v10"
@@ -62,6 +63,18 @@ func SaveProfile(ctx *Context) (interface{}, error) {
 			res.Errors[e.Field()] = e.Translate(ctx.Translator)
 		}
 	}
+	if model.Email != "" {
+		emailRegexp := regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+		if !emailRegexp.MatchString(model.Email) {
+			res.Errors["Email"] = "Некоректный емейл"
+		}
+	}
+	if model.Phone != "" {
+		phoneRegexp := regexp.MustCompile(`^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$`)
+		if !phoneRegexp.MatchString(model.Phone) {
+			res.Errors["Phone"] = "Телефон должен иметь формат: +375(29|25|44|33)XXXXXXX"
+		}
+	}
 	utils.Map(&model, &user)
 	if model.SocialLinks != nil {
 		filteredLinks := []string{}
@@ -82,14 +95,14 @@ func SaveProfile(ctx *Context) (interface{}, error) {
 		if invalid {
 			res.Errors["SocialLinks"] = errors
 		}
-		if len(res.Errors) > 0 {
-			return res, nil
-		}
 		links, err := json.Marshal(filteredLinks)
 		if err != nil {
 			return nil, err
 		}
 		user.SocialLinks = string(links)
+	}
+	if len(res.Errors) > 0 {
+		return res, nil
 	}
 	if err := ctx.Db.Save(&user).Error; err != nil {
 		return nil, err

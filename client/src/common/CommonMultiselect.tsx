@@ -1,4 +1,4 @@
-import { MenuItem, Button, Icon } from '@blueprintjs/core';
+import { MenuItem, Button } from '@blueprintjs/core';
 import { MultiSelect, Suggest, IItemRendererProps } from '@blueprintjs/select';
 import React, { useState, useCallback, useEffect } from 'react';
 import { Selectable } from './hooks';

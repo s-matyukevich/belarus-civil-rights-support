@@ -55,6 +55,9 @@ const MyStories: React.FC = () => {
       <div className="my-stories">
         <H2>Мои истории</H2>
         <Tree contents={items} onNodeClick={handleNodeClick} className={Classes.ELEVATION_0} />
+        <Button className={Classes.BUTTON} intent={Intent.PRIMARY} onClick={() => history.push('/add-story')}>
+          Добавить новую историю
+        </Button>
       </div>
       <Dialog isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <div className={Classes.DIALOG_BODY}>

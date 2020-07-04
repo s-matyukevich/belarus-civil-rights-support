@@ -1,0 +1,9 @@
+.contact-menu-header {
+    max-width: 400px;
+}
+
+.contact-menu {
+    svg {
+      margin: 5px;
+    }
+  }
