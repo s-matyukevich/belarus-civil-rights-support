@@ -35,12 +35,14 @@ export const LoginButton: React.FC = () => {
       <Button intent={Intent.PRIMARY} onClick={() => setDialogIsOpen(true)}>
         Войти
       </Button>
-      <Dialog isOpen={dialogIsOpen} onClose={() => setDialogIsOpen(false)} title="Вход">
+      <Dialog isOpen={dialogIsOpen} className="login-dialog" onClose={() => setDialogIsOpen(false)} title="Вход">
         <div className={Classes.DIALOG_BODY}>
           <p>Войдите через одну из социальных сетей, чтобы рассказать свою историю</p>
           {loginProviders.map(provider => (
-            <div key={provider.name}>
-              <Button onClick={() => loginViaProvider(provider)}>{provider.name}</Button>
+            <div key={provider.name} className="login-button">
+              <a href="javascript:void(0)" onClick={() => loginViaProvider(provider)}>
+                <img src={provider.image} alt={provider.name} />
+              </a>
             </div>
           ))}
         </div>

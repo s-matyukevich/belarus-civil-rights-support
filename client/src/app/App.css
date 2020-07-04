@@ -19,6 +19,16 @@ html, body, #root {
   }
 }
 
+.login-dialog {
+  width: 400px;
+  .login-button {
+    padding: 5px;
+    img {
+      height: 50px;
+    }
+  }
+}
+
 .page {
   height: 100%;
   display: flex;

@@ -14,7 +14,7 @@ db:
 
 oauth:
   facebook:
-    image: '/images/fb.png'
+    image: '/images/facebook-login.png'
     client_id: '' # need to figure out a good way to share secrets like this in a public repo, for now I'll just use dev-secret.yaml to store the config with secrets and add it to gitignore. This file will be used as a template
     client_secret: ''
     auth_url: 'https://www.facebook.com/dialog/oauth'
@@ -22,13 +22,13 @@ oauth:
     scopes:
       - 'email'
   vk:
-    image: 'images/vk.png'
+    image: 'images/vk-login.png'
     client_id: ''
     client_secret: ''
     auth_url: 'https://oauth.vk.com/authorize'
     token_url: 'https://oauth.vk.com/access_token'
   ok:
-    image: 'images/ok.png'
+    image: 'images/ok-login.png'
     client_id: ''
     client_secret: ''
     auth_url: 'https://connect.ok.ru/oauth/authorize'
