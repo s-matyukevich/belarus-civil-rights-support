@@ -1,15 +1,16 @@
-.stories-filter-container {
+.stories-filter {
   display: flex;
-  justify-content: space-between;
-  padding: 0 15px;
+  margin-bottom: 15px;
   flex: 0 0 auto;
-  .bp3-control-group {
-    min-width: 15%;
-    margin: 20px 20px;
-    .bp3-label {
-      margin-right: 5px;
-      word-wrap: none;
-    }  
+
+  &__attribute {
+    input {
+      min-width: 150px;
+    }
+
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
   }
 }
 

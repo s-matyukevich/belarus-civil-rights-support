@@ -1,4 +1,4 @@
-import { Alignment, Classes, Menu, Navbar, Popover, ButtonGroup, Button, Intent } from '@blueprintjs/core';
+import { Alignment, Classes, Menu, Navbar, Popover, ButtonGroup, Button, Intent, Icon } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 import React, { useContext, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -8,32 +8,29 @@ import { LoginButton } from '../login/LoginButton';
 import SocialGroups from '../common/SocialGroups';
 import { useLayout, Layout } from '../responsiveness/viewportContext';
 
+const ContactUsPopover: React.FC = ({ children }) => (
+  <Popover
+    content={
+      <SocialGroups
+        className="contact-menu-header"
+        header="Наши контакты"
+        text="Для того чтобы связаться с нами Вы можете воспользоваться одной из наших груп в социальных сетях"
+      ></SocialGroups>
+    }
+  >
+    {children}
+  </Popover>
+);
+
 export const AddStoryButton: React.FC = () => {
   const history = useHistory();
-  const layout = useLayout();
-  const iconsOnly = layout === Layout.Mobile;
   return (
     <ButtonGroup minimal={false}>
-      <Popover
-        content={
-          <SocialGroups
-            className="contact-menu-header"
-            header="Наши контакты"
-            text="Для того чтобы связаться с нами Вы можете воспользоваться одной из наших груп в социальных сетях"
-          ></SocialGroups>
-        }
-      >
-        <Button icon={iconsOnly ? 'chat' : undefined} rightIcon="caret-down">
-          {!iconsOnly && 'Связаться с нами'}
-        </Button>
-      </Popover>
-      <Button
-        icon={iconsOnly ? 'add' : undefined}
-        className={Classes.BUTTON}
-        intent={Intent.PRIMARY}
-        onClick={() => history.push('/add-story')}
-      >
-        {!iconsOnly && 'Добавить свою историю'}
+      <ContactUsPopover>
+        <Button rightIcon="caret-down">Связаться с нами</Button>
+      </ContactUsPopover>
+      <Button className={Classes.BUTTON} intent={Intent.PRIMARY} onClick={() => history.push('/add-story')}>
+        Добавить свою историю
       </Button>
     </ButtonGroup>
   );
@@ -45,19 +42,36 @@ const Header: React.FC = ({ children }) => {
   const history = useHistory();
   const openPage = useCallback((page: string) => history.push(page), []);
 
+  const layout = useLayout();
+  const isMobile = layout === Layout.Mobile;
+
   const userContent = loggedUser ? (
     <>
-      {children ? (
+      {!isMobile ? (
         <>
-          {children}
+          <AddStoryButton />
           <Navbar.Divider />
         </>
-      ) : null}
-      <AddStoryButton />
-      <Navbar.Divider />
+      ) : (
+        <>
+          <ContactUsPopover>
+            <Icon icon={IconNames.HELP} />
+          </ContactUsPopover>
+          <Navbar.Divider />
+        </>
+      )}
+
       <Popover
         content={
           <Menu>
+            {isMobile && (
+              <Menu.Item
+                icon={IconNames.ADD}
+                text="Добавить новую историю"
+                intent={Intent.PRIMARY}
+                onClick={() => openPage('/add-story')}
+              />
+            )}
             <Menu.Item text="Профиль" icon={IconNames.SAVED} onClick={() => openPage('/profile')} />
             <Menu.Item text="Мои истории" icon={IconNames.LIST} onClick={() => openPage('/my-stories')} />
             <Menu.Item text="Выйти" icon={IconNames.LOG_OUT} onClick={logout} />
