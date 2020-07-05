@@ -2,14 +2,21 @@
   display: flex;
   margin-bottom: 15px;
   flex: 0 0 auto;
+  justify-content: space-between;
 
   &__attribute {
-    input {
-      min-width: 150px;
+    .bp3-input {
+      min-width: 200px;
     }
 
     &:not(:last-child) {
       margin-right: 8px;
+    }
+
+    &.stories-filter__search {
+      .bp3-input {
+        min-width: 300px;
+      }
     }
   }
 }
@@ -98,6 +105,34 @@
       }
       &__votes {
         padding: 3;
+      }
+    }
+  }
+}
+
+
+.page--mobile {
+  .stories-filter {
+    flex-direction: column;
+
+    &__attribute {
+      &:not(:last-child) {
+        .bp3-popover-target {
+          margin-bottom: 8px;
+        }
+      }
+
+      .bp3-input {
+        min-width: 0;
+        width: 150px;
+      }
+
+      &.stories-filter__search {
+        margin: 0 0 8px 0;
+
+        .bp3-input {
+          width: 100%;
+        }
       }
     }
   }
