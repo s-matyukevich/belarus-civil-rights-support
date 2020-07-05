@@ -6,15 +6,17 @@ import { Button, Classes, Dialog, Intent } from '@blueprintjs/core';
 function loginViaProvider(provider: LoginProvider) {
   const loginUrl = new URL(provider.auth_url);
   loginUrl.searchParams.set('client_id', provider.client_id);
-  loginUrl.searchParams.set('redirect_uri', provider.redirect_url);
+  const redirectUrl = new URL(provider.redirect_url);
 
   if (provider.scope) {
-    loginUrl.searchParams.set('scope', provider.scope);
+    redirectUrl.searchParams.set('scope', provider.scope);
   }
 
   if (provider.response_type) {
-    loginUrl.searchParams.set('response_type', provider.response_type);
+    redirectUrl.searchParams.set('response_type', provider.response_type);
   }
+
+  loginUrl.searchParams.set('redirect_uri', redirectUrl.toString());
 
   window.location.assign(loginUrl.href);
 }

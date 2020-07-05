@@ -9,5 +9,24 @@ COPY ./client/src ./src
 
 RUN npm run build
 
-# Assets in ./dist should be copied over to the "static" directory of the server
-# TODO build docker image from the server
+FROM golang:1.14.4 as build-backend
+WORKDIR $GOPATH/src/github.com/s-matyukevich/belarus-civil-rights-support
+
+COPY ./src ./src
+COPY ./main.go .
+COPY ./go.mod .
+COPY ./go.sum .
+
+RUN go install .
+
+FROM ubuntu
+WORKDIR /app
+RUN apt-get update
+RUN apt-get install ca-certificates -y
+
+COPY --from=build-frontend /app/dist /app/static
+COPY --from=build-backend /go/bin/belarus-civil-rights-support /app/app
+COPY ./static/images /app/static/images
+
+ENTRYPOINT /app/app
+EXPOSE 80

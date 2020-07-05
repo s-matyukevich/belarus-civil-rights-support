@@ -1,0 +1,8 @@
+image:
+  tag: prod
+  image: smatyukevich/dapamazhy.by
+
+replicas: 2
+namespace: prod
+
+addressName: dapamazhy-by-prod

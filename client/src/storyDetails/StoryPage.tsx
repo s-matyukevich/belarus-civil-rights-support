@@ -1,4 +1,4 @@
-import { H1, H5, Checkbox} from '@blueprintjs/core';
+import { H1, H5, Checkbox } from '@blueprintjs/core';
 import React, { useMemo } from 'react';
 import Page from '../app/Page';
 import { useParams } from 'react-router-dom';
@@ -20,7 +20,7 @@ const StoryPage: React.FC = () => {
   const { id } = useParams();
   const services = useServices();
   const [storyIsLoading, story] = usePromise(() => services.apiClient.getStoryDetails(id), [id]);
-  const videoId: string | null = useMemo(() => getYoutubeVideoId(story?.VideoUrl), [story]);
+  const videoId: string | null = useMemo(() => getYoutubeVideoId(story ? story.VideoUrl : undefined), [story]);
 
   return storyIsLoading ? null : (
     <Page>

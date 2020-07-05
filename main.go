@@ -36,6 +36,7 @@ func initOptions() options {
 }
 
 func main() {
+
 	opts := initOptions()
 	logger, err := NewLoggerConfig().Build()
 	if err != nil {
@@ -44,9 +45,11 @@ func main() {
 	}
 	defer logger.Sync()
 
+	logger.Sugar().Infow("Args", "Args", os.Args)
 	config, err := cfg.LoadConfig(opts.config)
 	if err != nil {
-		logger.Fatal("Can't read config", zap.Error(err))
+
+		logger.Fatal("Can't read config", zap.Error(err), zap.String("configPath", opts.config))
 	}
 	router := gin.New()
 

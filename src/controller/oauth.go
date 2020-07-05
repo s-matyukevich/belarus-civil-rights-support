@@ -46,7 +46,11 @@ func GetLoginProviders(ctx *Context) (interface{}, error) {
 }
 
 func getOauthRedirectUrl(provider string, ctx *Context) string {
-	return fmt.Sprintf("%s/oauth-callback?provider=%s", ctx.Config.Host, provider)
+	url := fmt.Sprintf("%s/oauth-callback?provider=%s", ctx.Config.Host, provider)
+	for _, scope := range ctx.Config.OAuth[provider].Scopes {
+		url += "&scope=" + scope
+	}
+	return url
 }
 
 func OauthCallback(ctx *Context) (interface{}, error) {

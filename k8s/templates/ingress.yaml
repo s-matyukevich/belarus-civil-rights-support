@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: dapamazhy-by
+  namespace: {{ $.Values.namespace }}
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: {{ $.Values.addressName }}
+    networking.gke.io/managed-certificates: dapamazhy-by
+spec:
+  backend:
+    serviceName: dapamazhy-by
+    servicePort: 80

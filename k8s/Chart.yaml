@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A chart for the website dapamazhy.by
+name: dapamazhy-by
+version: 0.1.0
