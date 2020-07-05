@@ -21,16 +21,8 @@ const DesktopStoryInfo: React.FC<{ story: Story }> = ({ story }) => {
 
       <div className="story-info__description" style={{ maxHeight: contentHeight }}>
         <H3>{story.Title}</H3>
-        {layout !== Layout.Mobile ? (
-          <p className="story-info__description__text" dangerouslySetInnerHTML={{ __html: story.Description }}></p>
-        ) : null}
+        <p className="story-info__description__text" dangerouslySetInnerHTML={{ __html: story.Description }}></p>
       </div>
-
-      {videoId && layout === Layout.Mobile ? (
-        <div className="story-info__video" style={videoSize}>
-          <YouTube videoId={videoId} opts={videoSize} />
-        </div>
-      ) : null}
 
       <div className="story-info__controls">
         <div className="story-info__author">
@@ -68,13 +60,13 @@ const MobileStoryInfo: React.FC<{ story: Story }> = ({ story }) => {
       <H5>{story.Title}</H5>
       <ResponsiveVideo videoUrl={story.VideoUrl} responsive={true} className="mobile-story-info__video" />
       <div className="mobile-story-info__author-and-votes">
-      <div className="mobile-story-info__author">
-        {story.AuthorImageURL && (
-          <img className="mobile-story-info__author__image" src={story.AuthorImageURL} alt={story.AuthorName} />
-        )}
-        <span>{story.AuthorName}</span>
-      </div>
-      <Votes
+        <div className="mobile-story-info__author">
+          {story.AuthorImageURL && (
+            <img className="mobile-story-info__author__image" src={story.AuthorImageURL} alt={story.AuthorName} />
+          )}
+          <span>{story.AuthorName}</span>
+        </div>
+        <Votes
           storyId={story.ID}
           initialVote={{
             Upvotes: story.Upvotes,
@@ -83,7 +75,6 @@ const MobileStoryInfo: React.FC<{ story: Story }> = ({ story }) => {
             UserDownvoted: story.UserDownvoted
           }}
         />
-
       </div>
 
       <div className="mobile-story-info__help">
