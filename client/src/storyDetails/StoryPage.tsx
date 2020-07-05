@@ -10,8 +10,6 @@ import Votes from '../common/Votes';
 import Share from '../common/Share';
 import { FacebookIcon, VKIcon, OKIcon } from 'react-share';
 
-const leftColumnWidth = '650px';
-
 const LongText: React.FC<{ text: string }> = ({ text }) => (
   <div className="story-details__description" dangerouslySetInnerHTML={{ __html: text }}></div>
 );
@@ -26,8 +24,12 @@ const StoryPage: React.FC = () => {
     <Page>
       <H1>{story!.Title}</H1>
       <div className="story-details">
-        <div className="story-details__left-column" style={{ width: leftColumnWidth }}>
-          {videoId ? <YouTube videoId={videoId} opts={{ width: leftColumnWidth }} /> : null}
+        <div className="story-details__left-column">
+          {videoId ? (
+            <div className="story-details__video-container">
+              <YouTube className="story-details__video" videoId={videoId} />
+            </div>
+          ) : null}
           <Share url={`/#/story/${story!.ID}`} />
           <Votes
             storyId={story!.ID}
