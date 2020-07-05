@@ -9,11 +9,11 @@ function loginViaProvider(provider: LoginProvider) {
   const redirectUrl = new URL(provider.redirect_url);
 
   if (provider.scope) {
-    redirectUrl.searchParams.set('scope', provider.scope);
+    loginUrl.searchParams.set('scope', provider.scope);
   }
 
   if (provider.response_type) {
-    redirectUrl.searchParams.set('response_type', provider.response_type);
+    loginUrl.searchParams.set('response_type', provider.response_type);
   }
 
   loginUrl.searchParams.set('redirect_uri', redirectUrl.toString());
