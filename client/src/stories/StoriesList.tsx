@@ -28,8 +28,16 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
 
       <div className="story-info__description" style={{ maxHeight: contentHeight }}>
         <H3>{story.Title}</H3>
-        <p className="story-info__description__text" dangerouslySetInnerHTML={{ __html: story.Description }}></p>
+        {layout !== Layout.Mobile ? (
+          <p className="story-info__description__text" dangerouslySetInnerHTML={{ __html: story.Description }}></p>
+        ) : null}
       </div>
+
+      {videoId && layout === Layout.Mobile ? (
+        <div className="story-info__video" style={videoSize}>
+          <YouTube videoId={videoId} opts={videoSize} />
+        </div>
+      ) : null}
 
       <div className="story-info__controls">
         <div className="story-info__author">
