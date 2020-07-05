@@ -20,8 +20,7 @@ const StoriesFilter: React.FC<{
   const { cities, categories } = useReferenceDataSelectors();
 
   const set = useCallback((field: keyof Filters, value: any) => {
-    filters = { ...filters, [field]: value };
-    onChange(filters);
+    onChange({ ...filters, [field]: value });
   }, []);
 
   let lastSearchVal = '';
@@ -37,8 +36,7 @@ const StoriesFilter: React.FC<{
           lastSearchVal = evt.target.value;
           setTimeout(() => {
             if (lastSearchVal !== filters.Search) {
-              filters.Search = lastSearchVal;
-              onChange(filters);
+              set('Search', lastSearchVal);
             }
           }, 1000);
         }}
@@ -77,9 +75,11 @@ const StoriesFilter: React.FC<{
         className="stories-filter__attribute"
         onChange={items => {
           if (items.length > 0) {
-            filters.SortColumn = sortColumns[items[0].value];
-            filters.SortDirection = sortDirections[items[0].value];
-            onChange(filters);
+            onChange({
+              ...filters,
+              SortColumn: sortColumns[items[0].value],
+              SortDirection: sortDirections[items[0].value]
+            });
           }
         }}
       />
