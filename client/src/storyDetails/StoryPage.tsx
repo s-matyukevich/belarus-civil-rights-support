@@ -8,6 +8,7 @@ import Votes from '../common/Votes';
 import Share from '../common/Share';
 import { FacebookIcon, VKIcon, OKIcon } from 'react-share';
 import ResponsiveVideo from '../common/ResponsiveVideo';
+import { useLayout, Layout } from '../responsiveness/viewportContext';
 
 const LongText: React.FC<{ text: string }> = ({ text }) => (
   <div className="story-details__description" dangerouslySetInnerHTML={{ __html: text }}></div>
@@ -17,11 +18,12 @@ const StoryPage: React.FC = () => {
   const { id } = useParams();
   const services = useServices();
   const [storyIsLoading, story] = usePromise(() => services.apiClient.getStoryDetails(id), [id]);
+  const layout = useLayout();
 
   return storyIsLoading ? null : (
     <Page>
       <H1>{story!.Title}</H1>
-      <div className="story-details">
+      <div className={layout === Layout.Mobile ? 'story-details' : 'story-details desctop'}>
         <div className="story-details__left-column">
           <ResponsiveVideo videoUrl={story!.VideoUrl} responsive={true} />
           <Share url={`/#/story/${story!.ID}`} />
