@@ -1,14 +1,13 @@
 import { H1, H5, Checkbox } from '@blueprintjs/core';
-import React, { useMemo } from 'react';
+import React from 'react';
 import Page from '../app/Page';
 import { useParams } from 'react-router-dom';
 import { useServices, usePromise } from '../common/hooks';
-import { getYoutubeVideoId } from '../common/utils';
-import YouTube from 'react-youtube';
 import './StoryDetails.css';
 import Votes from '../common/Votes';
 import Share from '../common/Share';
 import { FacebookIcon, VKIcon, OKIcon } from 'react-share';
+import ResponsiveVideo from '../common/ResponsiveVideo';
 
 const LongText: React.FC<{ text: string }> = ({ text }) => (
   <div className="story-details__description" dangerouslySetInnerHTML={{ __html: text }}></div>
@@ -18,18 +17,13 @@ const StoryPage: React.FC = () => {
   const { id } = useParams();
   const services = useServices();
   const [storyIsLoading, story] = usePromise(() => services.apiClient.getStoryDetails(id), [id]);
-  const videoId: string | null = useMemo(() => getYoutubeVideoId(story ? story.VideoUrl : undefined), [story]);
 
   return storyIsLoading ? null : (
     <Page>
       <H1>{story!.Title}</H1>
       <div className="story-details">
         <div className="story-details__left-column">
-          {videoId ? (
-            <div className="story-details__video-container">
-              <YouTube className="story-details__video" videoId={videoId} />
-            </div>
-          ) : null}
+          <ResponsiveVideo videoUrl={story!.VideoUrl} responsive={true} />
           <Share url={`/#/story/${story!.ID}`} />
           <Votes
             storyId={story!.ID}

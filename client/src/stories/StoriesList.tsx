@@ -1,18 +1,15 @@
-import YouTube from 'react-youtube';
-import React, { useMemo, useCallback } from 'react';
-import { Button, Card, H3, Intent, NonIdealState } from '@blueprintjs/core';
+import React, { useCallback } from 'react';
+import { Button, Card, H3, Intent, NonIdealState, H5 } from '@blueprintjs/core';
 import Votes from '../common/Votes';
 import Share from '../common/Share';
 import { Story } from '../model';
-import { getYoutubeVideoId } from '../common/utils';
 import { useHistory } from 'react-router-dom';
+import ResponsiveVideo from '../common/ResponsiveVideo';
 import { useLayout, Layout } from '../responsiveness/viewportContext';
 
-const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
-  const videoId: string | null = useMemo(() => getYoutubeVideoId(story.VideoUrl), [story]);
+const DesktopStoryInfo: React.FC<{ story: Story }> = ({ story }) => {
   const history = useHistory();
   const openStory = useCallback(() => history.push(`/story/${story.ID}`), [history, story]);
-  const layout = useLayout();
 
   const contentHeight = '150px';
 
@@ -20,11 +17,7 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
 
   return (
     <Card className="story-info" interactive={true} onClick={() => openStory()}>
-      {videoId && layout !== Layout.Mobile ? (
-        <div className="story-info__video" style={videoSize}>
-          <YouTube videoId={videoId} opts={videoSize} />
-        </div>
-      ) : null}
+      <ResponsiveVideo videoUrl={story.VideoUrl} className="story-info__video" options={videoSize} responsive={false} />
 
       <div className="story-info__description" style={{ maxHeight: contentHeight }}>
         <H3>{story.Title}</H3>
@@ -66,7 +59,44 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
   );
 };
 
+const MobileStoryInfo: React.FC<{ story: Story }> = ({ story }) => {
+  const history = useHistory();
+  const openStory = useCallback(() => history.push(`/story/${story.ID}`), [history, story]);
+
+  return (
+    <Card interactive={true} onClick={() => openStory()}>
+      <H5>{story.Title}</H5>
+      <ResponsiveVideo videoUrl={story.VideoUrl} responsive={true} className="mobile-story-info__video" />
+      <div className="mobile-story-info__author-and-votes">
+      <div className="mobile-story-info__author">
+        {story.AuthorImageURL && (
+          <img className="mobile-story-info__author__image" src={story.AuthorImageURL} alt={story.AuthorName} />
+        )}
+        <span>{story.AuthorName}</span>
+      </div>
+      <Votes
+          storyId={story.ID}
+          initialVote={{
+            Upvotes: story.Upvotes,
+            Downvotes: story.Downvotes,
+            UserUpvoted: story.UserUpvoted,
+            UserDownvoted: story.UserDownvoted
+          }}
+        />
+
+      </div>
+
+      <div className="mobile-story-info__help">
+        <Button intent={Intent.PRIMARY}>Помочь</Button>
+      </div>
+    </Card>
+  );
+};
+
 const StoriesList: React.FC<{ stories: Story[] | null; onScroll: () => void }> = ({ stories, onScroll }) => {
+  const layout = useLayout();
+  const StoryInfo = layout === Layout.Mobile ? MobileStoryInfo : DesktopStoryInfo;
+
   return (
     <div
       className="stories-list"

@@ -11,21 +11,6 @@
     margin-right: 15px;
   }
 
-  &__video-container > div {
-    overflow:hidden;
-    padding-bottom:56.25%;
-    position:relative;
-    height:0;
-  }
-
-  &__video {
-    left:0;
-    top:0;
-    height:100%;
-    width:100%;
-    position:absolute;
-  }
-
   &__social {
     p {
       white-space: nowrap;

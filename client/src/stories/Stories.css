@@ -113,6 +113,31 @@
   }
 }
 
+.mobile-story-info {
+
+  &__author-and-votes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__author {
+    display: flex;
+    align-items: center;
+    margin: 8px 0 8px 0;
+
+    &__image {
+      border-radius: 50%;
+      height: 32px;
+      width: 32px;
+      margin-right: 8px;
+    }
+  }
+
+  &__help button {
+    width: 100%;
+  }
+}
 
 .page--mobile {
   .stories-filter {
@@ -142,9 +167,5 @@
         }
       }
     }
-  }
-
-  .story-info {
-    flex-direction: column;
   }
 }
