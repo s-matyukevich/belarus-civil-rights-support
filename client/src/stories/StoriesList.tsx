@@ -6,11 +6,13 @@ import Share from '../common/Share';
 import { Story } from '../model';
 import { getYoutubeVideoId } from '../common/utils';
 import { useHistory } from 'react-router-dom';
+import { useLayout, Layout } from '../responsiveness/viewportContext';
 
 const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
   const videoId: string | null = useMemo(() => getYoutubeVideoId(story.VideoUrl), [story]);
   const history = useHistory();
   const openStory = useCallback(() => history.push(`/story/${story.ID}`), [history, story]);
+  const layout = useLayout();
 
   const contentHeight = '150px';
 
@@ -18,7 +20,7 @@ const StoryInfo: React.FC<{ story: Story }> = ({ story }) => {
 
   return (
     <Card className="story-info" interactive={true} onClick={() => openStory()}>
-      {videoId ? (
+      {videoId && layout !== Layout.Mobile ? (
         <div className="story-info__video" style={videoSize}>
           <YouTube videoId={videoId} opts={videoSize} />
         </div>

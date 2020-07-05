@@ -67,7 +67,6 @@
 
   &__controls {
     white-space: nowrap;
-    margin-left: auto;
   }
 
   &__author {
@@ -135,5 +134,9 @@
         }
       }
     }
+  }
+
+  .story-info {
+    flex-direction: column;
   }
 }
