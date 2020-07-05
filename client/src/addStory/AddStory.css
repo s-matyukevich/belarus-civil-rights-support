@@ -34,8 +34,9 @@
     margin-bottom: 10px;
   }
 
-  textarea {
-    height: 200px;
+  .tox-tinymce {
+    display: flex;
+    flex: 1 1 auto;
   }
 }
 
