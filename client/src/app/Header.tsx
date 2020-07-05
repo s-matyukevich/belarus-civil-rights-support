@@ -6,9 +6,12 @@ import { Link } from 'react-router-dom';
 import LoggedUserContext from '../login/loggedUserContext';
 import { LoginButton } from '../login/LoginButton';
 import SocialGroups from '../common/SocialGroups';
+import { useLayout, Layout } from '../responsiveness/viewportContext';
 
 export const AddStoryButton: React.FC = () => {
   const history = useHistory();
+  const layout = useLayout();
+  const iconsOnly = layout === Layout.Mobile;
   return (
     <ButtonGroup minimal={false}>
       <Popover
@@ -20,10 +23,17 @@ export const AddStoryButton: React.FC = () => {
           ></SocialGroups>
         }
       >
-        <Button rightIcon="caret-down">Связаться с нами</Button>
+        <Button icon={iconsOnly ? 'chat' : undefined} rightIcon="caret-down">
+          {!iconsOnly && 'Связаться с нами'}
+        </Button>
       </Popover>
-      <Button className={Classes.BUTTON} intent={Intent.PRIMARY} onClick={() => history.push('/add-story')}>
-        Добавить свою историю
+      <Button
+        icon={iconsOnly ? 'add' : undefined}
+        className={Classes.BUTTON}
+        intent={Intent.PRIMARY}
+        onClick={() => history.push('/add-story')}
+      >
+        {!iconsOnly && 'Добавить свою историю'}
       </Button>
     </ButtonGroup>
   );
