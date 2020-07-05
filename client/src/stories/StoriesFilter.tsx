@@ -1,9 +1,10 @@
-import { ControlGroup } from '@blueprintjs/core';
 import React, { useCallback } from 'react';
 import './Stories.css';
 import { useReferenceDataSelectors, Selectable } from '../common/hooks';
 import { Filters } from '../model';
 import CommonMultiselect from '../common/CommonMultiselect';
+import { InputGroup } from '@blueprintjs/core';
+import { IconNames } from '@blueprintjs/icons';
 
 const sortOrders: Selectable[] = [
   { label: 'По популярности', value: 0 },
@@ -19,40 +20,34 @@ const StoriesFilter: React.FC<{
   const { cities, categories } = useReferenceDataSelectors();
 
   const set = useCallback((field: keyof Filters, value: any) => {
-    filters = { ...filters, [field]: value };
-    onChange(filters);
+    onChange({ ...filters, [field]: value });
   }, []);
 
   let lastSearchVal = '';
 
   return (
-    <div className="stories-filter-container">
-      <ControlGroup fill={true} vertical={false}>
-        <div className="bp3-input-group .search">
-          <span className="bp3-icon bp3-icon-search"></span>
-          <input
-            className="bp3-input"
-            type="search"
-            placeholder="Поиск"
-            dir="auto"
-            onChange={evt => {
-              lastSearchVal = evt.target.value;
-              setTimeout(() => {
-                if (lastSearchVal != filters.Search) {
-                  filters.Search = lastSearchVal;
-                  onChange(filters);
-                }
-              }, 1000);
-            }}
-          />
-        </div>
-      </ControlGroup>
-      <ControlGroup fill={true} vertical={false}>
+    <div className="stories-filter">
+      <InputGroup
+        type="search"
+        leftIcon={IconNames.SEARCH}
+        className="stories-filter__attribute stories-filter__search"
+        placeholder="Поиск"
+        onChange={(evt: any) => {
+          lastSearchVal = evt.target.value;
+          setTimeout(() => {
+            if (lastSearchVal !== filters.Search) {
+              set('Search', lastSearchVal);
+            }
+          }, 1000);
+        }}
+      ></InputGroup>
+
+      <div className="stories-filter__other-criteria">
         <CommonMultiselect
           items={cities}
           type={'multi'}
           placeholder="Город"
-          className="bp3-inline"
+          className="stories-filter__attribute"
           onChange={selected =>
             set(
               'Cities',
@@ -60,14 +55,12 @@ const StoriesFilter: React.FC<{
             )
           }
         />
-      </ControlGroup>
 
-      <ControlGroup fill={true} vertical={false}>
         <CommonMultiselect
           items={categories}
           type={'multi'}
           placeholder="Категория"
-          className="bp3-inline"
+          className="stories-filter__attribute"
           onChange={selected =>
             set(
               'Categories',
@@ -75,23 +68,23 @@ const StoriesFilter: React.FC<{
             )
           }
         />
-      </ControlGroup>
 
-      <ControlGroup fill={true} vertical={false}>
         <CommonMultiselect
           items={sortOrders}
           type="suggest"
           placeholder="Сортировать"
-          className="story-field__editor story-field__editor--multiselect"
+          className="stories-filter__attribute"
           onChange={items => {
             if (items.length > 0) {
-              filters.SortColumn = sortColumns[items[0].value];
-              filters.SortDirection = sortDirections[items[0].value];
-              onChange(filters);
+              onChange({
+                ...filters,
+                SortColumn: sortColumns[items[0].value],
+                SortDirection: sortDirections[items[0].value]
+              });
             }
           }}
         />
-      </ControlGroup>
+      </div>
     </div>
   );
 };
