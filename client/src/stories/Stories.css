@@ -4,6 +4,10 @@
   flex: 0 0 auto;
   justify-content: space-between;
 
+  &__other-criteria {
+    display: flex;
+  }
+
   &__attribute {
     .bp3-input {
       min-width: 200px;
@@ -113,6 +117,10 @@
 .page--mobile {
   .stories-filter {
     flex-direction: column;
+
+  &__other-criteria {
+    flex-wrap: wrap;
+  }
 
     &__attribute {
       &:not(:last-child) {
