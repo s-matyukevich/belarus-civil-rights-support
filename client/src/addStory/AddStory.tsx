@@ -12,6 +12,7 @@ import Validatable from '../common/Validatable';
 import ServicesContext from '../services/servicesContext';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
+import { useLayout, Layout } from '../responsiveness/viewportContext';
 
 const newStory: StoryModel = {
   ID: 0,
@@ -35,7 +36,7 @@ const AddStory: React.FC = () => {
   const { id } = useParams();
   const [story, setStory] = useState(newStory);
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
-
+  const layout = useLayout();
   useEffect(() => {
     services.apiClient.getStoryModel(id).then(remoteStory => setStory(prev => ({ ...prev, ...remoteStory })));
   }, [id]);
@@ -70,7 +71,7 @@ const AddStory: React.FC = () => {
         <Spinner intent={Intent.PRIMARY} className="loading-overlay__spinner" />
       </Overlay>
       <H3>История</H3>
-      <div className="story-fields">
+      <div className={layout === Layout.Mobile ? 'story-fields' : 'story-fields desctop'}>
         <Label className="bp3-inline story-field story-field--inline">
           <span className="story-field__label-text">Ссылка на Youtube видеo</span>
           <Validatable error={errors.VideoUrl}>

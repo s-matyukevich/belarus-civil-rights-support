@@ -18,6 +18,7 @@ import cn from 'classnames';
 import { ProfileModel } from '../model';
 import ServicesContext from '../services/servicesContext';
 import Validatable from '../common/Validatable';
+import { useLayout, Layout } from '../responsiveness/viewportContext';
 
 type ValidatonErrors = Partial<Record<keyof ProfileModel, string>>;
 
@@ -35,6 +36,7 @@ const Profile: React.FC = () => {
   const [errors, setErrors] = useState<ValidatonErrors>({});
   const services = useContext(ServicesContext);
   const [profile, setProfile] = useState(newProfile);
+  const layout = useLayout();
   useEffect(() => {
     services.apiClient.getProfile().then(data => setProfile(prev => ({ ...prev, ...data })));
   }, []);
@@ -89,7 +91,7 @@ const Profile: React.FC = () => {
         <Spinner intent={Intent.PRIMARY} className="loading-overlay__spinner" />
       </Overlay>
 
-      <div className="story-fields profile">
+      <div className={layout === Layout.Mobile ? 'story-fields profile' : 'story-fields profile desctop'}>
         <H2>Мой профиль</H2>
         <Label className="bp3-inline story-field story-field--inline">
           <span className="story-field__label-text">Имя</span>
