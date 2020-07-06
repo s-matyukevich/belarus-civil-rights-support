@@ -112,8 +112,8 @@ func SaveStory(ctx *Context) (interface{}, error) {
 }
 
 func testUrl(toTest string) string {
-	if !strings.HasPrefix(toTest, "https://www.youtube.com") {
-		return "Адрес должен начинаться с 'https://www.youtube.com'"
+	if !strings.Contains(toTest, "youtube.com") {
+		return "Адрес должен указывать на 'youtube.com'"
 	}
 
 	u, err := url.Parse(toTest)
@@ -128,9 +128,9 @@ func testUrl(toTest string) string {
 	}
 	res, err := client.Head(toTest)
 	if err != nil {
-		panic(err)
+		return "Видео не доступно. Проверьте адрес и убедитесь что видео находится в открытом доступе"
 	}
-	if res.StatusCode != 200 {
+	if res.StatusCode != 200 && res.StatusCode != 301 {
 		return "Видео не доступно. Проверьте адрес и убедитесь что видео находится в открытом доступе"
 	}
 
