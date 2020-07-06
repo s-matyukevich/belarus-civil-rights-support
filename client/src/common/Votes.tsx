@@ -3,13 +3,22 @@ import { Vote } from '../model';
 import { IconNames } from '@blueprintjs/icons';
 import { Icon, Intent } from '@blueprintjs/core';
 import ServicesContext from '../services/servicesContext';
+import LoggedUserContext from '../login/loggedUserContext';
 
 const Votes: React.FC<{ storyId: number; initialVote: Vote }> = ({ storyId, initialVote }) => {
-  const services = useContext(ServicesContext);
   const [vote, setVote] = useState<Vote>(initialVote);
+  const { loggedUser } = useContext(LoggedUserContext);
+  const services = useContext(ServicesContext);
 
   const makeVote = useCallback((evt, isUpvote: boolean) => {
-    services.apiClient.vote(storyId, isUpvote).then(data => setVote(data));
+    if (loggedUser) {
+      services.apiClient.vote(storyId, isUpvote).then(data => setVote(data));
+    } else {
+      services.toaster.show({
+        message: 'Пожалуйста, залогиньтесь чтобы проголосовать.',
+        intent: Intent.WARNING
+      });
+    }
     evt.stopPropagation();
   }, []);
 
