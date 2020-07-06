@@ -21,6 +21,7 @@ const Stories: React.FC = () => {
   const [reachedBottom, setReachedBottom] = useState<boolean>(false);
 
   const updateStories = (f: Filters, clearStories: boolean) => {
+    setFilters(f);
     services.apiClient.getStories(f).then(remoteStories => {
       if (!remoteStories) {
         setReachedBottom(true);
@@ -55,7 +56,6 @@ const Stories: React.FC = () => {
         onChange={f => {
           f.Page = 0;
           setReachedBottom(false);
-          setFilters(f);
           updateStories(f, true);
         }}
       />
@@ -66,7 +66,6 @@ const Stories: React.FC = () => {
             return;
           }
           filters.Page++;
-          setFilters(filters);
           updateStories(filters, false);
         }}
       />

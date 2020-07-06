@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"strconv"
 
+	"github.com/gin-contrib/sessions"
 	storymodel "github.com/s-matyukevich/belarus-civil-rights-support/src/api_models/story"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/domain"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/utils"
@@ -58,5 +59,22 @@ func GetStoryDetails(ctx *Context) (interface{}, error) {
 	for _, c := range categories {
 		model.Categories = append(model.Categories, c.Title)
 	}
+	session := sessions.Default(ctx.GinCtx)
+	user_id := session.Get("user_id")
+	if user_id != nil {
+		vote := domain.Vote{}
+		err = ctx.Db.Table("votes").Where("user_id = ? and story_id = ?", user_id.(uint), story.ID).FirstOrInit(&vote).Error
+		if err != nil {
+			return nil, err
+		}
+		if vote.ID != 0 {
+			if vote.IsUpvote {
+				model.UserUpvoted = true
+			} else {
+				model.UserDownvoted = true
+			}
+		}
+	}
+
 	return model, nil
 }

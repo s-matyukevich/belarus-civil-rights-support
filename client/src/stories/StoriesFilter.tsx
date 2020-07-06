@@ -13,6 +13,8 @@ const sortOrders: Selectable[] = [
 const sortColumns = ['rating', 'created_at'];
 const sortDirections = ['DESC', 'DESC'];
 
+let lastSearchVal = '';
+
 const StoriesFilter: React.FC<{
   filters: Filters;
   onChange: (filters: Filters) => void;
@@ -20,10 +22,9 @@ const StoriesFilter: React.FC<{
   const { cities, categories } = useReferenceDataSelectors();
 
   const set = useCallback((field: keyof Filters, value: any) => {
-    onChange({ ...filters, [field]: value });
+    filters = { ...filters, [field]: value };
+    onChange(filters);
   }, []);
-
-  let lastSearchVal = '';
 
   return (
     <div className="stories-filter">
@@ -33,12 +34,14 @@ const StoriesFilter: React.FC<{
         className="stories-filter__attribute stories-filter__search"
         placeholder="Поиск"
         onChange={(evt: any) => {
+          // TODO: rewrite this, I don't understand how exactly variable are set/initialized here;
           lastSearchVal = evt.target.value;
           setTimeout(() => {
             if (lastSearchVal !== filters.Search) {
               set('Search', lastSearchVal);
+              filters.Search = lastSearchVal;
             }
-          }, 1000);
+          }, 500);
         }}
       ></InputGroup>
 

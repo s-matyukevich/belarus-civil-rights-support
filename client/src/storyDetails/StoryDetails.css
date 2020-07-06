@@ -47,4 +47,7 @@
 
 .story-details.desctop {
   display: flex;
+  .story-details__left-column {
+    min-width: 650px;
+  }
 }
