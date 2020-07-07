@@ -1,11 +1,11 @@
 .story-details {
+  padding-bottom: 100px;
   &__city {
     margin-bottom: 15px;
     font-size: 16px;
   }
 
   &__left-column {
-    /* min-width: 650px; */
     margin-right: 15px;
   }
 
@@ -24,9 +24,13 @@
         }
       }
     }
-
   }
 
+  .youtube-redirect {
+    padding: 20px;
+    justify-content: center;
+    display: flex;
+  }
   .story-details__left-column &__description {
     margin-top: 55px;
   }
@@ -49,5 +53,6 @@
   display: flex;
   .story-details__left-column {
     min-width: 650px;
+    max-width: 70%;
   }
 }

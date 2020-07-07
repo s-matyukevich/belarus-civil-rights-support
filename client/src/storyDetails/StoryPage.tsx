@@ -1,4 +1,4 @@
-import { H1, H5, Checkbox } from '@blueprintjs/core';
+import { H1, H5, Checkbox, Button, Intent } from '@blueprintjs/core';
 import React from 'react';
 import Page from '../app/Page';
 import { useParams } from 'react-router-dom';
@@ -37,6 +37,14 @@ const StoryPage: React.FC = () => {
             }}
           />
           <LongText text={story!.Description} />
+          <div className="youtube-redirect">
+            <Button
+              onClick={() => (window.location.href = story!.VideoUrl)}
+              large={true}
+              intent={Intent.PRIMARY}
+              text="Оставить коментарий на Youtube"
+            />
+          </div>
         </div>
         <div>
           <div className="story-info__author">
