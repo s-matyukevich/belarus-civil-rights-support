@@ -15,7 +15,7 @@ import {
 import React from 'react';
 import './Share.css';
 
-const Share: React.FC<{ url: string }> = ({ url }) => {
+const Share: React.FC<{ url: string; onShare?: () => void }> = ({ url, onShare }) => {
   const getUrl = () => {
     // This doesn't work on localhost!
     return location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + url;
@@ -23,22 +23,52 @@ const Share: React.FC<{ url: string }> = ({ url }) => {
 
   return (
     <div className="sosial-network-share" onClick={evt => evt.stopPropagation()}>
-      <FacebookShareButton url={getUrl()}>
+      <FacebookShareButton
+        url={getUrl()}
+        onClick={() => {
+          onShare ? onShare() : null;
+        }}
+      >
         <FacebookIcon size={25} borderRadius={15} />
       </FacebookShareButton>
-      <VKShareButton url={getUrl()}>
+      <VKShareButton
+        url={getUrl()}
+        onClick={() => {
+          onShare ? onShare() : null;
+        }}
+      >
         <VKIcon size={25} borderRadius={15} />
       </VKShareButton>
-      <OKShareButton url={getUrl()}>
+      <OKShareButton
+        url={getUrl()}
+        onClick={() => {
+          onShare ? onShare() : null;
+        }}
+      >
         <OKIcon size={25} borderRadius={15} />
       </OKShareButton>
-      <TwitterShareButton url={getUrl()}>
+      <TwitterShareButton
+        url={getUrl()}
+        onClick={() => {
+          onShare ? onShare() : null;
+        }}
+      >
         <TwitterIcon size={25} borderRadius={15} />
       </TwitterShareButton>
-      <TelegramShareButton url={getUrl()}>
+      <TelegramShareButton
+        url={getUrl()}
+        onClick={() => {
+          onShare ? onShare() : null;
+        }}
+      >
         <TelegramIcon size={25} borderRadius={15} />
       </TelegramShareButton>
-      <ViberShareButton url={getUrl()}>
+      <ViberShareButton
+        url={getUrl()}
+        onClick={() => {
+          onShare ? onShare() : null;
+        }}
+      >
         <ViberIcon size={25} borderRadius={15} />
       </ViberShareButton>
     </div>
