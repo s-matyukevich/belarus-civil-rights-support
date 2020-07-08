@@ -81,10 +81,22 @@ const Header: React.FC = ({ children }) => {
         <img src={loggedUser.ImageURL} alt={loggedUser.Username} className="avatar" />
       </Popover>
     </>
+  ) : !isMobile ? (
+    <ButtonGroup minimal={false}>
+      <ContactUsPopover>
+        <Button rightIcon="caret-down">Связаться с нами</Button>
+      </ContactUsPopover>
+      <LoginButton />
+    </ButtonGroup>
   ) : (
-    <LoginButton />
+    <>
+      <ContactUsPopover>
+        <Icon icon={IconNames.HELP} />
+      </ContactUsPopover>
+      <Navbar.Divider />
+      <LoginButton />
+    </>
   );
-
   return (
     <Navbar className="header">
       <Navbar.Group>
