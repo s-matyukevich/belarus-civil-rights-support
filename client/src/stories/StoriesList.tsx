@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Button, Card, H3, Intent, NonIdealState, H5 } from '@blueprintjs/core';
 import Votes from '../common/Votes';
 import Share from '../common/Share';
@@ -6,13 +6,8 @@ import { Story } from '../model';
 import { useHistory } from 'react-router-dom';
 import ResponsiveVideo from '../common/ResponsiveVideo';
 import { useLayout, Layout } from '../responsiveness/viewportContext';
-import { Helmet } from 'react-helmet';
 
-const DesktopStoryInfo: React.FC<{ story: Story; onShare: (index: number) => void; index: number }> = ({
-  story,
-  onShare,
-  index
-}) => {
+const DesktopStoryInfo: React.FC<{ story: Story }> = ({ story }) => {
   const history = useHistory();
   const openStory = useCallback(() => history.push(`/story/${story.ID}`), [history, story]);
 
@@ -50,12 +45,7 @@ const DesktopStoryInfo: React.FC<{ story: Story; onShare: (index: number) => voi
             UserDownvoted: story.UserDownvoted
           }}
         />
-        <Share
-          url={`/#/story/${story.ID}`}
-          onShare={() => {
-            onShare(index);
-          }}
-        />
+        <Share url={`/#/story/${story.ID}`} />
       </div>
     </Card>
   );
@@ -97,7 +87,6 @@ const MobileStoryInfo: React.FC<{ story: Story }> = ({ story }) => {
 const StoriesList: React.FC<{ stories: Story[] | null; onScroll: () => void }> = ({ stories, onScroll }) => {
   const layout = useLayout();
   const StoryInfo = layout === Layout.Mobile ? MobileStoryInfo : DesktopStoryInfo;
-  const [selectedStory, setSelectedStory] = useState<Story | null>(null);
 
   return (
     <div
@@ -109,26 +98,8 @@ const StoriesList: React.FC<{ stories: Story[] | null; onScroll: () => void }> =
         }
       }}
     >
-      <Helmet>
-        <title>Дапамажы.by</title>
-        <meta name="description" content={selectedStory?.Title} />
-        <meta name="og:title" content={`Дапамажы свайму сябру: ${selectedStory?.AuthorName}`} />
-        <meta name="og:image" content={selectedStory?.AuthorImageURL} />
-        <meta property="og:url" content={selectedStory?.VideoUrl} />
-        <meta property="og:video" content={selectedStory?.VideoUrl} />
-        <meta property="og:video:type" content="application/x-shockwave-flash" />
-      </Helmet>
-      {(stories ?? []).map((story, idx) => (
-        <StoryInfo
-          story={story}
-          key={story.ID}
-          onShare={(index: number) => {
-            if (stories) {
-              setSelectedStory(stories[index]);
-            }
-          }}
-          index={idx}
-        />
+      {(stories ?? []).map(story => (
+        <StoryInfo story={story} key={story.ID} />
       ))}
       {!stories ? <NonIdealState icon="search" title="По вашему запросу ничего не найдено" /> : null}
     </div>

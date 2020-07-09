@@ -9,7 +9,7 @@ import Share from '../common/Share';
 import { FacebookIcon, VKIcon, OKIcon } from 'react-share';
 import ResponsiveVideo from '../common/ResponsiveVideo';
 import { useLayout, Layout } from '../responsiveness/viewportContext';
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 
 const LongText: React.FC<{ text: string }> = ({ text }) => (
   <div className="story-details__description" dangerouslySetInnerHTML={{ __html: text }}></div>
@@ -25,16 +25,15 @@ const StoryPage: React.FC = () => {
     <Page>
       <Helmet>
         <title>{story!.Title}</title>
-        <meta name="description" content={story!.Title} />
-        <meta
-          name="keywords"
-          content={`${story!.City}, Беларусь, ${story!.Categories.join(',')}, помочь, выборы2020`}
-        />
-        <meta name="og:title" content={`Дапамажы свайму сябру: ${story!.Username}`} />
-        {story!.ImageURL && <meta name="og:image" content={story!.ImageURL} />}
-        <meta property="og:url" content={story!.VideoUrl} />
-        <meta property="og:video" content={story!.VideoUrl} />
-        <meta property="og:video:type" content="application/x-shockwave-flash" />
+        <meta name='description' content={story!.Title}/>
+        <meta name='keywords' content={`${story!.City}, Беларусь, ${story!.Categories.join(',')}, помочь, выборы2020`}/>
+        <meta name='og:title' content={`Дапамажы свайму сябру ${story!.Username}`}/>
+        {story!.ImageURL && (
+          <meta name='og:image' content={story!.ImageURL}/>
+        )}
+        <meta property="og:url" content={story!.VideoUrl}/>
+        <meta property="og:video" content={story!.VideoUrl}/>
+        <meta property="og:video:type" content='application/x-shockwave-flash'/>
       </Helmet>
       <H1>{story!.Title}</H1>
       <div className={layout === Layout.Mobile ? 'story-details' : 'story-details desctop'}>

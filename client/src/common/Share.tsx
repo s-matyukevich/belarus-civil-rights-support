@@ -15,7 +15,7 @@ import {
 import React from 'react';
 import './Share.css';
 
-const Share: React.FC<{ url: string; onShare?: () => void }> = ({ url, onShare }) => {
+const Share: React.FC<{ url: string }> = ({ url }) => {
   const getUrl = () => {
     // This doesn't work on localhost!
     return location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + url;
@@ -23,52 +23,22 @@ const Share: React.FC<{ url: string; onShare?: () => void }> = ({ url, onShare }
 
   return (
     <div className="sosial-network-share" onClick={evt => evt.stopPropagation()}>
-      <FacebookShareButton
-        url={getUrl()}
-        onClick={() => {
-          onShare ? onShare() : null;
-        }}
-      >
+      <FacebookShareButton url={getUrl()}>
         <FacebookIcon size={25} borderRadius={15} />
       </FacebookShareButton>
-      <VKShareButton
-        url={getUrl()}
-        onClick={() => {
-          onShare ? onShare() : null;
-        }}
-      >
+      <VKShareButton url={getUrl()}>
         <VKIcon size={25} borderRadius={15} />
       </VKShareButton>
-      <OKShareButton
-        url={getUrl()}
-        onClick={() => {
-          onShare ? onShare() : null;
-        }}
-      >
+      <OKShareButton url={getUrl()}>
         <OKIcon size={25} borderRadius={15} />
       </OKShareButton>
-      <TwitterShareButton
-        url={getUrl()}
-        onClick={() => {
-          onShare ? onShare() : null;
-        }}
-      >
+      <TwitterShareButton url={getUrl()}>
         <TwitterIcon size={25} borderRadius={15} />
       </TwitterShareButton>
-      <TelegramShareButton
-        url={getUrl()}
-        onClick={() => {
-          onShare ? onShare() : null;
-        }}
-      >
+      <TelegramShareButton url={getUrl()}>
         <TelegramIcon size={25} borderRadius={15} />
       </TelegramShareButton>
-      <ViberShareButton
-        url={getUrl()}
-        onClick={() => {
-          onShare ? onShare() : null;
-        }}
-      >
+      <ViberShareButton url={getUrl()}>
         <ViberIcon size={25} borderRadius={15} />
       </ViberShareButton>
     </div>
