@@ -6,6 +6,7 @@ RUN npm ci --no-progress
 
 COPY ./client/*.* ./
 COPY ./client/src ./src
+COPY ./client/public ./public
 
 RUN npm run build
 
@@ -24,7 +25,7 @@ WORKDIR /app
 RUN apt-get update
 RUN apt-get install ca-certificates -y
 
-COPY --from=build-frontend /app/dist /app/static
+COPY --from=build-frontend /app/build /app/static
 COPY --from=build-backend /go/bin/belarus-civil-rights-support /app/app
 COPY ./static/images /app/static/images
 COPY ./templates /app/templates

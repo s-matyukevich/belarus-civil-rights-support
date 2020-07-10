@@ -14,7 +14,7 @@ ui:
   volumes:
     - ./client:/app
   ports:
-    - 1234:1234
+    - 3000:3000
 
 web:
   build: .
