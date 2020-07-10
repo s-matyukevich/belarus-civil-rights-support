@@ -13,7 +13,7 @@ import {
   InputGroup,
   FormGroup
 } from '@blueprintjs/core';
-import './Profile.css';
+import './Profile.scss';
 import cn from 'classnames';
 import { ProfileModel } from '../model';
 import ServicesContext from '../services/servicesContext';

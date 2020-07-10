@@ -1,7 +1,7 @@
 import Page from '../app/Page';
 import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { H3, Label, Classes, Button, Intent, Overlay, Spinner, Callout } from '@blueprintjs/core';
-import './AddStory.css';
+import './AddStory.scss';
 import InstructionsDialog from './InstructionsDialog';
 import cn from 'classnames';
 import { useReferenceDataSelectors } from '../common/hooks';

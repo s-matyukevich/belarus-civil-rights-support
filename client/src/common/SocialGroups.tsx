@@ -2,7 +2,7 @@ import { FacebookIcon, VKIcon, OKIcon } from 'react-share';
 import { Card } from '@blueprintjs/core';
 
 import React from 'react';
-import './SocialGroups.css';
+import './SocialGroups.scss';
 
 const SocialGroups: React.FC<{ header: string; text: string; className?: string }> = ({ header, text, className }) => {
   return (

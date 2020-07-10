@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import AddStory from '../addStory/AddStory';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import StoriesPage from '../stories/StoriesPage';

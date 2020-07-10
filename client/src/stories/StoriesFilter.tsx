@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import './Stories.css';
+import './Stories.scss';
 import { useReferenceDataSelectors, Selectable } from '../common/hooks';
 import { Filters } from '../model';
 import CommonMultiselect from '../common/CommonMultiselect';

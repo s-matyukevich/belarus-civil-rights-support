@@ -3,7 +3,7 @@ import ServicesContext from '../services/servicesContext';
 import { ITreeNode, Tree, Classes, ButtonGroup, Button, Intent, H2, H5, Dialog } from '@blueprintjs/core';
 import { useHistory } from 'react-router-dom';
 import Page from '../app/Page';
-import './MyStories.css';
+import './MyStories.scss';
 
 const MyStories: React.FC = () => {
   const history = useHistory();

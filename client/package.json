@@ -2,44 +2,59 @@
   "name": "belarus-civil-rights-support",
   "version": "1.0.0",
   "description": "The platform that supports civil rights initiatives in Belarus",
-  "scripts": {
-    "start": "tsc && parcel serve ./src/index.html",
-    "build": "parcel build ./src/index.html",
-    "lint": "tslint 'src/**/*.{ts,tsx}'",
-    "lint:fix": "tslint --fix 'src/**/*.{ts,tsx}'",
-    "validate": "tsc && npm run lint"
-  },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/classnames": "^2.2.10",
-    "@types/react": "^16.9.41",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-helmet": "^6.0.0",
-    "@types/react-router-dom": "^5.1.5",
-    "parcel": "2.0.0-beta.1",
-    "postcss-nested": "^4.2.1",
-    "prettier": "^2.0.5",
-    "tslint": "^6.1.2",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.3.0",
-    "tslint-react-hooks": "^2.2.2",
-    "typescript": "^3.9.5"
-  },
   "dependencies": {
     "@blueprintjs/core": "^3.29.0",
     "@blueprintjs/icons": "^3.19.0",
     "@blueprintjs/select": "^3.13.4",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
     "@tinymce/tinymce-react": "^3.6.0",
-    "@types/query-string": "^6.3.0",
     "classnames": "^2.2.6",
+    "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
     "react-share": "^4.2.0",
     "react-youtube": "^7.11.2",
-    "typescript-memoize": "^1.0.0-alpha.3"
+    "typescript": "^3.7.5"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.10",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.49",
+    "@types/react": "^16.9.42",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-helmet": "^6.0.0",
+    "@types/react-router-dom": "^5.1.5",
+    "node-sass": "^4.14.1",
+    "prettier": "^2.0.5",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.3.0",
+    "tslint-react-hooks": "^2.2.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "lint": "tslint 'src/**/*.{ts,tsx}'",
+    "lint:fix": "tslint --fix 'src/**/*.{ts,tsx}'",
+    "validate": "tsc && npm run lint"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

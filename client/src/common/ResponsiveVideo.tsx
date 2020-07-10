@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { getYoutubeVideoId } from './utils';
 import YouTube, { Options } from 'react-youtube';
-import './ResponsiveVideo.css';
+import './ResponsiveVideo.scss';
 import cn from 'classnames';
 
 type Props = {
