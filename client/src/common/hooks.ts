@@ -1,5 +1,5 @@
 import { ReferenceData } from '../model';
-import { DependencyList, useContext, useEffect, useMemo, useState } from 'react';
+import { DependencyList, useContext, useEffect, useMemo, useState, useCallback } from 'react';
 import ServicesContext from '../services/servicesContext';
 
 export function usePromise<T>(f: () => Promise<T>, deps?: DependencyList): [true, null] | [false, T] {
@@ -15,7 +15,8 @@ export function usePromise<T>(f: () => Promise<T>, deps?: DependencyList): [true
 
 export function useReferenceData(): [true, null] | [false, ReferenceData] {
   const services = useContext(ServicesContext);
-  return usePromise(() => services.apiClient.getReferenceData(), []);
+  const fRef = useCallback(() => services.apiClient.getReferenceData(), [services]);
+  return usePromise(fRef, []);
 }
 
 export type Selectable = { label: string; value: number };
