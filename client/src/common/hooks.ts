@@ -7,7 +7,7 @@ export function usePromise<T>(f: () => Promise<T>, deps?: DependencyList): [true
 
   useEffect(() => {
     f().then(setResult);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...Array.from(deps ?? []), f]);
 
   return result === null ? [true, null] : [false, result];
