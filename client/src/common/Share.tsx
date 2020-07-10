@@ -13,12 +13,18 @@ import {
   ViberIcon
 } from 'react-share';
 import React from 'react';
-import './Share.css';
+import './Share.scss';
 
 const Share: React.FC<{ url: string }> = ({ url }) => {
   const getUrl = () => {
     // This doesn't work on localhost!
-    return location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + url;
+    return (
+      window.location.protocol +
+      '//' +
+      window.location.hostname +
+      (window.location.port ? ':' + window.location.port : '') +
+      url
+    );
   };
 
   return (

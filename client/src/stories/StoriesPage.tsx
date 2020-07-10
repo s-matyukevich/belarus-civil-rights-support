@@ -1,5 +1,5 @@
 import StoriesFilter from './StoriesFilter';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import StoriesList from './StoriesList';
 import Page from '../app/Page';
 import { Filters, Story } from '../model';
@@ -20,21 +20,24 @@ const Stories: React.FC = () => {
   const [stories, setStories] = useState<Story[]>([]);
   const [reachedBottom, setReachedBottom] = useState<boolean>(false);
 
-  const updateStories = (f: Filters, clearStories: boolean) => {
-    setFilters(f);
-    services.apiClient.getStories(f).then(remoteStories => {
-      if (!remoteStories) {
-        setReachedBottom(true);
-      }
-      if (clearStories) {
-        setStories(remoteStories);
-      } else {
-        if (remoteStories) {
-          setStories([...stories, ...remoteStories]);
+  const updateStories = useCallback(
+    (f: Filters, clearStories: boolean, currentStories: Story[]) => {
+      setFilters(f);
+      services.apiClient.getStories(f).then(remoteStories => {
+        if (!remoteStories) {
+          setReachedBottom(true);
         }
-      }
-    });
-  };
+        if (clearStories) {
+          setStories(remoteStories);
+        } else {
+          if (remoteStories) {
+            setStories([...currentStories, ...remoteStories]);
+          }
+        }
+      });
+    },
+    [services]
+  );
 
   useEffect(() => {
     const emptyFilters = {
@@ -46,8 +49,8 @@ const Stories: React.FC = () => {
       SortDirection: ''
     };
     setFilters(emptyFilters);
-    updateStories(emptyFilters, true);
-  }, []);
+    updateStories(emptyFilters, true, []);
+  }, [updateStories]);
 
   return (
     <Page>
@@ -56,7 +59,7 @@ const Stories: React.FC = () => {
         onChange={f => {
           f.Page = 0;
           setReachedBottom(false);
-          updateStories(f, true);
+          updateStories(f, true, stories);
         }}
       />
       <StoriesList
@@ -66,7 +69,7 @@ const Stories: React.FC = () => {
             return;
           }
           filters.Page++;
-          updateStories(filters, false);
+          updateStories(filters, false, stories);
         }}
       />
     </Page>

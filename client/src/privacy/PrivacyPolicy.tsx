@@ -1,6 +1,6 @@
 import React from 'react';
 import Page from '../app/Page';
-import './PrivacyPolicy.css';
+import './PrivacyPolicy.scss';
 
 const PrivacyPolicy: React.FC = () => {
   return (

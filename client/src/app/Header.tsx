@@ -40,7 +40,7 @@ const Header: React.FC = ({ children }) => {
   const { loggedUser, logout } = useContext(LoggedUserContext);
 
   const history = useHistory();
-  const openPage = useCallback((page: string) => history.push(page), []);
+  const openPage = useCallback((page: string) => history.push(page), [history]);
 
   const layout = useLayout();
   const isMobile = layout === Layout.Mobile;
@@ -102,7 +102,7 @@ const Header: React.FC = ({ children }) => {
       <Navbar.Group>
         <Navbar.Heading>
           <Link to="/">
-            <img src="/images/logo.png" height="100"></img>
+            <img src="/images/logo.png" height="100" alt="logo"></img>
           </Link>
         </Navbar.Heading>
       </Navbar.Group>

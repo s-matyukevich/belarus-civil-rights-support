@@ -1,6 +1,0 @@
-{
-  "extends": "@parcel/config-default",
-  "transformers": {
-    "*.{eot,ttf}": ["@parcel/transformer-raw"]
-  }
-}

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { getYoutubeVideoId } from './utils';
 import YouTube, { Options } from 'react-youtube';
-import './ResponsiveVideo.css';
+import './ResponsiveVideo.scss';
 import cn from 'classnames';
 
 type Props = {
@@ -15,7 +15,7 @@ const ResponsiveVideo: React.FC<Props> = props => {
   const videoId = useMemo(() => getYoutubeVideoId(props.videoUrl), [props.videoUrl]);
 
   const classes = cn(props.className, {
-    ['responsive-video']: props.responsive
+    'responsive-video': props.responsive
   });
 
   return videoId ? (

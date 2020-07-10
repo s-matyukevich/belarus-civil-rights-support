@@ -2,20 +2,20 @@ import { FacebookIcon, VKIcon, OKIcon } from 'react-share';
 import { Card } from '@blueprintjs/core';
 
 import React from 'react';
-import './SocialGroups.css';
+import './SocialGroups.scss';
 
 const SocialGroups: React.FC<{ header: string; text: string; className?: string }> = ({ header, text, className }) => {
   return (
     <Card className={'contact-menu ' + className} interactive={true}>
       <h3>{header}</h3>
       <p>{text}</p>
-      <a target="_blank" href="https://www.facebook.com/groups/266490514617713/">
+      <a target="_blank" href="https://www.facebook.com/groups/266490514617713/" rel="noopener noreferrer">
         <FacebookIcon size={25} borderRadius={15} />
       </a>
-      <a target="_blank" href="https://vk.com/public196852521">
+      <a target="_blank" href="https://vk.com/public196852521" rel="noopener noreferrer">
         <VKIcon size={25} borderRadius={15} />
       </a>
-      <a target="_blank" href="https://ok.ru/group/57735585398851">
+      <a target="_blank" href="https://ok.ru/group/57735585398851" rel="noopener noreferrer">
         <OKIcon size={25} borderRadius={15} />
       </a>
     </Card>

@@ -1,7 +1,7 @@
 import Page from '../app/Page';
 import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { H3, Label, Classes, Button, Intent, Overlay, Spinner, Callout } from '@blueprintjs/core';
-import './AddStory.css';
+import './AddStory.scss';
 import InstructionsDialog from './InstructionsDialog';
 import cn from 'classnames';
 import { useReferenceDataSelectors } from '../common/hooks';
@@ -39,7 +39,7 @@ const AddStory: React.FC = () => {
   const layout = useLayout();
   useEffect(() => {
     services.apiClient.getStoryModel(id).then(remoteStory => setStory(prev => ({ ...prev, ...remoteStory })));
-  }, [id]);
+  }, [id, services]);
 
   const set = useCallback((field: keyof StoryModel, value: any) => {
     setStory(previousStory => ({ ...previousStory, [field]: value }));
@@ -63,7 +63,7 @@ const AddStory: React.FC = () => {
         history.replace('/edit-story/' + status.ID);
       }
     });
-  }, [story, services]);
+  }, [story, services, history]);
 
   return (
     <Page>
@@ -116,6 +116,7 @@ const AddStory: React.FC = () => {
         </Label>
         <Callout intent={Intent.WARNING} icon="warning-sign" title={'Для тех кто нуждается в финансовой поддержке'}>
           Если Вам нужна помощь в создании своих платежных реквизитов, пожалуйста, прочтите нашу{' '}
+          {/* eslint-disable-next-line */}
           <a onClick={() => setDialogIsOpen(true)} href="javascript:void(0)">
             инструкцию
           </a>
@@ -125,17 +126,19 @@ const AddStory: React.FC = () => {
           <a
             target="_blank"
             href="https://infobank.by/infolinebigview/nalog-za-perevod-na-bankovskuyu-kartu-kto-i-skoljko-dolzhen-platitj/"
+            rel="noopener noreferrer"
           >
             тут
           </a>{' '}
           и{' '}
-          <a target="_blank" href="http://xn----7sbgdhgzjccuobe2c0j.xn--90ais/statya-208">
+          <a target="_blank" href="http://xn----7sbgdhgzjccuobe2c0j.xn--90ais/statya-208" rel="noopener noreferrer">
             тут
           </a>
           . Это же правило касается денег{' '}
           <a
             target="_blank"
             href="http://www.nalog.gov.by/ru/m_publr_brest_ru/view/nalogooblozhenie-doxodov-fizicheskix-lits-poluchennyx-ot-istochnikov-za-predelami-respubliki-belarus-35280/"
+            rel="noopener noreferrer"
           >
             полученных из-за границы
           </a>

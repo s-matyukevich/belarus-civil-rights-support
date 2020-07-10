@@ -1,22 +1,25 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitReturns": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "jsx": "react",
     "target": "es5",
     "lib": [
-      "ES2015",
-      "DOM"
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
+    "allowJs": true,
     "skipLibCheck": true,
-    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "noEmit": true,
-    "baseUrl": ".",
-    "experimentalDecorators": true
-  }
+    "jsx": "react"
+  },
+  "include": [
+    "src"
+  ]
 }

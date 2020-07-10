@@ -3,7 +3,7 @@ import React from 'react';
 import Page from '../app/Page';
 import { useParams } from 'react-router-dom';
 import { useServices, usePromise } from '../common/hooks';
-import './StoryDetails.css';
+import './StoryDetails.scss';
 import Votes from '../common/Votes';
 import Share from '../common/Share';
 import { FacebookIcon, VKIcon, OKIcon } from 'react-share';
@@ -90,7 +90,7 @@ const StoryPage: React.FC = () => {
               <H5>Мои контакты в соц сетях:</H5>
               {story!.SocialLinks.map(x => (
                 <p key={x}>
-                  <a href={x} target="_blank">
+                  <a href={x} target="_blank" rel="noopener noreferrer">
                     {x.includes('facebook.com') ? <FacebookIcon size={25} borderRadius={15} /> : null}
                     {x.includes('vk.com') ? <VKIcon size={25} borderRadius={15} /> : null}
                     {x.includes('ok.ru') ? <OKIcon size={25} borderRadius={15} /> : null}
