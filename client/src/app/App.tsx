@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import AddStory from '../addStory/AddStory';
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import StoriesPage from '../stories/StoriesPage';
 import LoggedUserProvider from '../login/LoggedUserProvider';
 import StoryPage from '../storyDetails/StoryPage';
@@ -14,7 +14,7 @@ const App: React.FC = () => (
   <div className="app">
     <LoggedUserProvider>
       <ViewportProvider>
-        <HashRouter>
+        <BrowserRouter>
           <Switch>
             <Route path="/add-story" component={AddStory} />
             <Route path="/edit-story/:id" component={AddStory} />
@@ -24,7 +24,7 @@ const App: React.FC = () => (
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/" component={StoriesPage} />
           </Switch>
-        </HashRouter>
+        </BrowserRouter>
       </ViewportProvider>
     </LoggedUserProvider>
   </div>

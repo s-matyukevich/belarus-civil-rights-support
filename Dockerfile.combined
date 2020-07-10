@@ -27,6 +27,7 @@ RUN apt-get install ca-certificates -y
 COPY --from=build-frontend /app/dist /app/static
 COPY --from=build-backend /go/bin/belarus-civil-rights-support /app/app
 COPY ./static/images /app/static/images
+COPY ./templates /app/templates
 
 ENTRYPOINT /app/app
 EXPOSE 80

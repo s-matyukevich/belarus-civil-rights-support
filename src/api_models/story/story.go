@@ -5,6 +5,7 @@ type Story struct {
 	Title            string
 	Description      string
 	VideoUrl         string
+	VideoId          string
 	HelpInstructions string
 	Username         string
 	ImageURL         string

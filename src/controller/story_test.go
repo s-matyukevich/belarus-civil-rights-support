@@ -41,7 +41,7 @@ func TestGetStoryDetails(t *testing.T) {
 					},
 				},
 			},
-			Query: QueryParams{Id: 2},
+			//Query: QueryParams{Id: 2},
 			Expected: storymodel.Story{
 				ID: 2, VideoUrl: "video2", Title: "story2", Description: "desc2", City: "city1", HelpInstructions: "i2", Categories: []string{"category2", "category3"},
 				Username: "user1", Email: "e1", Phone: "p1", ImageURL: "image1", SocialLinks: []string{"link1", "link2"}, Upvotes: 10, Downvotes: 3,
@@ -49,7 +49,7 @@ func TestGetStoryDetails(t *testing.T) {
 		},
 	}
 
-	RunCases(t, cases, "GET", "/story/details", func(data []byte) (interface{}, error) {
+	RunCases(t, cases, "GET", "/get-story-details/2", func(data []byte) (interface{}, error) {
 		var res storymodel.Story
 		err := json.Unmarshal(data, &res)
 		return res, err

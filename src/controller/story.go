@@ -5,13 +5,15 @@ import (
 	"strconv"
 
 	"github.com/gin-contrib/sessions"
+	"github.com/knadh/go-get-youtube/youtube"
 	storymodel "github.com/s-matyukevich/belarus-civil-rights-support/src/api_models/story"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/domain"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/utils"
+	"go.uber.org/zap"
 )
 
 func GetStoryDetails(ctx *Context) (interface{}, error) {
-	strID := ctx.GinCtx.Query("id")
+	strID := ctx.GinCtx.Param("id")
 	id, err := strconv.Atoi(strID)
 	if err != nil {
 		return nil, err
@@ -74,6 +76,12 @@ func GetStoryDetails(ctx *Context) (interface{}, error) {
 				model.UserDownvoted = true
 			}
 		}
+	}
+	video, err := youtube.Get(model.VideoUrl)
+	if err != nil {
+		ctx.Logger.Error("Can't parse youtube video", zap.String("video", model.VideoUrl), zap.Error(err))
+	} else {
+		model.VideoId = video.Id
 	}
 
 	return model, nil

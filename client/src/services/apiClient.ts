@@ -17,7 +17,7 @@ export default class ApiClient {
   private readonly apiBasePath: string;
 
   constructor() {
-    this.apiBasePath = process.env.API_BASE_PATH ?? window.location.origin + window.location.pathname;
+    this.apiBasePath = process.env.API_BASE_PATH ?? window.location.origin;
     if (this.apiBasePath.endsWith('/')) {
       this.apiBasePath = this.apiBasePath.substring(0, this.apiBasePath.length - 1);
     }
@@ -50,7 +50,7 @@ export default class ApiClient {
         HelpInstructions: '',
         VideoUrl: '',
         CityID: 0,
-        IsDraft: false,
+        IsDraft: false
       });
     }
     const response = await fetch(`${this.apiBasePath}/add-story/get?id=` + id);
@@ -63,12 +63,12 @@ export default class ApiClient {
   }
 
   public async getStoryDetails(id: number): Promise<StoryDetails> {
-    const response = await fetch(`${this.apiBasePath}/story/details?id=` + id);
+    const response = await fetch(`${this.apiBasePath}/get-story-details/` + id);
     return response.json();
   }
 
   public async getMyStories(): Promise<MyStoryModel[]> {
-    const response = await fetch(`${this.apiBasePath}/my-stories`);
+    const response = await fetch(`${this.apiBasePath}/get-my-stories`);
     return response.json();
   }
   // TODO memoize
@@ -101,7 +101,7 @@ export default class ApiClient {
   }
 
   public async deleteStory(id: number): Promise<Status> {
-    const response = await fetch(`${this.apiBasePath}/my-stories/delete?id=` + id, {
+    const response = await fetch(`${this.apiBasePath}/delete-my-stories?id=` + id, {
       method: 'POST'
     });
 

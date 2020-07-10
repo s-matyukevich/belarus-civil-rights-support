@@ -2,11 +2,13 @@ package controller
 
 import (
 	"net/http"
+	"text/template"
 
 	"github.com/gin-gonic/gin"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
 	"github.com/jinzhu/gorm"
+	"github.com/langaner/crawlerdetector"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/config"
 	"go.uber.org/zap"
 )
@@ -24,14 +26,7 @@ type HandlerFunc func(*Context) (interface{}, error)
 
 func wrapper(f HandlerFunc) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		ctx := &Context{
-			Db:         c.MustGet("db").(*gorm.DB),
-			Logger:     c.MustGet("logger").(*zap.Logger),
-			Validator:  c.MustGet("validator").(*validator.Validate),
-			Translator: c.MustGet("translator").(ut.Translator),
-			Config:     c.MustGet("config").(*config.Config),
-			GinCtx:     c,
-		}
+		ctx := getContxt(c)
 
 		obj, err := f(ctx)
 		if err != nil {
@@ -40,6 +35,17 @@ func wrapper(f HandlerFunc) gin.HandlerFunc {
 		} else if obj != nil {
 			c.JSON(http.StatusOK, obj)
 		}
+	}
+}
+
+func getContxt(c *gin.Context) *Context {
+	return &Context{
+		Db:         c.MustGet("db").(*gorm.DB),
+		Logger:     c.MustGet("logger").(*zap.Logger),
+		Validator:  c.MustGet("validator").(*validator.Validate),
+		Translator: c.MustGet("translator").(ut.Translator),
+		Config:     c.MustGet("config").(*config.Config),
+		GinCtx:     c,
 	}
 }
 
@@ -57,11 +63,54 @@ func SetRoutes(router *gin.Engine) {
 	router.GET("/add-story/get", wrapper(GetStory))
 	router.POST("/add-story/save", wrapper(SaveStory))
 
-	router.GET("/story/details", wrapper(GetStoryDetails))
+	router.GET("/get-story-details/:id", wrapper(GetStoryDetails))
 
 	router.GET("/profile/get", wrapper(GetProfile))
 	router.POST("/profile/save", wrapper(SaveProfile))
 
-	router.GET("/my-stories", wrapper(MyStories))
-	router.POST("/my-stories/delete", wrapper(DeleteStory))
+	router.GET("/get-my-stories", wrapper(MyStories))
+	router.POST("/delete-my-stories", wrapper(DeleteStory))
+}
+
+func SetUIRoutes(router *gin.Engine, registerStatic bool) {
+	uiRotes := map[string]HandlerFunc{
+		"/add-story":      nil,
+		"/edit-story/:id": nil,
+		"/story/:id":      GetStoryDetails,
+		"/profile":        nil,
+		"/my-stories":     nil,
+		"/privacy-policy": nil,
+		"/":               nil,
+	}
+	templates := map[string]*template.Template{
+		"/story/:id": template.Must(template.ParseFiles("templates/story.html")),
+	}
+	for r, handler := range uiRotes {
+		registerUIHandler(router, r, handler, templates[r], registerStatic)
+	}
+}
+
+func registerUIHandler(router *gin.Engine, r string, handler HandlerFunc, tmpl *template.Template, registerStatic bool) {
+	router.GET(r, func(c *gin.Context) {
+		ctx := getContxt(c)
+		detector := crawlerdetector.New()
+		ctx.Logger.Debug("User-agent", zap.String("agent", c.Request.Header.Get("User-Agent")))
+		isCrawler := detector.IsCrawler(c.Request.Header.Get("User-Agent"))
+		if handler != nil && isCrawler {
+			obj, err := handler(ctx)
+			if err != nil {
+				ctx.Logger.Warn("Error while processing request", zap.Error(err))
+				c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+				return
+			}
+			ctx.Logger.Debug("Prerendering metadata")
+			tmpl.Execute(c.Writer, obj)
+			return
+		}
+		if registerStatic {
+			c.File("static/index.html")
+			return
+		}
+		c.String(404, "not found")
+	})
 }

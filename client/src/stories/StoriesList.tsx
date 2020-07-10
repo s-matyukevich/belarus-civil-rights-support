@@ -45,7 +45,7 @@ const DesktopStoryInfo: React.FC<{ story: Story }> = ({ story }) => {
             UserDownvoted: story.UserDownvoted
           }}
         />
-        <Share url={`/#/story/${story.ID}`} />
+        <Share url={`/story/${story.ID}`} />
       </div>
     </Card>
   );

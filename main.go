@@ -48,7 +48,6 @@ func main() {
 	logger.Sugar().Infow("Args", "Args", os.Args)
 	config, err := cfg.LoadConfig(opts.config)
 	if err != nil {
-
 		logger.Fatal("Can't read config", zap.Error(err), zap.String("configPath", opts.config))
 	}
 	router := gin.New()
@@ -65,10 +64,13 @@ func main() {
 	router.Use(sessions.Sessions("mainsession", store))
 	router.Use(middleware.Config(config))
 	controller.SetRoutes(router)
+
 	if config.UIProxyDomain != "" {
 		router.Use(middleware.ReverseProxy(config.UIProxyDomain))
 		router.Use(static.Serve("/images", static.LocalFile("static/images", false)))
+		controller.SetUIRoutes(router, false)
 	} else {
+		controller.SetUIRoutes(router, true)
 		router.Use(static.Serve("/", static.LocalFile("static", false)))
 	}
 

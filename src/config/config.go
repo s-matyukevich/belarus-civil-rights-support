@@ -35,13 +35,15 @@ func (db *Database) UrlWithDB() string {
 }
 
 type Config struct {
-	Database      Database `yaml:"db"`
-	Port          int
-	SessionSecret string
-	OAuth         map[string]OAuthProvider `yaml:"oauth"`
-	Host          string
-	UIProxyDomain string `yaml:"ui_proxy_domain"`
-	AllowCors     bool   `yaml:"allow_cors"`
-	PreloadData   bool   `yaml:"preload_data"`
-	Data          map[string][]string
+	Database       Database `yaml:"db"`
+	Port           int
+	SessionSecret  string
+	OAuth          map[string]OAuthProvider `yaml:"oauth"`
+	Host           string
+	UIProxyDomain  string `yaml:"ui_proxy_domain"`
+	AllowCors      bool   `yaml:"allow_cors"`
+	PreloadData    bool   `yaml:"preload_data"`
+	PrerenderUrl   string `yaml:"prerender_url"`
+	PrerenderToken string `yaml:"prerender_token"`
+	Data           map[string][]string
 }
