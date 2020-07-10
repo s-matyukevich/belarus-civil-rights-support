@@ -11,7 +11,7 @@ const Page: React.FC<Props> = ({ children, headerContent }) => {
   const layout = useLayout();
 
   const classes = cn('page', {
-    ['page--mobile']: layout === Layout.Mobile
+    'page--mobile': layout === Layout.Mobile
   });
 
   return (

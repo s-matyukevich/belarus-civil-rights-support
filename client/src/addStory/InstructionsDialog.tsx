@@ -28,7 +28,7 @@ const InstructionsContent: React.FC = () => {
               <ol>
                 <li>
                   Переходим по ссылке{' '}
-                  <a target="_blank" href="https://www.sbs4u.by/p2p/index.html">
+                  <a target="_blank" href="https://www.sbs4u.by/p2p/index.html" rel="noopener noreferrer">
                     https://www.sbs4u.by/p2p/index.html
                   </a>
                 </li>
@@ -44,7 +44,7 @@ const InstructionsContent: React.FC = () => {
           <li>
             Как только вам поступт первый платеж, на ваш номер тебефона будет отправлено SMS сообщение с инструкциями
             как получить деньги. Можно не дожидаться SMS сообщения и заранее зарегистрироваться на{' '}
-            <a target="_blank" href="https://transfers.mastercard.by/">
+            <a target="_blank" href="https://transfers.mastercard.by/" rel="noopener noreferrer">
               сайте
             </a>{' '}
             сервиса Mastercard Money Transfers, войти в личный кабинет и подтвердить согласие на получение перевода.
@@ -52,7 +52,10 @@ const InstructionsContent: React.FC = () => {
         </ol>
         <p>
           Подробнее об услуге перевода денег по номеру мобильного телефона читайте{' '}
-          <a href="https://www.belveb.by/about/novosti/novosti-banka/Bank-BelVEB-sovmestno-s-Mastercard-zapustil-denezhnye-perevody-po-nomeru-telefona-mezhdu-kartochkami/">
+          <a
+            rel="noopener noreferrer"
+            href="https://www.belveb.by/about/novosti/novosti-banka/Bank-BelVEB-sovmestno-s-Mastercard-zapustil-denezhnye-perevody-po-nomeru-telefona-mezhdu-kartochkami/"
+          >
             здесь
           </a>
         </p>
@@ -69,14 +72,18 @@ const InstructionsContent: React.FC = () => {
       <Collapse isOpen={isOpen2}>
         <p>
           Чтобы получать деньги из-за границы мы рекомендуем пользоваться сервисом{' '}
-          <a target="_blank" href="https://www.westernunion.com">
+          <a target="_blank" href="https://www.westernunion.com" rel="noopener noreferrer">
             WesternUnion
           </a>{' '}
           Отправитель сможет перечислить вам деньги онлайн на сайте WesternUnion. Для этого ему нужно будет указать ваше
           Имя и Фамилию (как они у Вас написаны в паспорте) и страну получателя (Беларусь) WesternUnion предоставит
           отправителю код платежа который он должен будет Вам переслать. Вам же, чтобы получить деньги, придется пройти
           в ближайшее{' '}
-          <a target="_blank" href="https://yandex.by/maps/157/minsk/chain/western_union/65739431630/">
+          <a
+            target="_blank"
+            href="https://yandex.by/maps/157/minsk/chain/western_union/65739431630/"
+            rel="noopener noreferrer"
+          >
             отделение WesternUnion
           </a>{' '}
           Для получения денег нужно предоставить свой паспорт, сказать код платежа и страну отправления (Эти данные
@@ -90,7 +97,7 @@ const InstructionsContent: React.FC = () => {
               <ol>
                 <li>
                   Переходим по ссылке{' '}
-                  <a target="_blank" href="https://www.westernunion.com">
+                  <a target="_blank" href="https://www.westernunion.com" rel="noopener noreferrer">
                     https://www.westernunion.com/
                   </a>{' '}
                   и следуем инструкциям для перевода денег в Беларусь.
@@ -110,7 +117,11 @@ const InstructionsContent: React.FC = () => {
           </li>
           <li>
             Как только вы получили всю нужную информацию от отправителя вы идете в любое{' '}
-            <a target="_blank" href="https://yandex.by/maps/157/minsk/chain/western_union/65739431630/">
+            <a
+              target="_blank"
+              href="https://yandex.by/maps/157/minsk/chain/western_union/65739431630/"
+              rel="noopener noreferrer"
+            >
               отделение WesternUnion
             </a>{' '}
             с паспортом и забираете свои деньги.
@@ -129,30 +140,34 @@ const InstructionsContent: React.FC = () => {
       <Collapse isOpen={isOpen3}>
         <ul>
           <li>
-            <a target="_blank" href="https://www.card2card.by/">
+            <a target="_blank" href="https://www.card2card.by/" rel="noopener noreferrer">
               https://www.card2card.by/
             </a>{' '}
             - здесь можно сгенерировать ссылку по которой отправитель сможет переслать Вам деньги. Для этого отправителю
             не нужно будет знать номер Вашей карты .
           </li>
           <li>
-            <a target="_blank" href="https://myfin.by/wiki/term/kak-perevesti-dengi-s-kartochki-na-kartochku">
+            <a
+              target="_blank"
+              href="https://myfin.by/wiki/term/kak-perevesti-dengi-s-kartochki-na-kartochku"
+              rel="noopener noreferrer"
+            >
               https://myfin.by/wiki/term/kak-perevesti-dengi-s-kartochki-na-kartochku
             </a>{' '}
             - Еще несколько вариантов для внутренних переводов.
           </li>
           <li>
-            <a target="_blank" href="https://myfin.by/wiki/term/webmoney">
+            <a target="_blank" href="https://myfin.by/wiki/term/webmoney" rel="noopener noreferrer">
               WebMoney
             </a>
           </li>
           <li>
-            <a target="_blank" href="https://myfin.by/wiki/term/elektronnyj-koshelek-easypay">
+            <a target="_blank" href="https://myfin.by/wiki/term/elektronnyj-koshelek-easypay" rel="noopener noreferrer">
               EasyPay
             </a>
           </li>
           <li>
-            <a target="_blank" href="https://finance.tut.by/news573536.html">
+            <a target="_blank" href="https://finance.tut.by/news573536.html" rel="noopener noreferrer">
               Криптовалюта
             </a>{' '}
             - полностью анонимный способ пеервода денег.

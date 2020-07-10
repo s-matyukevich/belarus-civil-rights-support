@@ -15,7 +15,7 @@ const ResponsiveVideo: React.FC<Props> = props => {
   const videoId = useMemo(() => getYoutubeVideoId(props.videoUrl), [props.videoUrl]);
 
   const classes = cn(props.className, {
-    ['responsive-video']: props.responsive
+    'responsive-video': props.responsive
   });
 
   return videoId ? (

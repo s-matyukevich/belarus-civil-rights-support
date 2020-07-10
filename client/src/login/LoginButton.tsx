@@ -42,6 +42,7 @@ export const LoginButton: React.FC = () => {
           <p>Войдите через одну из социальных сетей, чтобы рассказать свою историю</p>
           {loginProviders.map(provider => (
             <div key={provider.name} className="login-button">
+              {/* eslint-disable-next-line */}
               <a href="javascript:void(0)" onClick={() => loginViaProvider(provider)}>
                 <img src={provider.image} alt={provider.name} />
               </a>

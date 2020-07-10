@@ -21,10 +21,12 @@ const StoriesFilter: React.FC<{
 }> = ({ filters, onChange }) => {
   const { cities, categories } = useReferenceDataSelectors();
 
-  const set = useCallback((field: keyof Filters, value: any) => {
-    filters = { ...filters, [field]: value };
-    onChange(filters);
-  }, []);
+  const set = useCallback(
+    (field: keyof Filters, value: any) => {
+      onChange({ ...filters, [field]: value });
+    },
+    [filters, onChange]
+  );
 
   return (
     <div className="stories-filter">

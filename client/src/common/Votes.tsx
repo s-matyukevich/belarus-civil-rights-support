@@ -10,17 +10,20 @@ const Votes: React.FC<{ storyId: number; initialVote: Vote }> = ({ storyId, init
   const { loggedUser } = useContext(LoggedUserContext);
   const services = useContext(ServicesContext);
 
-  const makeVote = useCallback((evt, isUpvote: boolean) => {
-    if (loggedUser) {
-      services.apiClient.vote(storyId, isUpvote).then(data => setVote(data));
-    } else {
-      services.toaster.show({
-        message: 'Пожалуйста, залогиньтесь чтобы проголосовать.',
-        intent: Intent.WARNING
-      });
-    }
-    evt.stopPropagation();
-  }, []);
+  const makeVote = useCallback(
+    (evt, isUpvote: boolean) => {
+      if (loggedUser) {
+        services.apiClient.vote(storyId, isUpvote).then(data => setVote(data));
+      } else {
+        services.toaster.show({
+          message: 'Пожалуйста, залогиньтесь чтобы проголосовать.',
+          intent: Intent.WARNING
+        });
+      }
+      evt.stopPropagation();
+    },
+    [loggedUser, services, storyId]
+  );
 
   return (
     <div className="story-info__social">

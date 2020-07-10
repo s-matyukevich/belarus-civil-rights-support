@@ -39,7 +39,7 @@ const Profile: React.FC = () => {
   const layout = useLayout();
   useEffect(() => {
     services.apiClient.getProfile().then(data => setProfile(prev => ({ ...prev, ...data })));
-  }, []);
+  }, [services]);
 
   const set = useCallback((field: keyof ProfileModel, value: any) => {
     setProfile(prev => ({ ...prev, [field]: value }));
@@ -67,14 +67,14 @@ const Profile: React.FC = () => {
   const addLink = useCallback(() => {
     profile.SocialLinks.push('');
     set('SocialLinks', profile.SocialLinks);
-  }, [profile, services]);
+  }, [profile, set]);
 
   const setLink = useCallback(
     (index, val) => {
       profile.SocialLinks[index] = val;
       set('SocialLinks', profile.SocialLinks);
     },
-    [profile, services]
+    [profile, set]
   );
 
   const deleteLink = useCallback(
@@ -82,7 +82,7 @@ const Profile: React.FC = () => {
       profile.SocialLinks.splice(index, 1);
       set('SocialLinks', profile.SocialLinks);
     },
-    [profile, services]
+    [profile, set]
   );
 
   return (
