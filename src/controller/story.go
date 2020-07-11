@@ -2,10 +2,10 @@ package controller
 
 import (
 	"encoding/json"
+	"net/url"
 	"strconv"
 
 	"github.com/gin-contrib/sessions"
-	"github.com/knadh/go-get-youtube/youtube"
 	storymodel "github.com/s-matyukevich/belarus-civil-rights-support/src/api_models/story"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/domain"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/utils"
@@ -77,11 +77,12 @@ func GetStoryDetails(ctx *Context) (interface{}, error) {
 			}
 		}
 	}
-	video, err := youtube.Get(model.VideoUrl)
+	ctx.Logger.Debug("Parsing video url", zap.String("url", model.VideoUrl))
+	url, err := url.Parse(model.VideoUrl)
 	if err != nil {
 		ctx.Logger.Error("Can't parse youtube video", zap.String("video", model.VideoUrl), zap.Error(err))
 	} else {
-		model.VideoId = video.Id
+		model.VideoId = url.Query().Get("v")
 	}
 
 	return model, nil

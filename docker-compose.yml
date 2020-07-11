@@ -9,6 +9,7 @@ db:
 
 ui:
   build: .
+  stdin_open: true
   dockerfile: ./Dockerfile.ui
   command: "bash -c 'npm install && npm run start'"
   volumes:

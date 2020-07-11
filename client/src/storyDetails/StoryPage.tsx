@@ -1,14 +1,15 @@
 import { H1, H5, Checkbox, Button, Intent } from '@blueprintjs/core';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Page from '../app/Page';
 import { useParams } from 'react-router-dom';
-import { useServices, usePromise } from '../common/hooks';
+import { useServices } from '../common/hooks';
 import './StoryDetails.scss';
 import Votes from '../common/Votes';
 import Share from '../common/Share';
 import { FacebookIcon, VKIcon, OKIcon } from 'react-share';
 import ResponsiveVideo from '../common/ResponsiveVideo';
 import { useLayout, Layout } from '../responsiveness/viewportContext';
+import { StoryDetails } from '../model';
 
 const LongText: React.FC<{ text: string }> = ({ text }) => (
   <div className="story-details__description" dangerouslySetInnerHTML={{ __html: text }}></div>
@@ -17,10 +18,13 @@ const LongText: React.FC<{ text: string }> = ({ text }) => (
 const StoryPage: React.FC = () => {
   const { id } = useParams();
   const services = useServices();
-  const [storyIsLoading, story] = usePromise(() => services.apiClient.getStoryDetails(id), [id]);
+  const [story, setStory] = useState({} as StoryDetails);
+  useEffect(() => {
+    services.apiClient.getStoryDetails(id).then(remoteStory => setStory(prev => ({ ...prev, ...remoteStory })));
+  }, [id, services]);
   const layout = useLayout();
 
-  return storyIsLoading ? null : (
+  return !story.ID ? null : (
     <Page>
       <H1>{story!.Title}</H1>
       <div className={layout === Layout.Mobile ? 'story-details' : 'story-details desctop'}>
