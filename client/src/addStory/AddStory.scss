@@ -13,7 +13,12 @@
 }
 
 .story-fields {
+  label.bp3-label {
+    margin-bottom: 0px;
+    margin-top: 15px;
+  }
   .story-field {
+    
     .bp3-popover-wrapper, .bp3-popover-target {
       display: flex !important;
       flex: 1 1 auto !important;

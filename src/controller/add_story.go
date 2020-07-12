@@ -121,16 +121,12 @@ func testUrl(toTest string) string {
 		return "Некоректный адрес"
 	}
 
-	client := &http.Client{
-		CheckRedirect: func(req *http.Request, via []*http.Request) error {
-			return http.ErrUseLastResponse
-		},
-	}
+	client := &http.Client{}
 	res, err := client.Head(toTest)
 	if err != nil {
 		return "Видео не доступно. Проверьте адрес и убедитесь что видео находится в открытом доступе"
 	}
-	if res.StatusCode != 200 && res.StatusCode != 301 {
+	if res.StatusCode != 200 {
 		return "Видео не доступно. Проверьте адрес и убедитесь что видео находится в открытом доступе"
 	}
 

@@ -19,6 +19,10 @@ const InstructionsContent: React.FC = () => {
         Переводы по номеру телефона внутри Беларуси
       </H5>
       <Collapse isOpen={isOpen1}>
+        <p>
+          Мы рекомендуем пользоваться данным способом переводов потому что он простой и удобный и потому что Вам не
+          нужно указываете номер своей карты, что является небезопасным.
+        </p>
         <p>Чтобы воспользоваться данным способом делаем следующее:</p>
         <ol>
           <li>
@@ -93,7 +97,7 @@ const InstructionsContent: React.FC = () => {
           <li>
             Копируем и вставляем следующий текст в поле <b>Как мне можно помочь</b> <br />
             <code>
-              Для того чтобы перевести мне деньги используя WesternUnion
+              Для того чтобы перевести мне деньги из-за границы используя WesternUnion:
               <ol>
                 <li>
                   Переходим по ссылке{' '}
@@ -116,7 +120,7 @@ const InstructionsContent: React.FC = () => {
             емейл
           </li>
           <li>
-            Как только вы получили всю нужную информацию от отправителя вы идете в любое{' '}
+            Как только Вы получили всю нужную информацию от отправителя Вы идете в любое{' '}
             <a
               target="_blank"
               href="https://yandex.by/maps/157/minsk/chain/western_union/65739431630/"
@@ -155,6 +159,17 @@ const InstructionsContent: React.FC = () => {
               https://myfin.by/wiki/term/kak-perevesti-dengi-s-kartochki-na-kartochku
             </a>{' '}
             - Еще несколько вариантов для внутренних переводов.
+          </li>
+
+          <li>
+            <a target="_blank" href="https://www.moneygram.com/" rel="noopener noreferrer">
+              MoneyGram
+            </a>{' '}
+            - Сервис работающий по той же схеме что и WesternUnion. У него намного мельше комиссия за перевод, но в то
+            же время у него есть намного меньше{' '}
+            <a target="_blank" rel="noopener noreferrer" href="https://www.google.com/search?sxsrf=ALeKk03gCC0O11bgzrpElHHEZBS_E7yazg:1594573011853&q=moneyGram+belarus&npsic=0&rflfq=1&rlha=0&rllag=53174867,29280004,141754&tbm=lcl&ved=2ahUKEwi6-sGvl8jqAhUEQawKHS4_D1EQtgN6BAgLEAQ&rldoc=1#rlfi=hd:;si:;mv:[[55.3821042,31.448970799999998],[51.9102914,23.257892299999998]];tbs:lrf:!1m4!1u3!2m2!3m1!1e1!1m4!1u16!2m2!16m1!1e1!1m4!1u16!2m2!16m1!1e2!2m1!1e16!2m1!1e3!3sIAE,lf:1,lf_ui:4">
+              отделений в Беларуси
+            </a>
           </li>
           <li>
             <a target="_blank" href="https://myfin.by/wiki/term/webmoney" rel="noopener noreferrer">

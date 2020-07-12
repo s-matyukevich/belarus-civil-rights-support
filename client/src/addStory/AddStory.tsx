@@ -84,6 +84,16 @@ const AddStory: React.FC = () => {
             />
           </Validatable>
         </Label>
+        <p className="bp3-text-disabled">
+            <a
+              href="https://support.google.com/youtube/answer/57407?co=GENIE.Platform%3DDesktop&hl=ru"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Здесь
+            </a>{' '}
+            подробно рассказано как добавить свое видео на Youtube
+          </p>
 
         <Label className="bp3-inline story-field story-field--inline">
           <span className="story-field__label-text">Название</span>
@@ -157,7 +167,11 @@ const AddStory: React.FC = () => {
             />
           </Validatable>
         </Label>
-
+        <p className="bp3-text-disabled">
+          Если Вы создаете гражданскую инициативу, участвовать в которой сможет какждый белорус, то можете оставить поле
+          "Город" пустым. В противном случае, мы рекомендуем указать свой город, чтобы люди живущие рядом с Вами могли
+          легче Вас найти и Вам помочь.
+        </p>
         <Label className="bp3-inline story-field story-field--inline" onClick={evt => evt.preventDefault()}>
           <span className="story-field__label-text">Категория</span>
           <Validatable error={errors.Categories}>
