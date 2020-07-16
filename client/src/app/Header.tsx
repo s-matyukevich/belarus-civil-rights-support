@@ -102,7 +102,7 @@ const Header: React.FC = ({ children }) => {
       <Navbar.Group>
         <Navbar.Heading>
           <Link to="/">
-            <img src="/images/logo.png" height="100" alt="logo"></img>
+            <img className="logo" src="/images/logo.png" alt="logo"></img>
           </Link>
         </Navbar.Heading>
       </Navbar.Group>

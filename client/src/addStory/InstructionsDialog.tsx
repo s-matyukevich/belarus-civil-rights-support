@@ -76,57 +76,57 @@ const InstructionsContent: React.FC = () => {
       <Collapse isOpen={isOpen2}>
         <p>
           Чтобы получать деньги из-за границы мы рекомендуем пользоваться сервисом{' '}
-          <a target="_blank" href="https://www.westernunion.com" rel="noopener noreferrer">
-            WesternUnion
+          <a target="_blank" href="https://www.moneygram.com/" rel="noopener noreferrer">
+            MoneyGram
           </a>{' '}
           Отправитель сможет перечислить вам деньги онлайн на сайте WesternUnion. Для этого ему нужно будет указать ваше
-          Имя и Фамилию (как они у Вас написаны в паспорте) и страну получателя (Беларусь) WesternUnion предоставит
-          отправителю код платежа который он должен будет Вам переслать. Вам же, чтобы получить деньги, придется пройти
-          в ближайшее{' '}
+          Имя и Фамилию (как они у Вас написаны латиницей в паспорте) и страну получателя (Беларусь) MoneyGram
+          предоставит отправителю код платежа который он должен будет Вам переслать. Вам же, чтобы получить деньги,
+          придется пройти в ближайшее{' '}
           <a
             target="_blank"
-            href="https://yandex.by/maps/157/minsk/chain/western_union/65739431630/"
+            href="https://www.google.com/search?sxsrf=ALeKk03gCC0O11bgzrpElHHEZBS_E7yazg:1594573011853&q=moneyGram+belarus&npsic=0&rflfq=1&rlha=0&rllag=53174867,29280004,141754&tbm=lcl&ved=2ahUKEwi6-sGvl8jqAhUEQawKHS4_D1EQtgN6BAgLEAQ&rldoc=1#rlfi=hd:;si:;mv:[[55.3821042,31.448970799999998],[51.9102914,23.257892299999998]];tbs:lrf:!1m4!1u3!2m2!3m1!1e1!1m4!1u16!2m2!16m1!1e1!1m4!1u16!2m2!16m1!1e2!2m1!1e16!2m1!1e3!3sIAE,lf:1,lf_ui:4"
             rel="noopener noreferrer"
           >
-            отделение WesternUnion
+            отделение MoneyGram
           </a>{' '}
-          Для получения денег нужно предоставить свой паспорт, сказать код платежа и страну отправления (Эти данные
-          должен будет передать отправитель)
+          Для получения денег нужно предоставить свой паспорт и сказать код платежа (Эти данные должен будет передать
+          отправитель)
         </p>
         <ol>
           <li>
             Копируем и вставляем следующий текст в поле <b>Как мне можно помочь</b> <br />
             <code>
-              Для того чтобы перевести мне деньги из-за границы используя WesternUnion:
+              Для того чтобы перевести мне деньги из-за границы используя MoneyGram:
               <ol>
                 <li>
                   Переходим по ссылке{' '}
-                  <a target="_blank" href="https://www.westernunion.com" rel="noopener noreferrer">
-                    https://www.westernunion.com/
+                  <a target="_blank" href="https://www.moneygram.com/" rel="noopener noreferrer">
+                    https://www.moneygram.com/
                   </a>{' '}
                   и следуем инструкциям для перевода денег в Беларусь.
                 </li>
                 <li>
-                  В качестве получателя указываем <b>[Здесь пишем ваше имя и фамилию]</b>
+                  В качестве получателя указываем <b>[Здесь пишем ваше имя и фамилию латиницей, как в паспорте]</b>
                 </li>
                 <li>
-                  Пишем мне на <b>[Здесь указываем ваш емейл]</b> и пересылаем <b>Код платежа и страну отправителя</b>
+                  Пишем мне на <b>[Здесь указываем ваш емейл]</b> и пересылаем <b>Код платежа (Reference number)</b>
                 </li>
               </ol>
             </code>
           </li>
           <li>
-            Заменяем <b>[Здесь пишем ваше имя и фамилию]</b> и <b>[Здесь указываем ваш емейл]</b> на свои имя фамилию и
-            емейл
+            Заменяем <b>[Здесь пишем ваше имя и фамилию латиницей, как в паспорте]</b> и{' '}
+            <b>[Здесь указываем ваш емейл]</b> на свои имя фамилию и емейл
           </li>
           <li>
             Как только Вы получили всю нужную информацию от отправителя Вы идете в любое{' '}
             <a
               target="_blank"
-              href="https://yandex.by/maps/157/minsk/chain/western_union/65739431630/"
+              href="https://www.google.com/search?sxsrf=ALeKk03gCC0O11bgzrpElHHEZBS_E7yazg:1594573011853&q=moneyGram+belarus&npsic=0&rflfq=1&rlha=0&rllag=53174867,29280004,141754&tbm=lcl&ved=2ahUKEwi6-sGvl8jqAhUEQawKHS4_D1EQtgN6BAgLEAQ&rldoc=1#rlfi=hd:;si:;mv:[[55.3821042,31.448970799999998],[51.9102914,23.257892299999998]];tbs:lrf:!1m4!1u3!2m2!3m1!1e1!1m4!1u16!2m2!16m1!1e1!1m4!1u16!2m2!16m1!1e2!2m1!1e16!2m1!1e3!3sIAE,lf:1,lf_ui:4"
               rel="noopener noreferrer"
             >
-              отделение WesternUnion
+              отделение MoneyGram
             </a>{' '}
             с паспортом и забираете свои деньги.
           </li>
@@ -148,7 +148,7 @@ const InstructionsContent: React.FC = () => {
               https://www.card2card.by/
             </a>{' '}
             - здесь можно сгенерировать ссылку по которой отправитель сможет переслать Вам деньги. Для этого отправителю
-            не нужно будет знать номер Вашей карты .
+            не нужно будет знать номер Вашей карты.
           </li>
           <li>
             <a
@@ -162,14 +162,19 @@ const InstructionsContent: React.FC = () => {
           </li>
 
           <li>
-            <a target="_blank" href="https://www.moneygram.com/" rel="noopener noreferrer">
-              MoneyGram
+            <a target="_blank" href="https://www.westernunion.com/" rel="noopener noreferrer">
+              WesternUnion
             </a>{' '}
-            - Сервис работающий по той же схеме что и WesternUnion. У него намного мельше комиссия за перевод, но в то
-            же время у него есть намного меньше{' '}
-            <a target="_blank" rel="noopener noreferrer" href="https://www.google.com/search?sxsrf=ALeKk03gCC0O11bgzrpElHHEZBS_E7yazg:1594573011853&q=moneyGram+belarus&npsic=0&rflfq=1&rlha=0&rllag=53174867,29280004,141754&tbm=lcl&ved=2ahUKEwi6-sGvl8jqAhUEQawKHS4_D1EQtgN6BAgLEAQ&rldoc=1#rlfi=hd:;si:;mv:[[55.3821042,31.448970799999998],[51.9102914,23.257892299999998]];tbs:lrf:!1m4!1u3!2m2!3m1!1e1!1m4!1u16!2m2!16m1!1e1!1m4!1u16!2m2!16m1!1e2!2m1!1e16!2m1!1e3!3sIAE,lf:1,lf_ui:4">
+            - Сервис работающий по той же схеме что и WesternUnion. У него больше комиссия за перевод, но в то же время
+            у него есть намного больше{' '}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://yandex.by/maps/157/minsk/chain/western_union/65739431630/?ll=27.553521%2C53.890164&sll=27.553522%2C53.890069&z=11"
+            >
               отделений в Беларуси
-            </a>
+            </a>{' '}
+            Для переводов через WesternUnion Вам скорее всего придется предоставить отправителю Ваш адрес.
           </li>
           <li>
             <a target="_blank" href="https://myfin.by/wiki/term/webmoney" rel="noopener noreferrer">
