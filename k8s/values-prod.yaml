@@ -5,3 +5,7 @@ replicas: 2
 namespace: prod
 
 addressName: dapamazhy-by-prod
+deploy_mysql: false
+domains:
+- dapamazhy.org
+- dapamazhy.by

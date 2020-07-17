@@ -1,0 +1,5 @@
+dependencies:
+- name: mysql
+  version: "1.6.6"
+  condition: deploy_mysql
+  repository: "@stable"

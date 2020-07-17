@@ -13,4 +13,7 @@ docker push smatyukevich/dapamazhy.by:${tag}
 #gcloud auth login
 gcloud container clusters get-credentials dapamazhy-by --zone europe-west3-a --project dapamazhy-by
 
-helm upgrade -f ./k8s/values-prod.yaml --set-file config=./config/prod-secret.yaml --set image.tag=${tag}  dapamazhy-by ./k8s 
+helm upgrade -f ./k8s/values-${environment}.yaml \
+  --set-file config=./config/${environment}-secret.yaml \
+  --set image.tag=${tag}  dapamazhy-by-${environment} \
+  --namespace ${environment} ./k8s 

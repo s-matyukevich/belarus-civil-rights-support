@@ -24,7 +24,7 @@ func Database(logger *zap.Logger, config *cfg.Config) gin.HandlerFunc {
 		logger.Fatal("Can't open DB connection", zap.Error(err))
 	}
 
-	err = db.Exec(fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s", config.Database.Database)).Error
+	err = db.Exec(fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci", config.Database.Database)).Error
 	if err != nil {
 		logger.Fatal("Can't create database", zap.Error(err))
 	}
@@ -38,6 +38,7 @@ func Database(logger *zap.Logger, config *cfg.Config) gin.HandlerFunc {
 
 	RunMigrations(db, logger)
 	if config.PreloadData {
+		logger.Info("Preloading data")
 		PreloadData(db, config, logger)
 	}
 

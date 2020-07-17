@@ -1,0 +1,13 @@
+image:
+  image: smatyukevich/dapamazhy.by
+
+replicas: 2
+namespace: staging
+
+addressName: dapamazhy-by-staging
+deploy_mysql: true
+domains:
+- dapamazhy-test.org
+
+mysql:
+  namespace: staging

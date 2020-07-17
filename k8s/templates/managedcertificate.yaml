@@ -2,8 +2,6 @@ apiVersion: networking.gke.io/v1beta2
 kind: ManagedCertificate
 metadata:
   name: dapamazhy-by
-  namespace: {{ $.Values.namespace }}
+  namespace: {{ .Release.Namespace }}
 spec:
-  domains:
-    - dapamazhy.org
-    - dapamazhy.by
+  domains: {{ .Values.domains | toJson | indent 4 }}
