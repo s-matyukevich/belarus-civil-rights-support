@@ -87,9 +87,18 @@ func SaveStory(ctx *Context) (interface{}, error) {
 	}
 	utils.Map(&model, &story)
 	if story.UserID != 0 && story.UserID != user_id.(uint) {
-		return nil, fmt.Errorf("Trying to edit somebody elses's story")
+		user := domain.User{}
+		err := ctx.Db.FirstOrInit(&user, user_id.(uint)).Error
+		if err != nil {
+			return nil, err
+		}
+		if user.Role != "admin" {
+			return nil, fmt.Errorf("Trying to edit somebody elses's story")
+		}
 	}
-	story.UserID = user_id.(uint)
+	if story.UserID == 0 {
+		story.UserID = user_id.(uint)
+	}
 	if model.CityID != nil && *model.CityID != 0 {
 		story.CityID = model.CityID
 	} else {
