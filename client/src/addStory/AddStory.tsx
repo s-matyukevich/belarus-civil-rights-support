@@ -10,6 +10,7 @@ import CommonMultiselect from '../common/CommonMultiselect';
 import CommonEditor from '../common/CommonEditor';
 import Validatable from '../common/Validatable';
 import ServicesContext from '../services/servicesContext';
+import Payment from './Payment';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useLayout, Layout } from '../responsiveness/viewportContext';
@@ -22,10 +23,20 @@ const newStory: StoryModel = {
   HelpInstructions: '',
   VideoUrl: '',
   CityID: undefined,
-  IsDraft: false
+  IsDraft: false,
+  PaymentEmail: '',
+  PhoneEnabled: false,
+  PaymentPhone: '',
+  CardEnabled: false,
+  CardLink: '',
+  MGEnabled: false,
+  PaymentFirstName: '',
+  PaymentLastName: '',
+  WUEnabled: false,
+  PaymentAddress: ''
 };
 
-type ValidatonErrors = Partial<Record<keyof StoryModel, string>>;
+export type ValidatonErrors = Partial<Record<keyof StoryModel, string>>;
 
 const AddStory: React.FC = () => {
   const { cities, categories } = useReferenceDataSelectors();
@@ -85,15 +96,15 @@ const AddStory: React.FC = () => {
           </Validatable>
         </Label>
         <p className="bp3-text-disabled">
-            <a
-              href="https://support.google.com/youtube/answer/57407?co=GENIE.Platform%3DDesktop&hl=ru"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Здесь
-            </a>{' '}
-            подробно рассказано как добавить свое видео на Youtube
-          </p>
+          <a
+            href="https://support.google.com/youtube/answer/57407?co=GENIE.Platform%3DDesktop&hl=ru"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Здесь
+          </a>{' '}
+          подробно рассказано как добавить свое видео на Youtube
+        </p>
 
         <Label className="bp3-inline story-field story-field--inline">
           <span className="story-field__label-text">Название</span>
@@ -114,9 +125,9 @@ const AddStory: React.FC = () => {
             <CommonEditor content={story.Description} onChange={content => set('Description', content)}></CommonEditor>
           </Validatable>
         </Label>
-
+        <Payment model={story} errors={errors} set={set} setErrors={setErrors}></Payment>
         <Label className="story-field">
-          <span className="story-field__label-text">Как мне можно помочь</span>
+          <span className="story-field__label-text">Как еще мне можно помочь</span>
           <Validatable error={errors.HelpInstructions}>
             <CommonEditor
               content={story.HelpInstructions}
@@ -124,15 +135,14 @@ const AddStory: React.FC = () => {
             ></CommonEditor>
           </Validatable>
         </Label>
+        <p className="bp3-text-disabled">
+          Вы можете попросить людей помочь найти работу, или помочь советом, или просто поблагодарить людей которые
+          будут вам помогать.{' '}
+        </p>
         <Callout intent={Intent.WARNING} icon="warning-sign" title={'Для тех кто нуждается в финансовой поддержке'}>
-          Если Вам нужна помощь в создании своих платежных реквизитов, пожалуйста, прочтите нашу{' '}
-          {/* eslint-disable-next-line */}
-          <a onClick={() => setDialogIsOpen(true)} href="javascript:void(0)">
-            инструкцию
-          </a>
-          . Так же обращаем внимание, что если Вы в течение года получите сумму превышающую <b>6569 BYN</b>, то Вам
-          необходимо будет заплатить с нее налог. Доходы полученные путем дарения не превышающие эту сумму, а так же
-          деньги подаренные близкими родственниками налогом не облагаются. Подробности{' '}
+          Oбращаем внимание, что если Вы в течение года получите сумму превышающую <b>6569 BYN</b>, то Вам необходимо
+          будет заплатить с нее налог. Доходы полученные путем дарения не превышающие эту сумму, а так же деньги
+          подаренные близкими родственниками налогом не облагаются. Подробности{' '}
           <a
             target="_blank"
             href="https://infobank.by/infolinebigview/nalog-za-perevod-na-bankovskuyu-kartu-kto-i-skoljko-dolzhen-platitj/"

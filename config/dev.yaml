@@ -12,6 +12,12 @@ db:
   username: root
   password: root
 
+mail:
+  from: 'no-reply@dapamazhy.by'
+  domain: 'dapamazhy.by'
+  secret_key: 
+  public_key:
+
 oauth:
   facebook:
     image: '/images/facebook-login.png'

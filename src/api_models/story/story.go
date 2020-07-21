@@ -16,7 +16,34 @@ type Story struct {
 	Categories       []string
 	UserUpvoted      bool
 	UserDownvoted    bool
-	Upvotes          int // We probably should somehow combine youtube likes with our own likes
-	Downvotes        int // Originally I thought about only using youtube likes, but a person who wishes to to like a story may not have a outube account
-	// and it also makes it much harder to sort the stories by rating, so we probably should maintain our own likes
+	Upvotes          int
+	Downvotes        int
+	PaymentEmail     string
+	PhoneEnabled     bool
+	PaymentPhone     string
+	CardEnabled      bool
+	CardLink         string
+	MGEnabled        bool
+	PaymentFirstName string
+	PaymentLastName  string
+	WUEnabled        bool
+	PaymentAddress   string
+}
+
+type PaymentModel struct {
+	StoryID         uint   `validate:"required"`
+	Type            string `validate:"oneof=phone card mg wu"`
+	Amount          string `validate:"required,numeric"`
+	Currency        string `validate:"oneof=BYR USD"`
+	Contact         string `validate:"max=255"`
+	ReferenceNumber string `validate:"max=255"`
+}
+
+type PaymentMailModel struct {
+	Amount          string
+	Currency        string
+	Contact         string
+	ReferenceNumber string
+	Username        string
+	PaymentPhone    string
 }

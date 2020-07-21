@@ -11,7 +11,11 @@
     }
   }
 }
-
+.payment{
+  h5 {
+    cursor: pointer;
+  }
+}
 .story-fields {
   label.bp3-label {
     margin-bottom: 0px;
@@ -83,3 +87,4 @@
 .page--mobile .bp3-dialog.instructions-dialog {
   width: 500px;
 }
+

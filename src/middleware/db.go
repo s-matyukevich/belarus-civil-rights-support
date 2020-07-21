@@ -49,7 +49,7 @@ func Database(logger *zap.Logger, config *cfg.Config) gin.HandlerFunc {
 }
 
 func RunMigrations(db *gorm.DB, logger *zap.Logger) {
-	err := db.AutoMigrate(&domain.Category{}, &domain.City{}, &domain.Story{}, &domain.User{}, &domain.Vote{}).Error
+	err := db.AutoMigrate(&domain.Category{}, &domain.City{}, &domain.Story{}, &domain.User{}, &domain.Vote{}, &domain.Payment{}).Error
 	if err != nil {
 		logger.Fatal("Can't run migrations", zap.Error(err))
 	}
@@ -57,6 +57,7 @@ func RunMigrations(db *gorm.DB, logger *zap.Logger) {
 	db.Model(&domain.Story{}).AddForeignKey("city_id", "cities(id)", "RESTRICT", "RESTRICT")
 	db.Model(&domain.Vote{}).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
 	db.Model(&domain.Vote{}).AddForeignKey("story_id", "stories(id)", "CASCADE", "CASCADE")
+	db.Model(&domain.Payment{}).AddForeignKey("story_id", "stories(id)", "CASCADE", "CASCADE")
 	db.Table("story_categories").AddForeignKey("story_id", "stories(id)", "CASCADE", "CASCADE")
 	db.Table("story_categories").AddForeignKey("category_id", "categories(id)", "CASCADE", "CASCADE")
 }

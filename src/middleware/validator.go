@@ -27,6 +27,30 @@ func Validator() gin.HandlerFunc {
 			return t
 		},
 	)
+	validate.RegisterTranslation("required_with", ru,
+		func(ut ut.Translator) error {
+			return ut.Add("required_with", "Поле не может быть пустым", false)
+		},
+		func(ut ut.Translator, fe validator.FieldError) string {
+			t, err := ut.T(fe.Tag())
+			if err != nil {
+				return fe.(error).Error()
+			}
+			return t
+		},
+	)
+	validate.RegisterTranslation("numeric", ru,
+		func(ut ut.Translator) error {
+			return ut.Add("numeric", "Значение должно быть числом", false)
+		},
+		func(ut ut.Translator, fe validator.FieldError) string {
+			t, err := ut.T(fe.Tag())
+			if err != nil {
+				return fe.(error).Error()
+			}
+			return t
+		},
+	)
 	validate.RegisterTranslation("max", ru,
 		func(ut ut.Translator) error {
 			return ut.Add("max", "Длинна поля превышает максимально допустимое значение {0} символов", false)
@@ -39,6 +63,7 @@ func Validator() gin.HandlerFunc {
 			return t
 		},
 	)
+
 	validate.RegisterTranslation("min", ru,
 		func(ut ut.Translator) error {
 			return ut.Add("min", "Выберите по крайней мере одну опцию", false)

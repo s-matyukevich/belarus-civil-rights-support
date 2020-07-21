@@ -1,5 +1,6 @@
-import { H1, H5, Checkbox, Button, Intent } from '@blueprintjs/core';
+import { H1, H5, Checkbox, Popover, Menu, Button, Intent } from '@blueprintjs/core';
 import React, { useState, useEffect } from 'react';
+import { IconNames } from '@blueprintjs/icons';
 import Page from '../app/Page';
 import { useParams } from 'react-router-dom';
 import { useServices } from '../common/hooks';
@@ -10,6 +11,7 @@ import { FacebookIcon, VKIcon, OKIcon } from 'react-share';
 import ResponsiveVideo from '../common/ResponsiveVideo';
 import { useLayout, Layout } from '../responsiveness/viewportContext';
 import { StoryDetails } from '../model';
+import PaymentDialog from './PaymentDialog';
 
 const LongText: React.FC<{ text: string }> = ({ text }) => (
   <div className="story-details__description" dangerouslySetInnerHTML={{ __html: text }}></div>
@@ -19,6 +21,8 @@ const StoryPage: React.FC = () => {
   const { id } = useParams();
   const services = useServices();
   const [story, setStory] = useState({} as StoryDetails);
+  const [paymentType, setPaymentType] = useState('');
+  const [dialogOpen, setDialogOpen] = useState(false);
   useEffect(() => {
     services.apiClient.getStoryDetails(id).then(remoteStory => setStory(prev => ({ ...prev, ...remoteStory })));
   }, [id, services]);
@@ -26,6 +30,12 @@ const StoryPage: React.FC = () => {
 
   return !story.ID ? null : (
     <Page>
+      <PaymentDialog
+        type={paymentType}
+        story={story}
+        dialogIsOpen={dialogOpen}
+        setDialogIsOpen={setDialogOpen}
+      ></PaymentDialog>
       <H1>{story!.Title}</H1>
       <div className={layout === Layout.Mobile ? 'story-details' : 'story-details desctop'}>
         <div className="story-details__left-column">
@@ -104,11 +114,65 @@ const StoryPage: React.FC = () => {
               ))}
             </div>
           ) : null}
-
-          <div>
-            <H5>Как мне можно помочь</H5>
-            <LongText text={story!.HelpInstructions} />
-          </div>
+          {story!.PhoneEnabled || story!.CardEnabled || story!.MGEnabled || story!.WUEnabled ? (
+            <div>
+              <Popover
+                position="bottom-right"
+                content={
+                  <Menu>
+                    {story!.PhoneEnabled ? (
+                      <Menu.Item
+                        text="По номеру телефона (работает только в РБ)"
+                        icon={IconNames.PHONE}
+                        onClick={() => {
+                          setPaymentType('phone');
+                          setDialogOpen(true);
+                        }}
+                      />
+                    ) : null}
+                    {story!.CardEnabled ? (
+                      <Menu.Item
+                        text="На карту (работает только в РБ)"
+                        icon={IconNames.CREDIT_CARD}
+                        onClick={() => {
+                          setPaymentType('card');
+                          setDialogOpen(true);
+                        }}
+                      />
+                    ) : null}
+                    {story!.MGEnabled ? (
+                      <Menu.Item
+                        text="Через MoneyGram (подходит для переводов из-за границы)"
+                        icon={IconNames.DOLLAR}
+                        onClick={() => {
+                          setPaymentType('mg');
+                          setDialogOpen(true);
+                        }}
+                      />
+                    ) : null}
+                    {story!.WUEnabled ? (
+                      <Menu.Item
+                        text="Через WesternUnion (подходит для переводов из-за границы)"
+                        icon={IconNames.GLOBE}
+                        onClick={() => {
+                          setPaymentType('wu');
+                          setDialogOpen(true);
+                        }}
+                      />
+                    ) : null}
+                  </Menu>
+                }
+              >
+                <Button large={true} intent={Intent.PRIMARY} text="Перевести деньги" rightIcon="caret-down" />
+              </Popover>
+            </div>
+          ) : null}
+          {story!.HelpInstructions ? (
+            <div>
+              <H5>Как eще мне можно помочь</H5>
+              <LongText text={story!.HelpInstructions} />
+            </div>
+          ) : null}
         </div>
       </div>
     </Page>

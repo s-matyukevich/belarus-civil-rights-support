@@ -63,6 +63,7 @@ func main() {
 	store := cookie.NewStore([]byte(config.SessionSecret))
 	router.Use(sessions.Sessions("mainsession", store))
 	router.Use(middleware.Config(config))
+	router.Use(middleware.Mailer(config))
 	controller.SetRoutes(router)
 
 	if config.UIProxyDomain != "" {

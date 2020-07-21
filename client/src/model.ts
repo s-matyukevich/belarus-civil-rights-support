@@ -61,6 +61,16 @@ export type StoryModel = {
   Categories: number[];
   CityID?: number;
   IsDraft: boolean;
+  PaymentEmail: string;
+  PaymentFirstName: string;
+  PaymentLastName: string;
+  PaymentAddress: string;
+  PaymentPhone: string;
+  PhoneEnabled: boolean;
+  CardEnabled: boolean;
+  CardLink: string;
+  MGEnabled: boolean;
+  WUEnabled: boolean;
 };
 
 export type StoryDetails = {
@@ -80,6 +90,25 @@ export type StoryDetails = {
   UserDownvoted: boolean;
   Upvotes: number;
   Downvotes: number;
+  PaymentEmail: string;
+  PaymentFirstName: string;
+  PaymentLastName: string;
+  PaymentAddress: string;
+  PaymentPhone: string;
+  PhoneEnabled: boolean;
+  CardEnabled: boolean;
+  CardLink: string;
+  MGEnabled: boolean;
+  WUEnabled: boolean;
+};
+
+export type PaymentModel = {
+  Amount: string;
+  Type: string;
+  Currency: string;
+  Contact: string;
+  ReferenceNumber: string;
+  StoryID: number;
 };
 
 export type Status = {

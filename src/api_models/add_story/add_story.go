@@ -5,8 +5,18 @@ type Story struct {
 	Title            string `validate:"required,max=500"`
 	Description      string `validate:"required,max=20000"`
 	VideoUrl         string `validate:"required,max=500"`
-	HelpInstructions string `validate:"required,max=20000"`
+	HelpInstructions string `validate:"max=20000"`
 	CityID           *uint
 	IsDraft          bool
 	Categories       []uint `validate:"required,min=1"`
+	PaymentEmail     string `validate:"required_with=PhoneEnabled CardEnabled MGEnabled WUEnabled,max=255"`
+	PhoneEnabled     bool
+	PaymentPhone     string `validate:"required_with=PhoneEnabled,max=255"`
+	CardEnabled      bool
+	CardLink         string `validate:"required_with=CardEnabled,max=255"`
+	MGEnabled        bool
+	PaymentFirstName string `validate:"required_with=MGEnabled WUEnabled,max=255"`
+	PaymentLastName  string `validate:"required_with=MGEnabled WUEnabled,max=255"`
+	WUEnabled        bool
+	PaymentAddress   string `validate:"max=255"`
 }

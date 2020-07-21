@@ -9,7 +9,8 @@ import {
   Status,
   Vote,
   ProfileModel,
-  MyStoryModel
+  MyStoryModel,
+  PaymentModel
 } from '../model';
 import querystring from 'query-string';
 
@@ -50,7 +51,17 @@ export default class ApiClient {
         HelpInstructions: '',
         VideoUrl: '',
         CityID: 0,
-        IsDraft: false
+        IsDraft: false,
+        PaymentEmail: '',
+        PhoneEnabled: false,
+        PaymentPhone: '',
+        CardEnabled: false,
+        CardLink: '',
+        MGEnabled: false,
+        PaymentFirstName: '',
+        PaymentLastName: '',
+        WUEnabled: false,
+        PaymentAddress: ''
       });
     }
     const response = await fetch(`${this.apiBasePath}/add-story/get?id=` + id);
@@ -92,6 +103,18 @@ export default class ApiClient {
     const response = await fetch(`${this.apiBasePath}/add-story/save`, {
       method: 'POST',
       body: JSON.stringify(story),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return response.json();
+  }
+
+  public async submitPayment(payment: PaymentModel): Promise<Status> {
+    const response = await fetch(`${this.apiBasePath}/submit-payment`, {
+      method: 'POST',
+      body: JSON.stringify(payment),
       headers: {
         'Content-Type': 'application/json'
       }

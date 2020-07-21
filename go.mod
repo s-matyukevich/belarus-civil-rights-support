@@ -23,5 +23,6 @@ require (
 	go.uber.org/zap v1.15.0
 	golang.org/x/crypto v0.0.0-20191205180655-e7c4368fe9dd
 	google.golang.org/appengine v1.6.6 // indirect
+	gopkg.in/mailgun/mailgun-go.v1 v1.1.1
 	gopkg.in/yaml.v2 v2.2.8
 )

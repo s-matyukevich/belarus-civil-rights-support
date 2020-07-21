@@ -10,6 +10,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/langaner/crawlerdetector"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/config"
+	"github.com/s-matyukevich/belarus-civil-rights-support/src/mail"
 	"go.uber.org/zap"
 )
 
@@ -20,6 +21,7 @@ type Context struct {
 	Translator ut.Translator
 	GinCtx     *gin.Context
 	Config     *config.Config
+	Mailer     *mail.Mailer
 }
 
 type HandlerFunc func(*Context) (interface{}, error)
@@ -45,6 +47,7 @@ func getContxt(c *gin.Context) *Context {
 		Validator:  c.MustGet("validator").(*validator.Validate),
 		Translator: c.MustGet("translator").(ut.Translator),
 		Config:     c.MustGet("config").(*config.Config),
+		Mailer:     c.MustGet("mailer").(*mail.Mailer),
 		GinCtx:     c,
 	}
 }
@@ -64,6 +67,7 @@ func SetRoutes(router *gin.Engine) {
 	router.POST("/add-story/save", wrapper(SaveStory))
 
 	router.GET("/get-story-details/:id", wrapper(GetStoryDetails))
+	router.POST("/submit-payment", wrapper(ProcessPayment))
 
 	router.GET("/profile/get", wrapper(GetProfile))
 	router.POST("/profile/save", wrapper(SaveProfile))

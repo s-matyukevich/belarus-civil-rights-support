@@ -24,6 +24,13 @@ type OAuthProvider struct {
 	ApiKey       string   `yaml:"api_key"`
 }
 
+type Mail struct {
+	From         string `yaml:"from"`
+	Domain       string `yaml:"domain"`
+	SecretApiKey string `yaml:"secret_key"`
+	PublicApiKey string `yaml:"public_key"`
+}
+
 func (db *Database) Url() string {
 	databaseUrl := fmt.Sprintf("%s:%s@tcp(%s:%d)/", db.Username, db.Password, db.Host, db.Port)
 	return databaseUrl
@@ -46,4 +53,5 @@ type Config struct {
 	PrerenderUrl   string `yaml:"prerender_url"`
 	PrerenderToken string `yaml:"prerender_token"`
 	Data           map[string][]string
+	Mail           Mail `yaml:"mail"`
 }
