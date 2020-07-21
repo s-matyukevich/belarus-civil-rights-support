@@ -3,7 +3,7 @@ package mail
 import (
 	"bytes"
 	"fmt"
-	"html/template"
+	"text/template"
 
 	cfg "github.com/s-matyukevich/belarus-civil-rights-support/src/config"
 	"go.uber.org/zap"
