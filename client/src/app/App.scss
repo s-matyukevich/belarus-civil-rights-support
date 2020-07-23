@@ -62,3 +62,37 @@ html, body, #root {
 .page--mobile .header .logo {
   height: 80px;
 }
+
+.banner {
+  button.close {
+    float: right;
+  }
+  .wrapper {
+    display: flex;
+    .left {
+      .buttons {
+        padding: 5px 0;
+        .bp3-button {
+          margin-right: 10px;
+        }
+      }
+    }
+    .right {
+      display: flex;
+      .block {
+        padding: 10px;
+        h2 {
+          margin-bottom: 10px;
+        }
+        h5 {
+          margin: 0px;
+        }
+        text-align: center
+      }
+    }
+  }
+}
+
+.page--mobile .banner .right {
+  display: none;
+}

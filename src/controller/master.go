@@ -27,3 +27,16 @@ func GetCurrentUser(ctx *Context) (interface{}, error) {
 
 	return model, nil
 }
+
+// func GetCurrentBalance(ctx *Context) (interface{}, error) {
+// 	c, err := paypalsdk.NewClient(ctx.Config.Paypal.Client, ctx.Config.Paypal.Secret, paypalsdk.APIBaseSandBox)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	c.SetLog(os.Stdout)
+
+// 	payments, err := c.get()
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// }

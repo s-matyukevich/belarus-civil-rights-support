@@ -31,6 +31,11 @@ type Mail struct {
 	PublicApiKey string `yaml:"public_key"`
 }
 
+type Paypal struct {
+	Client string
+	Secret string
+}
+
 func (db *Database) Url() string {
 	databaseUrl := fmt.Sprintf("%s:%s@tcp(%s:%d)/", db.Username, db.Password, db.Host, db.Port)
 	return databaseUrl
@@ -53,5 +58,6 @@ type Config struct {
 	PrerenderUrl   string `yaml:"prerender_url"`
 	PrerenderToken string `yaml:"prerender_token"`
 	Data           map[string][]string
-	Mail           Mail `yaml:"mail"`
+	Mail           Mail   `yaml:"mail"`
+	Paypal         Paypal `yaml:"paypal"`
 }
