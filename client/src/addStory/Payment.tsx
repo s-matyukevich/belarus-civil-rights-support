@@ -84,7 +84,8 @@ const Payment: React.FC<{
             set('CardEnabled', !model.CardEnabled);
           }}
         >
-          <input type="checkbox" checked={model.CardEnabled} /> Я хочу получать средства на карту банка РБ
+          <input type="checkbox" checked={model.CardEnabled} /> Я хочу получать средства на карту банка РБ по секретной
+          ссылке
         </H5>
         <Collapse isOpen={model.CardEnabled}>
           <div className="payment">
@@ -137,6 +138,50 @@ const Payment: React.FC<{
           </div>
         </Collapse>
       </Card>
+      <Card elevation={Elevation.TWO}>
+        <H5
+          onClick={() => {
+            clearPaymentErrors();
+            set('CardRawEnabled', !model.CardRawEnabled);
+          }}
+        >
+          <input type="checkbox" checked={model.CardRawEnabled} /> Я хочу получать средства напрямую на карту банка РБ
+        </H5>
+        <Collapse isOpen={model.CardRawEnabled}>
+          <div className="payment">
+            <b>
+              Мы не рекомендуем пользоваться этой опицией, потому что любой человек сможет узнать номер Вашей карты.
+            </b>
+            <p>Чтобы воспользоваться данным способом введите следующие данные:</p>
+            <Label className="bp3-inline story-field story-field--inline">
+              <span className="story-field__label-text">Номер Вашей карты</span>
+              <Validatable error={errors.CardRaw}>
+                <input
+                  type="text"
+                  value={model.CardRaw}
+                  className={cn(Classes.INPUT, 'story-field__editor')}
+                  onChange={evt => set('CardRaw', evt.target.value)}
+                  placeholder=""
+                />
+              </Validatable>
+            </Label>
+            <p>Также не забудьте указать Ваш емейл</p>
+            <Label className="bp3-inline story-field story-field--inline">
+              <span className="story-field__label-text">Емейл</span>
+              <Validatable error={errors.PaymentEmail}>
+                <input
+                  type="text"
+                  value={model.PaymentEmail}
+                  className={cn(Classes.INPUT, 'story-field__editor')}
+                  onChange={evt => set('PaymentEmail', evt.target.value)}
+                  placeholder=""
+                />
+              </Validatable>
+            </Label>
+          </div>
+        </Collapse>
+      </Card>
+
       <Card elevation={Elevation.TWO}>
         <H5
           onClick={() => {

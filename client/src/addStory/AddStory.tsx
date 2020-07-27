@@ -29,6 +29,8 @@ const newStory: StoryModel = {
   PaymentPhone: '',
   CardEnabled: false,
   CardLink: '',
+  CardRawEnabled: false,
+  CardRaw: '',
   MGEnabled: false,
   PaymentFirstName: '',
   PaymentLastName: '',
@@ -82,7 +84,7 @@ const AddStory: React.FC = () => {
         <Spinner intent={Intent.PRIMARY} className="loading-overlay__spinner" />
       </Overlay>
       <H3>История</H3>
-      <div className={layout === Layout.Mobile ? 'story-fields' : 'story-fields desctop'}>
+      <div className={layout === Layout.Mobile ? 'story-fields add-story' : 'story-fields add-story desctop'}>
         <Label className="bp3-inline story-field story-field--inline">
           <span className="story-field__label-text">Ссылка на Youtube видеo</span>
           <Validatable error={errors.VideoUrl}>

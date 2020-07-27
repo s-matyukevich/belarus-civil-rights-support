@@ -23,6 +23,8 @@ type Story struct {
 	PaymentPhone     string
 	CardEnabled      bool
 	CardLink         string
+	CardRawEnabled   bool
+	CardRaw          string
 	MGEnabled        bool
 	PaymentFirstName string
 	PaymentLastName  string
@@ -32,17 +34,17 @@ type Story struct {
 
 type PaymentModel struct {
 	StoryID         uint   `validate:"required"`
-	Type            string `validate:"oneof=phone card mg wu"`
+	Type            string `validate:"oneof=phone card cardraw mg wu"`
 	Amount          string `validate:"required,numeric"`
 	Currency        string `validate:"oneof=BYR USD"`
-	Contact         string `validate:"max=255"`
+	Email           string `validate:"max=255,email"`
 	ReferenceNumber string `validate:"max=255"`
 }
 
 type PaymentMailModel struct {
 	Amount          string
 	Currency        string
-	Contact         string
+	Email           string
 	ReferenceNumber string
 	Username        string
 	PaymentPhone    string

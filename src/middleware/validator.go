@@ -51,6 +51,30 @@ func Validator() gin.HandlerFunc {
 			return t
 		},
 	)
+	validate.RegisterTranslation("email", ru,
+		func(ut ut.Translator) error {
+			return ut.Add("email", "Некорректный емейл", false)
+		},
+		func(ut ut.Translator, fe validator.FieldError) string {
+			t, err := ut.T(fe.Tag())
+			if err != nil {
+				return fe.(error).Error()
+			}
+			return t
+		},
+	)
+	validate.RegisterTranslation("url", ru,
+		func(ut ut.Translator) error {
+			return ut.Add("url", "Некоректная ссылка", false)
+		},
+		func(ut ut.Translator, fe validator.FieldError) string {
+			t, err := ut.T(fe.Tag())
+			if err != nil {
+				return fe.(error).Error()
+			}
+			return t
+		},
+	)
 	validate.RegisterTranslation("max", ru,
 		func(ut ut.Translator) error {
 			return ut.Add("max", "Длинна поля превышает максимально допустимое значение {0} символов", false)

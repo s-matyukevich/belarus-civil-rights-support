@@ -7,3 +7,8 @@ type CurrentUser struct {
 	Username string
 	ImageURL string
 }
+
+type ContactUs struct {
+	Message string `validate:"required,max=20000"`
+	Email   string `validate:"required,max=255,email"`
+}

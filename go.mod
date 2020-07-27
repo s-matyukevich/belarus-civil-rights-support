@@ -16,6 +16,7 @@ require (
 	github.com/jqatampa/gadget-arm v0.0.0-20180515205159-afcca8d2e871 // indirect
 	github.com/knadh/go-get-youtube v0.0.0-20191105144436-94a3fa9fdab3
 	github.com/langaner/crawlerdetector v0.0.0-20180922152001-04ec9fda642a
+	github.com/logpacker/PayPal-Go-SDK v2.0.5+incompatible
 	github.com/sirupsen/logrus v1.6.0
 	github.com/stretchr/testify v1.4.0
 	github.com/tampajohn/prerender v0.0.0-20180823163656-e4008ae34c47

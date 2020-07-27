@@ -10,7 +10,8 @@ import {
   Vote,
   ProfileModel,
   MyStoryModel,
-  PaymentModel
+  PaymentModel,
+  ContactUs
 } from '../model';
 import querystring from 'query-string';
 
@@ -57,6 +58,8 @@ export default class ApiClient {
         PaymentPhone: '',
         CardEnabled: false,
         CardLink: '',
+        CardRawEnabled: false,
+        CardRaw: '',
         MGEnabled: false,
         PaymentFirstName: '',
         PaymentLastName: '',
@@ -113,6 +116,18 @@ export default class ApiClient {
 
   public async submitPayment(payment: PaymentModel): Promise<Status> {
     const response = await fetch(`${this.apiBasePath}/submit-payment`, {
+      method: 'POST',
+      body: JSON.stringify(payment),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return response.json();
+  }
+
+  public async contactUs(payment: ContactUs): Promise<Status> {
+    const response = await fetch(`${this.apiBasePath}/contact-us`, {
       method: 'POST',
       body: JSON.stringify(payment),
       headers: {

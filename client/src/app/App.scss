@@ -62,3 +62,56 @@ html, body, #root {
 .page--mobile .header .logo {
   height: 80px;
 }
+
+.banner {
+  button.close {
+    float: right;
+  }
+  .wrapper {
+    display: flex;
+    .left {
+      .buttons {
+        padding: 5px 0;
+        .bp3-button {
+          margin-right: 10px;
+        }
+      }
+    }
+    .right {
+      display: none;
+      .block {
+        padding: 10px;
+        h2 {
+          margin-bottom: 10px;
+        }
+        h5 {
+          margin: 0px;
+        }
+        text-align: center
+      }
+    }
+  }
+}
+
+.contact-dialog {
+  textarea {
+    width: 100%;
+    min-height: 100px;
+  }
+  .bp3-dialog-footer-actions {
+    margin-top: 15px;
+  }
+}
+
+.page--mobile .banner .right {
+  display: none;
+}
+
+.info-dialog {
+  .bp3-callout {
+    margin-top: 10px;
+  }
+  ol {
+    padding-left: 0;
+  }
+}

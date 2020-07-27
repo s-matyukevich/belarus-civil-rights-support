@@ -129,8 +129,9 @@ func ProcessPayment(ctx *Context) (interface{}, error) {
 	utils.Map(&model, &mailModel)
 	utils.Map(&story, &mailModel)
 	utils.Map(&user, &mailModel)
+	mailModel.Email = model.Email
 
-	err = ctx.Mailer.Send("Вам поступил новый платеж", model.Type, mailModel, ctx.Logger, story.PaymentEmail)
+	err = ctx.Mailer.Send("Вам поступил новый платеж", model.Type, mailModel, ctx.Logger, story.PaymentEmail, "")
 	if err != nil {
 		return nil, err
 	}

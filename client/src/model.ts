@@ -69,6 +69,8 @@ export type StoryModel = {
   PhoneEnabled: boolean;
   CardEnabled: boolean;
   CardLink: string;
+  CardRawEnabled: boolean;
+  CardRaw: string;
   MGEnabled: boolean;
   WUEnabled: boolean;
 };
@@ -98,6 +100,8 @@ export type StoryDetails = {
   PhoneEnabled: boolean;
   CardEnabled: boolean;
   CardLink: string;
+  CardRawEnabled: boolean;
+  CardRaw: string;
   MGEnabled: boolean;
   WUEnabled: boolean;
 };
@@ -106,7 +110,7 @@ export type PaymentModel = {
   Amount: string;
   Type: string;
   Currency: string;
-  Contact: string;
+  Email: string;
   ReferenceNumber: string;
   StoryID: number;
 };
@@ -136,4 +140,9 @@ export type ProfileModel = {
 export type MyStoryModel = {
   ID: number;
   Title: string;
+};
+
+export type ContactUs = {
+  Message: string;
+  Email: string;
 };
