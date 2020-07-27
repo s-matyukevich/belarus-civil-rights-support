@@ -132,10 +132,20 @@ const StoryPage: React.FC = () => {
                     ) : null}
                     {story!.CardEnabled ? (
                       <Menu.Item
-                        text="На карту (работает только в РБ)"
+                        text="На карту через секретную ссылку (работает только в РБ)"
                         icon={IconNames.CREDIT_CARD}
                         onClick={() => {
                           setPaymentType('card');
+                          setDialogOpen(true);
+                        }}
+                      />
+                    ) : null}
+                    {story!.CardRawEnabled ? (
+                      <Menu.Item
+                        text="На карту напрямую (работает только в РБ)"
+                        icon={IconNames.CREDIT_CARD}
+                        onClick={() => {
+                          setPaymentType('cardraw');
                           setDialogOpen(true);
                         }}
                       />

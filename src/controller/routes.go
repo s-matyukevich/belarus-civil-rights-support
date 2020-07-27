@@ -56,6 +56,7 @@ func SetRoutes(router *gin.Engine) {
 	router.GET("/get-login-providers", wrapper(GetLoginProviders))
 	router.GET("/oauth-callback", wrapper(OauthCallback))
 	router.GET("/logged-user", wrapper(GetCurrentUser))
+	router.POST("/contact-us", wrapper(ContactUs))
 	router.GET("/logout", wrapper(Logout))
 	router.POST("/vote", wrapper(Vote))
 	router.GET("/get-cities", wrapper(GetCities))

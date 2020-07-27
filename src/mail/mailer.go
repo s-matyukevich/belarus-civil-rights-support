@@ -22,7 +22,7 @@ func NewMailer(config *cfg.Mail) *Mailer {
 	}
 }
 
-func (s *Mailer) Send(subject, templateName string, model interface{}, logger *zap.Logger, to string) error {
+func (s *Mailer) Send(subject, templateName string, model interface{}, logger *zap.Logger, to, from string) error {
 	tmpl := template.Must(template.ParseFiles("templates/" + templateName + ".html"))
 
 	buffer := bytes.NewBuffer([]byte{})
@@ -31,8 +31,11 @@ func (s *Mailer) Send(subject, templateName string, model interface{}, logger *z
 		return err
 	}
 
+	if from == "" {
+		from = s.cfg.From
+	}
 	logger.Info("Sending message", zap.String("message", buffer.String()), zap.String("to", to))
-	message := s.mg.NewMessage(s.cfg.From, subject, buffer.String(), to)
+	message := s.mg.NewMessage(from, subject, buffer.String(), to)
 	_, _, err = s.mg.Send(message)
 
 	if err != nil {

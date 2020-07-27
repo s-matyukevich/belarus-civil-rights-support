@@ -60,4 +60,5 @@ type Config struct {
 	Data           map[string][]string
 	Mail           Mail   `yaml:"mail"`
 	Paypal         Paypal `yaml:"paypal"`
+	ContactEmail   string `yaml:"contact_email"`
 }

@@ -78,7 +78,7 @@ html, body, #root {
       }
     }
     .right {
-      display: flex;
+      display: none;
       .block {
         padding: 10px;
         h2 {
@@ -93,6 +93,25 @@ html, body, #root {
   }
 }
 
+.contact-dialog {
+  textarea {
+    width: 100%;
+    min-height: 100px;
+  }
+  .bp3-dialog-footer-actions {
+    margin-top: 15px;
+  }
+}
+
 .page--mobile .banner .right {
   display: none;
+}
+
+.info-dialog {
+  .bp3-callout {
+    margin-top: 10px;
+  }
+  ol {
+    padding-left: 0;
+  }
 }

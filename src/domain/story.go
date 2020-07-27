@@ -26,6 +26,8 @@ type Story struct {
 	PaymentPhone     string
 	CardEnabled      bool
 	CardLink         string
+	CardRawEnabled   bool
+	CardRaw          string
 	MGEnabled        bool
 	PaymentFirstName string
 	PaymentLastName  string
