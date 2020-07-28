@@ -9,11 +9,11 @@ type Story struct {
 	CityID           *uint
 	IsDraft          bool
 	Categories       []uint `validate:"required,min=1"`
-	PaymentEmail     string `validate:"required_with=PhoneEnabled CardEnabled MGEnabled WUEnabled,max=255,email"`
+	PaymentEmail     string `validate:"required_with=PhoneEnabled CardEnabled CardRawEnabled MGEnabled WUEnabled,max=255,omitempty,email"`
 	PhoneEnabled     bool
 	PaymentPhone     string `validate:"required_with=PhoneEnabled,max=255"`
 	CardEnabled      bool
-	CardLink         string `validate:"required_with=CardEnabled,max=255,url"`
+	CardLink         string `validate:"required_with=CardEnabled,max=255,omitempty,url"`
 	CardRawEnabled   bool
 	CardRaw          string `validate:"required_with=CardRawEnabled,max=255"`
 	MGEnabled        bool
