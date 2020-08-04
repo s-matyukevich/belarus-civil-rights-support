@@ -76,7 +76,7 @@ const PaymentDialog: React.FC<{
               <li>После завершения перевода вернитесь на сайт Дапамажы.by, укажите сумму перевода и выберите валюту</li>
               <li>Укажите свой емейл чтобы автор истории смог связаться с Вами.</li>
               <li>
-                Вы также можете связаться с автором истории напрямую используя следующие емейл: {story.PaymentEmail}
+                Вы также можете связаться с автором истории напрямую используя следующий емейл: {story.PaymentEmail}
               </li>
             </ol>
             <div className={layout === Layout.Mobile ? 'story-fields' : 'story-fields desctop'}>
@@ -132,7 +132,7 @@ const PaymentDialog: React.FC<{
               <li>После завершения перевода вернитесь на сайт Дапамажы.by, укажите сумму перевода и выберите валюту</li>
               <li>Укажите свой емейл чтобы автор истории смог связаться с Вами.</li>
               <li>
-                Вы также можете связаться с автором истории напрямую используя следующие емейл: {story.PaymentEmail}
+                Вы также можете связаться с автором истории напрямую используя следующий емейл: {story.PaymentEmail}
               </li>
             </ol>
             <div className={layout === Layout.Mobile ? 'story-fields' : 'story-fields desctop'}>
@@ -194,7 +194,7 @@ const PaymentDialog: React.FC<{
               <li>После завершения перевода вернитесь на сайт Дапамажы.by, укажите сумму перевода и выберите валюту</li>
               <li>Укажите свой емейл чтобы автор истории смог связаться с Вами.</li>
               <li>
-                Вы также можете связаться с автором истории напрямую используя следующие емейл: {story.PaymentEmail}
+                Вы также можете связаться с автором истории напрямую используя следующий емейл: {story.PaymentEmail}
               </li>
             </ol>
             <div className={layout === Layout.Mobile ? 'story-fields' : 'story-fields desctop'}>
@@ -260,7 +260,7 @@ const PaymentDialog: React.FC<{
               </li>
               <li>Укажите свой емейл чтобы автор истории смог связаться с Вами.</li>
               <li>
-                Вы также можете связаться с автором истории напрямую используя следующие емейл: {story.PaymentEmail}
+                Вы также можете связаться с автором истории напрямую используя следующий емейл: {story.PaymentEmail}
               </li>
             </ol>
             <div className={layout === Layout.Mobile ? 'story-fields' : 'story-fields desctop'}>
@@ -344,7 +344,7 @@ const PaymentDialog: React.FC<{
               </li>
               <li>Укажите свой емейл чтобы автор истории смог связаться с Вами.</li>
               <li>
-                Вы также можете связаться с автором истории напрямую используя следующие емейл: {story.PaymentEmail}
+                Вы также можете связаться с автором истории напрямую используя следующий емейл: {story.PaymentEmail}
               </li>
             </ol>
             <div className={layout === Layout.Mobile ? 'story-fields' : 'story-fields desctop'}>
