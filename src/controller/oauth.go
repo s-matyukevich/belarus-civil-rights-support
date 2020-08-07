@@ -140,6 +140,12 @@ func OauthCallback(ctx *Context) (interface{}, error) {
 		if err != nil {
 			return nil, fmt.Errorf("Failed to create user: %s", err)
 		}
+	} else {
+		user.ImageURL = userInfo.ImageURL
+		err = ctx.Db.Save(user).Error
+		if err != nil {
+			return nil, fmt.Errorf("Failed to save user: %s", err)
+		}
 	}
 
 	session.Set("user_id", user.ID)
