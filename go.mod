@@ -3,6 +3,7 @@ module github.com/s-matyukevich/belarus-civil-rights-support
 go 1.14
 
 require (
+	cloud.google.com/go/storage v1.10.0
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-contrib/sessions v0.0.3
 	github.com/gin-contrib/static v0.0.0-20191128031702-f81c604d8ac2
@@ -23,6 +24,7 @@ require (
 	github.com/vektah/gqlparser v1.3.1
 	go.uber.org/zap v1.15.0
 	golang.org/x/crypto v0.0.0-20191205180655-e7c4368fe9dd
+	google.golang.org/api v0.28.0
 	google.golang.org/appengine v1.6.6 // indirect
 	gopkg.in/mailgun/mailgun-go.v1 v1.1.1
 	gopkg.in/yaml.v2 v2.2.8

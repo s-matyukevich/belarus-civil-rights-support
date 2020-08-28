@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strconv"
 
@@ -133,7 +134,8 @@ func ProcessPayment(ctx *Context) (interface{}, error) {
 
 	err = ctx.Mailer.Send("Вам поступил новый платеж", model.Type, mailModel, ctx.Logger, story.PaymentEmail, "")
 	if err != nil {
-		return nil, err
+		ctx.Logger.Error("Error sending email", zap.Error(err))
+		return nil, fmt.Errorf("Невозможно отправить емейл на адрес %s", story.PaymentEmail)
 	}
 
 	payment := domain.Payment{}

@@ -7,3 +7,4 @@ metadata:
     app: dapamazhy-by
 data:
   config.yaml: {{ toYaml .Values.config | indent 2 }}
+  serviceAccount.json: {{ toYaml .Values.serviceAccount | indent 2 }}

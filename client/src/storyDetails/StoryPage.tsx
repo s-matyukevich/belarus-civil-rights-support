@@ -114,7 +114,11 @@ const StoryPage: React.FC = () => {
               ))}
             </div>
           ) : null}
-          {story!.PhoneEnabled || story!.CardEnabled || story!.MGEnabled || story!.WUEnabled ? (
+          {story!.PhoneEnabled ||
+          story!.CardEnabled ||
+          story!.MGEnabled ||
+          story!.WUEnabled ||
+          story!.CardRawEnabled ? (
             <div>
               <Popover
                 position="bottom-right"

@@ -15,5 +15,6 @@ gcloud container clusters get-credentials dapamazhy-by --zone europe-west3-a --p
 
 helm upgrade -f ./k8s/values-${environment}.yaml \
   --set-file config=./config/${environment}-secret.yaml \
+  --set-file serviceAccount=./config/dapamazhy-by-storage-creator.json \
   --set image.tag=${tag}  dapamazhy-by-${environment} \
   --namespace ${environment} ./k8s 

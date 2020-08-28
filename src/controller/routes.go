@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"context"
 	"net/http"
 	"text/template"
 
@@ -22,6 +23,7 @@ type Context struct {
 	GinCtx     *gin.Context
 	Config     *config.Config
 	Mailer     *mail.Mailer
+	Ctx        context.Context
 }
 
 type HandlerFunc func(*Context) (interface{}, error)
@@ -49,6 +51,7 @@ func getContxt(c *gin.Context) *Context {
 		Config:     c.MustGet("config").(*config.Config),
 		Mailer:     c.MustGet("mailer").(*mail.Mailer),
 		GinCtx:     c,
+		Ctx:        context.Background(),
 	}
 }
 

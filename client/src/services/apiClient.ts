@@ -13,7 +13,27 @@ import {
   PaymentModel,
   ContactUs
 } from '../model';
+import { Intent } from '@blueprintjs/core';
 import querystring from 'query-string';
+import fetchIntercept from 'fetch-intercept';
+import { Toaster } from '@blueprintjs/core';
+
+fetchIntercept.register({
+  response(response) {
+    response
+      .clone()
+      .json()
+      .then(status => {
+        if (status && status.error) {
+          Toaster.create().show({
+            message: 'Ошибка сервера: ' + status.error,
+            intent: Intent.DANGER
+          });
+        }
+      });
+    return response;
+  }
+});
 
 export default class ApiClient {
   private readonly apiBasePath: string;

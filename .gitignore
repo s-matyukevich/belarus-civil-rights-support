@@ -1,5 +1,6 @@
 mysql-data/*
 config/*-secret.yaml
+config/*.json
 node_modules
 .cache
 dist

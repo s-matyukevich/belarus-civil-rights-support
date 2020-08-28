@@ -2,11 +2,13 @@ package middleware
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	cfg "github.com/s-matyukevich/belarus-civil-rights-support/src/config"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/domain"
+	"github.com/s-matyukevich/belarus-civil-rights-support/src/storage"
 	"go.uber.org/zap"
 )
 
@@ -41,6 +43,7 @@ func Database(logger *zap.Logger, config *cfg.Config) gin.HandlerFunc {
 		logger.Info("Preloading data")
 		PreloadData(db, config, logger)
 	}
+	//RewriteImageUrls(db, config, logger)
 
 	return func(c *gin.Context) {
 		c.Set("db", db)
@@ -60,6 +63,30 @@ func RunMigrations(db *gorm.DB, logger *zap.Logger) {
 	db.Model(&domain.Payment{}).AddForeignKey("story_id", "stories(id)", "CASCADE", "CASCADE")
 	db.Table("story_categories").AddForeignKey("story_id", "stories(id)", "CASCADE", "CASCADE")
 	db.Table("story_categories").AddForeignKey("category_id", "categories(id)", "CASCADE", "CASCADE")
+}
+
+func RewriteImageUrls(db *gorm.DB, config *cfg.Config, logger *zap.Logger) error {
+	users := []domain.User{}
+	err := db.Find(&users).Error
+	if err != nil {
+		return err
+	}
+	for _, user := range users {
+		if strings.HasPrefix(user.ImageURL, "https://storage.googleapis.com") {
+			continue
+		}
+		imageUrl, err := storage.SaveObjectToS3(user.ImageURL, user.OAuthProviderId, config)
+		if err != nil {
+			logger.Error("Can't update image url", zap.Error(err))
+			continue
+		}
+		user.ImageURL = imageUrl
+		err = db.Save(&user).Error
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func PreloadData(db *gorm.DB, config *cfg.Config, logger *zap.Logger) error {

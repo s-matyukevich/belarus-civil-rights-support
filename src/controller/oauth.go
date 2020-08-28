@@ -11,6 +11,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/domain"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/sso"
+	"github.com/s-matyukevich/belarus-civil-rights-support/src/storage"
 	"github.com/s-matyukevich/belarus-civil-rights-support/src/utils"
 	"go.uber.org/zap"
 )
@@ -119,6 +120,10 @@ func OauthCallback(ctx *Context) (interface{}, error) {
 		return nil, fmt.Errorf("Failed to load user: %s", result.Error)
 	}
 
+	imageUrl, err := storage.SaveObjectToS3(userInfo.ImageURL, userInfo.Id, ctx.Config)
+	if err != nil {
+		return nil, fmt.Errorf("Error uploading image to S3: %s", err.Error())
+	}
 	if result.RecordNotFound() {
 		var link []byte
 		if userInfo.ProfileURL != "" {
@@ -127,11 +132,12 @@ func OauthCallback(ctx *Context) (interface{}, error) {
 				return nil, err
 			}
 		}
+
 		user = &domain.User{
 			Role:            "user",
 			Username:        userInfo.Username,
 			Email:           userInfo.Email,
-			ImageURL:        userInfo.ImageURL,
+			ImageURL:        imageUrl,
 			SocialLinks:     string(link),
 			OAuthProvider:   provider,
 			OAuthProviderId: userInfo.Id,
@@ -141,7 +147,7 @@ func OauthCallback(ctx *Context) (interface{}, error) {
 			return nil, fmt.Errorf("Failed to create user: %s", err)
 		}
 	} else {
-		user.ImageURL = userInfo.ImageURL
+		user.ImageURL = imageUrl
 		err = ctx.Db.Save(user).Error
 		if err != nil {
 			return nil, fmt.Errorf("Failed to save user: %s", err)
