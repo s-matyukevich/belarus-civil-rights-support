@@ -66,8 +66,12 @@ const PaymentDialog: React.FC<{
             <ol>
               <li>
                 Перейдите по ссылке{' '}
-                <a target="_blank" href="https://www.sbs4u.by/p2p/index.html" rel="noopener noreferrer">
-                  https://www.sbs4u.by/p2p/index.html
+                <a
+                  target="_blank"
+                  href="https://plati.tut.by/perevod/perevod-s-karty-na-kartu-belveb-bank?ph=1"
+                  rel="noopener noreferrer"
+                >
+                  https://plati.tut.by/perevod/perevod-s-karty-na-kartu-belveb-bank?ph=1
                 </a>
               </li>
               <li>
